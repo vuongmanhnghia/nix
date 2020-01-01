@@ -2,7 +2,7 @@
 {
   # === TIMEZONE CONFIGURATION ===
   time.timeZone = "Asia/Ho_Chi_Minh";  # Vietnam timezone (UTC+7)
-  time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = false;
 
   # === LOCALE AND LANGUAGE CONFIGURATION ===
   i18n = {

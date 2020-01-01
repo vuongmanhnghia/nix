@@ -10,44 +10,44 @@ let
   mode = "440";
 in
 {
-  age.secrets.cloudflared = {
-    file = file;
-    owner = owner;
-    # group = group;
-    mode = mode;
-  };
+  # age.secrets.cloudflared = {
+  #   file = file;
+  #   owner = owner;
+  #   # group = group;
+  #   mode = mode;
+  # };
 
-  # 1. Enable the service
-  services.cloudflared = {
-    enable = true;
-    tunnels = {
-      "${tunnelID}" = {
-        credentialsFile = config.age.secrets.cloudflared.path;     
+  # # 1. Enable the service
+  # services.cloudflared = {
+  #   enable = true;
+  #   tunnels = {
+  #     "${tunnelID}" = {
+  #       credentialsFile = config.age.secrets.cloudflared.path;     
 
-        # Default behavior for unmatched requests
-        default = "http_status:404";
+  #       # Default behavior for unmatched requests
+  #       default = "http_status:404";
         
-        # Ingress Rules (The "Router" for your tunnel)
-        ingress = {
-          "portainer.${domain}" = {
-            service = "https://localhost:9443";
-            originRequest = {
-              # Required if Portainer uses self-signed certs
-              noTLSVerify = true; 
-            };
-          };
+  #       # Ingress Rules (The "Router" for your tunnel)
+  #       ingress = {
+  #         "portainer.${domain}" = {
+  #           service = "https://localhost:9443";
+  #           originRequest = {
+  #             # Required if Portainer uses self-signed certs
+  #             noTLSVerify = true; 
+  #           };
+  #         };
 
-          # "ssh.${domain}" = {
-          #   service = "ssh://localhost:22";
-          # };
+  #         # "ssh.${domain}" = {
+  #         #   service = "ssh://localhost:22";
+  #         # };
           
-          # "whoami.${domain}" = {
-          #   service = "http://localhost:8080";
-          # };
-        };
-      };
-    };
-  };
+  #         # "whoami.${domain}" = {
+  #         #   service = "http://localhost:8080";
+  #         # };
+  #       };
+  #     };
+  #   };
+  # };
 
   # systemd.services."cloudflared-tunnel-${tunnelID}".serviceConfig = {
   #   # limit resource usage

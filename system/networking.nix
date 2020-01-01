@@ -1,29 +1,25 @@
+{ config, pkgs, ... }: 
+
 {
   networking = {
     hostName = "nixos";
+    
+    nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ]; 
+
     networkmanager = {
       enable = true;
-      dns = "systemd-resolved";  # Để NetworkManager giao DNS cho systemd-resolved
-      wifi = {
-        powersave = false;
-        scanRandMacAddress = false;
+      dns = "systemd-resolved";
+      
+      connectionConfig = {
+        "ipv4.ignore-auto-dns" = "yes";
+        "ipv6.ignore-auto-dns" = "yes";
       };
     };
 
-    # === FIREWALL CONFIGURATION ===
     firewall = {
-      enable = true; # Enable firewall protection
-      allowedTCPPorts = [
-        22   # SSH - remote access
-        80   # HTTP - web server
-        443  # HTTPS - secure web server
-
-        3000 # Development server port
-        8080 # Alternative HTTP port
-        8081 # Alternative HTTP port
-      ];
-      allowedUDPPorts = [ ]; # No UDP ports opened by default
-      # Allow Tailscale traffic
+      enable = true;
+      allowedTCPPorts = [ 22 80 443 3000 8080 8081 ];
+      allowedUDPPorts = [ ]; 
       trustedInterfaces = [ "tailscale0" ];
     };
   };
@@ -34,23 +30,20 @@
     domains = [ "~." ];
     fallbackDns = [ "8.8.8.8" "8.8.4.4" ];
     extraConfig = ''
-      DNS=1.1.1.1 1.0.0.1
-      FallbackDNS=8.8.8.8 8.8.4.4
-      DNSOverTLS=yes
-      Cache=yes
+      DNSOverTLS=opportunistic
+      MulticastDNS=yes
     '';
-  };
-
-  hardware = {
-    enableRedistributableFirmware = true;
-    enableAllFirmware = true; # Bao gồm non-free firmware nếu cần
   };
 
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "client"; # Enable routing features for client mode
-    openFirewall = true; # Automatically open required firewall ports
-    # Allow user to control Tailscale without sudo
-    extraUpFlags = [ "--operator=nagih" ];
+    useRoutingFeatures = "client";
+    openFirewall = true;
+    extraUpFlags = [ "--operator=nagih" "--accept-dns=false" ]; 
+  };
+
+  hardware = {
+    enableRedistributableFirmware = true;
+    enableAllFirmware = true; 
   };
 }
