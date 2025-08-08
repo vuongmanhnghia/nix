@@ -44,6 +44,10 @@
 
     lorien
   ];
+
+  home.shellAliases = {
+    blog = "cd /home/nagih/blog";
+  };
   
   # === SYNCTHING FILE SYNCHRONIZATION SERVICE ===
   services.syncthing = {
