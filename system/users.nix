@@ -13,6 +13,7 @@
         "docker"         # Docker daemon access
         "audio"          # Audio devices access
         "video"          # Video devices and GPU access
+        "adbusers"
       ];
       shell = pkgs.zsh;       # Default shell (zsh)
     };

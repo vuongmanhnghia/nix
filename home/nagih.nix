@@ -43,6 +43,7 @@
     obs-studio     # Open Broadcaster Software for streaming and recording
 
     lorien
+    alvr
   ];
 
   home.shellAliases = {

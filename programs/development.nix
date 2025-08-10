@@ -127,6 +127,10 @@
     lshw      # List hardware information
     pciutils  # PCI bus utilities (lspci)
     usbutils  # USB utilities (lsusb)
+    
+    # === LUA DEVELOPMENT ===
+    lua51Packages.lua       # Modern Lua interpreter (latest version)
+    luarocks  # Replaced by rocks.nvim for better Neovim integration
 
     burpsuite   
     postman

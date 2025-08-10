@@ -41,6 +41,8 @@
     neofetch   # System information display tool with ASCII art
     btop       # Modern system monitor with better interface than htop
     htop       # Interactive process viewer and system monitor
+    nvtopPackages.nvidia      # NVIDIA GPU monitor
+    android-tools
     
     # === WAYLAND CLIPBOARD UTILITIES ===
     wl-clipboard  # Wayland clipboard utilities (wl-copy, wl-paste)
