@@ -9,5 +9,6 @@
     ./locale.nix     # Timezone, locale, and keyboard layout
     ./packages.nix   # Essential system packages and C++ development tools
     ./security.nix   # Security policies and configurations
+    ./bluetooth.nix  # Bluetooth configuration and utilities
   ];
 } 

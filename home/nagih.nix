@@ -44,6 +44,7 @@
 
     lorien
     alvr
+    navicat-premium
   ];
 
   home.shellAliases = {
@@ -65,7 +66,7 @@
       # Define other devices for synchronization (replace IDs with actual device IDs)
       devices = {
         "laptop" = { id = "LAPTOP-DEVICE-ID-REPLACE-ME"; };   # Laptop device
-        "desktop" = { id = "DESKTOP-DEVICE-ID-REPLACE-ME"; }; # Desktop device
+        "desktop" = { id = "IZLHQHS-TLCQ6EV-XR73OJA-K5F6AUD-OOBNS4I-G4M5NGL-FYZWEHU-AQF3WA4"; }; # Desktop device
       };
       
       # === FOLDER SYNCHRONIZATION CONFIGURATION ===

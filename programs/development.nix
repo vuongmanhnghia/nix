@@ -137,6 +137,7 @@
     claude-code
 
     hugo
+    yt-dlp
   ];
 
   # === USER PERMISSIONS ===

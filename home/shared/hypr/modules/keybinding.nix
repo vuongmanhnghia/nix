@@ -32,14 +32,14 @@
         # "$mainMod, C, exec, hyprpicker -a"
         "$mainMod, C, exec, $codeEditor"
         "$mainMod, P, pseudo"
-        "$mainMod, J, togglesplit"
-        "$mainMod, H, exec, pkill -SIGUSR1 waybar" # Hide Waybar
+        "$mainMod, backslash, togglesplit" # backslash: \
+        "$mainMod SHIFT, H, exec, pkill -SIGUSR1 waybar" # Hide Waybar
         "$mainMod SHIFT, E, exec, kitty yazi" # Yazi File Manager
         "$mainMod Shift, S, exec, hyprshot -m region -o $HOME/Pictures/Screenshots"
         "$mainMod, PERIOD, exec, rofi -show emoji" # Select emoji
         "$mainMod, V, exec, cliphist list | rofi -dmenu -p \"Clipboard\" | cliphist decode | wl-copy"
         "$mainMod, R, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/wbrestart.sh"
-        "$mainMod, L, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/hyprlock.sh"
+        "$mainMod, Escape, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/hyprlock.sh"
         "$mainMod SHIFT, L, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/wlogout.sh"
         # "$mainMod SHIFT, S, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/screenshot.sh"
         "$mainMod, W, exec, ~/Workspaces/Config/nixos/home/shared/matugen/scripts/wppicker.sh"
@@ -49,16 +49,16 @@
         "$mainMod SHIFT, W, exec, matugen-apply $(cat ~/Workspaces/Config/nixos/current_wallpaper)"
         "$mainMod SHIFT, R, exec, matugen-apply" # Sẽ prompt chọn wallpaper
         
-        "$mainMod, left, movefocus, h"
-        "$mainMod, right, movefocus, l"
-        "$mainMod, up, movefocus, k"
-        "$mainMod, down, movefocus, j"
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
         
         
-        "$mainMod CTRL, left, movewindow, h"
-        "$mainMod CTRL, right, movewindow, l"
-        "$mainMod CTRL, up, movewindow, k"
-        "$mainMod CTRL, down, movewindow, j"
+        "$mainMod CTRL, left, movewindow, l"
+        "$mainMod CTRL, right, movewindow, r"
+        "$mainMod CTRL, up, movewindow, u"
+        "$mainMod CTRL, down, movewindow, d"
         
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
@@ -84,14 +84,23 @@
 
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+
+        "$mainMod, left, workspace, e-1"
+        "$mainMod, right, workspace, e+1"
+
+        "$mainMod, h, workspace, e-1"
+        "$mainMod, l, workspace, e+1"
+        "$mainMod, k, workspace, e-1"
+        "$mainMod, j, workspace, e+1"
+        
       ];
 
       # Resize window
       binde = [
-        "$mainMod SHIFT, left, resizeactive,-50 0"
-        "$mainMod SHIFT, right, resizeactive,50 0"
-        "$mainMod SHIFT, up, resizeactive,0 -50"
-        "$mainMod SHIFT, down, resizeactive,0 50"
+        "$mainMod SHIFT, h, resizeactive,-50 0"
+        "$mainMod SHIFT, l, resizeactive,50 0"
+        "$mainMod SHIFT, k, resizeactive,0 -50"
+        "$mainMod SHIFT, j, resizeactive,0 50"
       ];
 
       # Move window
