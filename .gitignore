@@ -3,3 +3,9 @@ result
 
 current_wallpaper
 colors
+
+.cache
+hardware-configuration.nix
+
+./home/shared/hypr/modules/environment.nix
+./home/shared/hypr/modules/monitors.nix
