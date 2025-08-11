@@ -5,17 +5,17 @@
 [![NixOS](https://img.shields.io/badge/NixOS-25.05-blue.svg?style=flat&logo=nixos&logoColor=white)](https://nixos.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-Latest-blue.svg?style=flat&logo=wayland&logoColor=white)](https://hyprland.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/nagih/nixos-config?style=flat)](https://github.com/nagih/nixos-config)
+[![Stars](https://img.shields.io/github/stars/nagih/nixos-config?style=flat)](https://github.com/vuongmanhnghia/nix)
 
 _A modern, rice-focused NixOS configuration featuring Hyprland compositor with automatic color theming_
 
 [Features](#-features) • [Screenshots](#-screenshots) • [Installation](#-installation) • [Configuration](#%EF%B8%8F-configuration) • [Usage](#-usage)
 
+⭐ Please **Star** the repository
+
 </div>
 
----
-
-## 📋 Table of Contents
+<!-- ## 📋 Table of Contents
 
 -   [🎯 Overview](#-overview)
 -   [✨ Features](#-features)
@@ -30,21 +30,22 @@ _A modern, rice-focused NixOS configuration featuring Hyprland compositor with a
 -   [🤝 Contributing](#-contributing)
 -   [📄 License](#-license)
 
----
+--- -->
 
-## 🎯 Overview
+## Overview
 
 This is a comprehensive NixOS configuration built around the **Hyprland** wayland compositor, designed for developers and enthusiasts who want a beautiful, functional, and reproducible desktop environment. The configuration emphasizes:
 
--   **🎨 Dynamic theming** with automatic color generation from wallpapers
--   **⚡ Performance** optimized for development workflows
--   **🔧 Modularity** with clean, organized code structure
--   **🌈 Beautiful aesthetics** with modern UI components
--   **🚀 Developer experience** with pre-configured tools and workflows
+-   **Dynamic theming** with automatic color generation from wallpapers
+-   **Performance** optimized for development workflows
+-   **Modularity** with clean, organized code structure
+-   **Beautiful aesthetics** with modern UI components
+-   **Developer experience** with pre-configured tools and workflows
 
----
+## Features
 
-## ✨ Features
+<details>
+<summary>Click to expand detailed features</summary>
 
 ### 🖥️ **Desktop Environment**
 
@@ -89,14 +90,12 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 -   **File sync**: Syncthing for cross-device synchronization
 -   **Automatic cleanup** and garbage collection
 
----
-
-## 📸 Screenshots
+<!-- ## 📸 Screenshots
 
 <details>
 <summary>🖼️ Click to view screenshots</summary>
 
-> **Note**: Screenshots will be added soon! The desktop features a beautiful dark theme with dynamic colors that change based on the current wallpaper.
+> **Note**: Screenshots will be added soon! The desktop features a beautiful dark theme with dynamic colors that change based on the current wallpaper. -->
 
 ### Desktop Overview
 
@@ -118,31 +117,9 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 
 </details>
 
----
+## Getting started
 
-## 🏗️ System Architecture
-
-```
-📁 NixOS Configuration
-├── 🔧 System Level (NixOS)
-│   ├── Boot & Kernel Configuration
-│   ├── Hardware Support (NVIDIA, Audio)
-│   ├── Network & Security
-│   └── System Packages
-├── 🏠 User Level (Home Manager)
-│   ├── Desktop Environment (Hyprland)
-│   ├── Applications & Tools
-│   ├── Dotfiles & Configurations
-│   └── Theming System
-└── 🎨 Dynamic Theming
-    ├── Wallpaper Collection
-    ├── Color Generation (Matugen)
-    └── Application Theme Updates
-```
-
----
-
-## 📦 Prerequisites
+### Prerequisites
 
 -   **NixOS 25.05** or later
 -   **UEFI system** with secure boot support
@@ -151,71 +128,63 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 -   **At least 8GB RAM** recommended
 -   **20GB+ free disk space** for system and packages
 
----
+### Getting nix config
 
-## 🚀 Installation
-
-### 1️⃣ **Fresh NixOS Installation**
-
-If you're installing NixOS from scratch:
+Clone the repository
 
 ```bash
-# Boot from NixOS ISO
-# Partition your drives and mount them
-# Generate hardware configuration
-nixos-generate-config --root /mnt
-
-# Clone this configuration
-cd /mnt/home
-git clone https://github.com/your-username/nixos-config.git
-cd nixos-config
-
-# Copy hardware configuration
-cp /mnt/etc/nixos/hardware-configuration.nix .
-
-# Install with flakes
-nixos-install --flake .#nixos
-```
-
-### 2️⃣ **Existing NixOS System**
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/nixos-config.git ~/Workspaces/Config/nixos
+git clone git@github.com:vuongmanhnghia/nix.git ~/Workspaces/Config/nixos
 cd ~/Workspaces/Config/nixos
-
-# Backup your current configuration
-sudo cp /etc/nixos/hardware-configuration.nix .
-
-# Apply the configuration
-sudo nixos-rebuild switch --flake .#nixos
-
-# Apply user configuration
-home-manager switch --flake .#nagih
 ```
 
-### 3️⃣ **First Boot Setup**
-
-After successful installation:
+Backup your current configuration
 
 ```bash
-# Update the system
+sudo cp /etc/nixos/hardware-configuration.nix .
+```
+
+Setup your environment
+
+```bash
+bash setup.sh
+```
+
+Apply the configuration
+
+```bash
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+Apply user configuration
+
+```bash
+home-manager switch --flake .#your-username
+```
+
+### First Boot Setup
+
+After successful installation: Update the system
+
+```bash
 sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --upgrade
+```
 
-# Enable and start essential services
-systemctl --user enable --now auto-wallpaper.timer
+Enable and start essential services
+
+```bash
 systemctl --user start swww-daemon
+```
 
-# Set initial wallpaper
+Set initial wallpaper
+
+```bash
 cd ~/Workspaces/Config/nixos
 ./home/shared/matugen/scripts/wppicker.sh
 ```
 
----
+## Configuration
 
-## ⚙️ Configuration
-
-### 🎯 **Customizing for Your System**
+### **Customizing for Your System**
 
 1. **Update User Information**:
 
@@ -246,7 +215,7 @@ cd ~/Workspaces/Config/nixos
     # services.xserver.videoDrivers = ["amdgpu"]; # For AMD
     ```
 
-### 🌐 **Network Configuration**
+### **Network Configuration**
 
 ```nix
 # system/networking.nix
@@ -257,7 +226,7 @@ networking = {
 };
 ```
 
-### 🔐 **Security Settings**
+### **Security Settings**
 
 ```nix
 # system/security.nix
@@ -267,11 +236,9 @@ services.openssh.settings = {
 };
 ```
 
----
+## Theming
 
-## 🎨 Theming
-
-### 🌈 **Dynamic Color System**
+### **Dynamic Color System**
 
 The configuration uses **Matugen** to generate colors from wallpapers:
 
@@ -286,19 +253,7 @@ matugen image /path/to/wallpaper.jpg
 systemctl --user enable --now auto-wallpaper.timer
 ```
 
-### 🎨 **Supported Applications**
-
-Colors are automatically applied to:
-
--   **Waybar** - Status bar
--   **Kitty** - Terminal
--   **Rofi** - Application launcher
--   **SwayNC** - Notification center
--   **GTK** applications
--   **Hyprland** - Window borders
--   **Cava** - Audio visualizer
-
-### 🖼️ **Adding Wallpapers**
+### **Adding Wallpapers**
 
 ```bash
 # Add wallpapers to the collection
@@ -307,11 +262,9 @@ cp your-wallpaper.jpg ~/Workspaces/Config/nixos/wallpapers/
 # Supported formats: .jpg, .jpeg, .png, .gif
 ```
 
----
+## Usage
 
-## 🔧 Usage
-
-### 🚀 **Quick Commands**
+### **Quick Commands**
 
 ```bash
 # System management
@@ -331,7 +284,7 @@ config              # Go to config directory
 tm                  # Start tmux
 ```
 
-### ⌨️ **Key Bindings**
+### **Key Bindings**
 
 | Shortcut              | Action                      |
 | --------------------- | --------------------------- |
@@ -346,7 +299,7 @@ tm                  # Start tmux
 | `Super + Shift + E`   | Logout menu                 |
 | `Print`               | Screenshot                  |
 
-### 🔧 **Development Tools**
+### **Development Tools**
 
 Pre-configured development environment includes:
 
@@ -373,236 +326,9 @@ Pre-configured development environment includes:
 
 ---
 
-## 📁 Project Structure
-
-<details>
-<summary>🗂️ Click to expand detailed structure</summary>
-
-```
-📦 nixos/
-├── 📄 flake.nix                 # Main flake configuration
-├── 📄 configuration.nix         # System configuration entry point
-├── 📄 hardware-configuration.nix # Hardware-specific settings
-├── 📄 current_wallpaper         # Current wallpaper symlink
-├── 📄 README.md                 # This file
-│
-├── 📁 system/                   # System-level configurations
-│   ├── 📄 default.nix          # System modules entry point
-│   ├── 📄 boot.nix             # Bootloader & kernel config
-│   ├── 📄 users.nix            # User accounts & groups
-│   ├── 📄 networking.nix       # Network & firewall settings
-│   ├── 📄 locale.nix           # Timezone & locale settings
-│   ├── 📄 packages.nix         # Essential system packages
-│   └── 📄 security.nix         # Security policies
-│
-├── 📁 desktop/                  # Desktop environment
-│   ├── 📄 default.nix          # Desktop modules entry
-│   ├── 📄 hyprland.nix         # Hyprland system config
-│   ├── 📄 audio.nix            # PipeWire audio system
-│   ├── 📄 graphics.nix         # NVIDIA & graphics drivers
-│   └── 📄 fonts.nix            # System fonts
-│
-├── 📁 programs/                 # Application configurations
-│   ├── 📄 default.nix          # Programs modules entry
-│   ├── 📄 development.nix      # Development tools & IDEs
-│   ├── 📄 python.nix           # Python development environment
-│   ├── 📄 golang.nix           # Go development environment
-│   ├── 📄 gaming.nix           # Gaming platform (Steam)
-│   ├── 📄 multimedia.nix       # Media apps & Vietnamese input
-│   └── 📄 entries.nix          # Desktop entries
-│
-├── 📁 home/                     # User configurations (Home Manager)
-│   ├── 📄 default.nix          # Shared user configuration
-│   ├── 📄 nagih.nix            # User-specific config
-│   │
-│   └── 📁 shared/              # Shared user configurations
-│       ├── 📄 git.nix          # Git configuration
-│       ├── 📄 zsh.nix          # Zsh shell with aliases
-│       ├── 📄 neovim.nix       # Neovim editor config
-│       ├── 📄 kitty.nix        # Kitty terminal config
-│       ├── 📄 gtk-theme.nix    # GTK theme settings
-│       ├── 📄 fastfetch.nix    # System info tool
-│       └── 📄 ripgrep.nix      # Text search tool config
-│       │
-│       ├── 📁 hypr/            # Hyprland configurations
-│       │   ├── 📄 default.nix  # Main Hyprland config
-│       │   ├── 📁 modules/     # Hyprland feature modules
-│       │   │   ├── 📄 animation.nix    # Animations
-│       │   │   ├── 📄 appearance.nix   # Window appearance
-│       │   │   ├── 📄 autostart.nix    # Startup applications
-│       │   │   ├── 📄 environment.nix  # Environment variables
-│       │   │   ├── 📄 input.nix        # Input devices
-│       │   │   ├── 📄 keybinding.nix   # Key bindings
-│       │   │   ├── 📄 layout.nix       # Window layouts
-│       │   │   ├── 📄 misc.nix         # Miscellaneous settings
-│       │   │   ├── 📄 monitors.nix     # Monitor configuration
-│       │   │   ├── 📄 programs.nix     # Default applications
-│       │   │   ├── 📄 tags.nix         # Workspace tags
-│       │   │   ├── 📄 windowrule.nix   # Window rules
-│       │   │   ├── 📄 workspaces.nix   # Workspace settings
-│       │   │   └── 📄 colors.nix       # Color configuration
-│       │   │
-│       │   └── 📁 scripts/     # Utility scripts
-│       │       ├── 📄 brightness.sh    # Brightness control
-│       │       ├── 📄 screenshot.sh    # Screenshot utility
-│       │       └── 📄 volume.sh        # Volume control
-│       │
-│       ├── 📁 waybar/          # Status bar configuration
-│       │   ├── 📄 default.nix  # Main waybar config
-│       │   ├── 📄 settings.nix # Bar layout & modules
-│       │   ├── 📄 styles.nix   # CSS styling
-│       │   │
-│       │   └── 📁 modules/     # Waybar modules
-│       │       ├── 📄 default.nix      # Modules entry point
-│       │       ├── 📄 system.nix       # System info modules
-│       │       ├── 📄 hyprland.nix     # Hyprland integration
-│       │       ├── 📄 audio.nix        # Audio modules
-│       │       ├── 📄 network.nix      # Network modules
-│       │       ├── 📄 media.nix        # Media player modules
-│       │       ├── 📄 custom.nix       # Custom modules
-│       │       ├── 📄 separators.nix   # Visual separators
-│       │       ├── 📄 groups.nix       # Module groups
-│       │       └── 📄 other.nix        # Other modules
-│       │
-│       ├── 📁 rofi/            # Application launcher
-│       │   ├── 📄 default.nix  # Main rofi config
-│       │   └── 📄 colors.nix   # Color configuration
-│       │
-│       ├── 📁 swaync/          # Notification center
-│       │   └── 📄 default.nix  # SwayNC configuration
-│       │
-│       ├── 📁 wlogout/         # Logout menu
-│       │   └── 📄 default.nix  # Wlogout configuration
-│       │
-│       └── 📁 matugen/         # Dynamic theming system
-│           ├── 📄 default.nix  # Main matugen config
-│           │
-│           ├── 📁 modules/     # Matugen modules
-│           │   ├── 📄 config.nix       # Main configuration
-│           │   ├── 📄 aliases.nix      # Shell aliases
-│           │   ├── 📄 service.nix      # Systemd service
-│           │   └── 📄 auto-wallpaper.nix # Auto rotation
-│           │
-│           ├── 📁 scripts/     # Matugen scripts
-│           │   ├── 📄 matugen-apply.sh # Apply colors script
-│           │   ├── 📄 set-wallpaper.sh # Wallpaper setter
-│           │   ├── 📄 auto-wallpaper.sh # Auto rotation
-│           │   ├── 📄 wppicker.sh      # Wallpaper picker GUI
-│           │   └── 📄 reload-apps.sh   # Reload applications
-│           │
-│           └── 📁 templates/   # Color templates
-│               ├── 📄 colors.css       # CSS template
-│               ├── 📄 kitty.conf       # Kitty template
-│               ├── 📄 hyprland.conf    # Hyprland template
-│               ├── 📄 gtk.css          # GTK template
-│               ├── 📄 rofi.rasi        # Rofi template
-│               └── 📄 cava             # Cava template
-│
-├── 📁 colors/                  # Generated color files (git-ignored)
-│   ├── 📄 waybar.css          # Waybar colors
-│   ├── 📄 kitty.conf          # Kitty colors
-│   ├── 📄 hypr.conf           # Hyprland colors
-│   ├── 📄 gtk.css             # GTK colors
-│   ├── 📄 rofi.rasi           # Rofi colors
-│   ├── 📄 swaync.css          # SwayNC colors
-│   └── 📄 cava.config         # Cava colors
-│
-├── 📁 wallpapers/             # Wallpaper collection
-│   ├── 🖼️ anime-wallpaper-1.jpg
-│   ├── 🖼️ landscape-1.png
-│   ├── 🖼️ abstract-1.gif
-│   └── 🖼️ ... (40+ wallpapers)
-│
-└── 📁 dotfiles/               # Application dotfiles
-    ├── 📁 nvim/               # Neovim configuration
-    │   ├── 📄 init.lua        # Main config
-    │   ├── 📄 lazy-lock.json  # Plugin lockfile
-    │   ├── 📁 lua/            # Lua modules
-    │   └── 📁 ftplugin/       # Filetype plugins
-    │
-    ├── 📁 tmux/               # Tmux configuration
-    │   ├── 📄 tmux.conf       # Main config
-    │   └── 📄 random_note.sh  # Utility script
-    │
-    └── 📁 zsh/                # Zsh configuration
-        └── 📄 p10k.zsh        # Powerlevel10k theme
-```
-
-</details>
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-### 🐛 **Bug Reports**
-
--   Open an issue with detailed reproduction steps
--   Include system information and error logs
--   Test on a clean NixOS installation if possible
-
-### 💡 **Feature Requests**
-
--   Describe the feature and its benefits
--   Provide use cases and examples
--   Consider implementation complexity
-
-### 🔧 **Pull Requests**
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes following the existing code style
-4. Test thoroughly on your system
-5. Update documentation if needed
-6. Submit a pull request with clear description
-
-### 📝 **Documentation**
-
--   Fix typos and improve clarity
--   Add examples and use cases
--   Update outdated information
--   Translate to other languages
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
--   **NixOS Community** - For the amazing package manager and OS
--   **Hyprland Team** - For the beautiful wayland compositor
--   **Matugen** - For dynamic color generation capabilities
--   **JaKooLit** - For Hyprland configuration inspiration
--   **Catppuccin** - For the beautiful color palette
--   **All Contributors** - For improvements and bug fixes
-
----
-
-## 📞 Support
-
-If you find this configuration helpful, please:
-
--   ⭐ **Star** the repository
--   🐛 **Report issues** you encounter
--   💡 **Suggest improvements**
--   🤝 **Contribute** to the project
-
-For questions and support:
-
--   Open an issue on GitHub
--   Join NixOS community forums
--   Check the NixOS documentation
-
----
-
 <div align="center">
 
-**Made with ❤️ for the NixOS community**
+**Made with Nagih for the NixOS community**
 
 _Reproducible • Beautiful • Functional_
 
