@@ -3,9 +3,7 @@
 {
   # === APPLICATION CONFIGURATION MODULES ===
   imports = [
-    ./development.nix  # Development tools (Docker, Git, programming languages, IDEs)
-    ./python.nix       # Python development environment and tools
-    ./golang.nix       # Go development environment and tools
+    ./development      # Development tools (Docker, Git, programming languages, IDEs)
     ./gaming.nix       # Gaming platform (Steam, GameMode, controllers, Wine)
     ./multimedia.nix   # Multimedia applications (VLC, GIMP, LibreOffice, Vietnamese input)
     ./entries.nix      # Desktop entries

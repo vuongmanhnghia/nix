@@ -25,26 +25,32 @@
   # === USER-SPECIFIC APPLICATIONS ===
   home.packages = with pkgs; [
     # === PERSONAL PRODUCTIVITY APPLICATIONS ===
-    firefox        # Firefox web browser
-    discord        # Discord chat and communication platform
-    spotify        # Spotify music streaming service
-    code-cursor    # Cursor AI-powered code editor
-    vscode         # Visual Studio Code editor
+    firefox         # Firefox web browser
+    discord         # Discord chat and communication platform
+    spotify         # Spotify music streaming service
+    code-cursor     # Cursor AI-powered code editor
+    navicat-premium # Navicat Premium - Database management tool
    
     # === GAMING APPLICATIONS ===
-    steam          # Steam gaming platform
-    steam-run      # Steam runtime for non-Steam applications
-    protonup-qt    # Proton version management GUI tool
-    winetricks     # Wine/Proton dependency management tool
+    steam           # Steam gaming platform
+    steam-run       # Steam runtime for non-Steam applications
+    protonup-qt     # Proton version management GUI tool
+    winetricks      # Wine/Proton dependency management tool
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
-    obsidian       # Note-taking and knowledge management application
-    zoom-us
-    obs-studio     # Open Broadcaster Software for streaming and recording
+    obsidian        # Note-taking and knowledge management application
+    zoom-us         # Zoom video conferencing and collaboration tool
+    obs-studio      # Open Broadcaster Software for streaming and recording
 
-    lorien
-    alvr
-    navicat-premium
+    lorien          # Lorien - A modern, feature-rich note-taking app
+    
+
+    # === VRCHAT ===
+    alcom           # Alcom - A modern, feature-rich note-taking app
+    alvr            # ALVR - Android VR Headset Emulator
+
+    rpi-imager      # Raspberry Pi Imager
+    
   ];
 
   home.shellAliases = {

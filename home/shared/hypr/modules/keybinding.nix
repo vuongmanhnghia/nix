@@ -48,6 +48,8 @@
         # "$mainMod ALT, B, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/waybar-layout.sh" # Waybar Layout Menu
         "$mainMod SHIFT, W, exec, matugen-apply $(cat ~/Workspaces/Config/nixos/current_wallpaper)"
         "$mainMod SHIFT, R, exec, matugen-apply" # Sẽ prompt chọn wallpaper
+        "$mainMod, D, exec, $discord"
+        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
         
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"

@@ -18,6 +18,7 @@
       "$browser" = "firefox";
       "$menu" = "rofi -show drun";
       "$codeEditor" = "cursor --disable-gpu";
+      "$discord" = "discord";
     };
   };
 }

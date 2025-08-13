@@ -9,11 +9,12 @@
       # User groups for system permissions
       extraGroups = [ 
         "networkmanager"  # Network configuration access
-        "wheel"          # sudo privileges 
-        "docker"         # Docker daemon access
-        "audio"          # Audio devices access
-        "video"          # Video devices and GPU access
-        "adbusers"
+        "wheel"           # sudo privileges 
+        "docker"          # Docker daemon access
+        "audio"           # Audio devices access
+        "video"           # Video devices and GPU access
+        "disk"            # Disk management access
+        "adbusers"        # D-Bus access
       ];
       shell = pkgs.zsh;       # Default shell (zsh)
     };
