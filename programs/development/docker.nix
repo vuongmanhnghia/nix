@@ -1,9 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  programs.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     docker-compose
-    tailscale
   ];
 
   # === DOCKER CONFIGURATION ===

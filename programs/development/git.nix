@@ -13,6 +13,5 @@
   environment.systemPackages = with pkgs; [
     git      # Distributed version control system
     git-lfs  # Git Large File Storage for handling large binary files
-    git-lfs-gui  # Git Large File Storage GUI for managing large files
   ];
 }

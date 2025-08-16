@@ -22,6 +22,7 @@
     # === WEB DEVELOPMENT AND API TOOLS ===
     burpsuite                 # Web application security testing tool 
     postman                   # API development tool
+    yaak                      # API development tool
     claude-code               # AI-powered code editor
     vscode                    # Visual Studio Code editor
 
@@ -32,5 +33,7 @@
 
     # === DOCUMENTATION GENERATION ===
     doxygen         # Documentation generator for multiple programming languages
-  ]
+
+    cloudflared     # Cloudflare Tunnel
+  ];
 }

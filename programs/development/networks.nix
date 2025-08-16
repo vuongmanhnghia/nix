@@ -2,8 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-    nmap            # Network discovery and security auditing tool
+    arp-scan        # Network discovery tool (Layer 2)
+    nmap            # Network discovery and security auditing tool (Layer 3/4)
+    netplan         # Network configuration tool
+    dig             # DNS lookup tool
     inetutils       # Network utilities (ping, traceroute, etc.)
-    tailscale       # Network connectivity for developers
+    # tailscale       # Network connectivity for developers
   ];
 }
