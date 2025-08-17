@@ -39,9 +39,9 @@
     
     # Theming
     papirus-icon-theme
-    whitesur-cursors
     catppuccin-gtk
     catppuccin-cursors.mochaDark
+    apple-cursor
     
     # Wallpaper theming
     matugen

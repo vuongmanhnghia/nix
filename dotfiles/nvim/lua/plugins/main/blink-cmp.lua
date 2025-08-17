@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  name = "Completion",
   "saghen/blink.cmp",
   event = {
     "InsertEnter",

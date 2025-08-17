@@ -3,73 +3,44 @@ local is_executable = require("utils.executable").is_executable
 
 ---@type LazySpec
 return {
+  -- Blink
   {
-    import = "plugins.extras.ai",
-    enabled = true,
-  },
-  {
+    name = "Blink",
     import = "plugins.extras.blink",
     enabled = true,
   },
+  
+  -- Git
   {
-    import = "plugins.extras.chezmoi",
-    enabled = is_executable("chezmoi"),
-  },
-  {
-    import = "plugins.extras.coding",
-    enabled = true,
-    cond = ide_mode,
-  },
-  {
-    import = "plugins.extras.dap",
-    cond = ide_mode,
-    enabled = true,
-  },
-  {
-    import = "plugins.extras.database",
-    cond = ide_mode,
-    enabled = true,
-  },
-  {
+    name = "Git",
     import = "plugins.extras.git",
     enabled = true,
   },
+  
+  -- Motion
   {
-    import = "plugins.extras.languages.init",
-    enabled = true,
-  },
-  {
-    import = "plugins.extras.lsp",
-    cond = ide_mode,
-    enabled = true,
-  },
-  {
-    import = "plugins.extras.mason",
-    cond = ide_mode,
-    enabled = true,
-  },
-  {
+    name = "Motion",
     import = "plugins.extras.motion",
     enabled = true,
   },
+  
+  -- Others
   {
+    name = "Others",
     import = "plugins.extras.others",
     enabled = true,
   },
+  
+  -- Telescope
   {
-    import = "plugins.extras.silly",
-    enabled = true,
-  },
-  {
+    name = "Telescope",
     import = "plugins.extras.telescope",
     enabled = true,
   },
+  
+  -- UI
   {
-    import = "plugins.extras.test",
-    cond = ide_mode,
-    enabled = true,
-  },
-  {
+    name = "UI",
     import = "plugins.extras.ui",
     enabled = true,
   },

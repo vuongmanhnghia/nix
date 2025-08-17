@@ -17,6 +17,7 @@
     ./shared/fastfetch.nix       # Fastfetch configuration
     ./shared/ripgrep.nix         # Ripgrep configuration
     ./shared/wlogout/default.nix # Wlogout configuration
+    ./shared/cursor.nix          # Cursor theme configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===
@@ -52,13 +53,12 @@
 
   home.sessionVariables = {
     LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib:\${LD_LIBRARY_PATH}";
+    
+    # === NPM CONFIGURATION ===
+    NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
+    NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.npm-cache";
+    NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
   };
-
-  # === WLOUT CONFIGURATION ===
-  # home.file.".config/wlogout" = {
-  #   source = ../dotfiles/wlogout;
-  #   recursive = true;
-  # };
 
   # === TMUX CONFIGURATION ===
   programs.tmux = {
@@ -85,12 +85,6 @@
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
   ];
-
-  home.sessionVariables = {
-    NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
-    NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.npm-cache";
-    NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
-  };
 
   programs.direnv = {
     enable = true;  # Enable direnv for environment variable management

@@ -9,6 +9,9 @@
     ./programs                   # Application configurations (gaming, development, multimedia)
   ];
   
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  
   # SSH configuration
   programs.ssh.startAgent = true; # Start SSH agent for key management
   services.openssh.enable = true; # Enable SSH daemon for remote access

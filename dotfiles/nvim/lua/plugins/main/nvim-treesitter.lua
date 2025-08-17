@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  name = "Treesitter",
   "nvim-treesitter/nvim-treesitter",
   event = {
     "VeryLazy",

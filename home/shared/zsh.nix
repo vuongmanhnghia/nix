@@ -118,9 +118,11 @@
       # === DEVELOPMENT SHORTCUTS ===
       wsp = "cd ~/Workspaces";
       prj = "cd ~/Workspaces/projects";
-      web = "cd ~/Workspaces/Web";
-      app = "cd ~/Workspaces/App";
-      lc = "cd ~/Workspaces/leetcode";
+      bot = "cd ~/Workspaces/projects/bot";
+      ai = "cd ~/Workspaces/projects/ai";
+      serv = "cd ~/Workspaces/projects/services";
+      micro = "cd ~/Workspaces/projects/microservices";
+      # === DOCUMENTATION ===
       docs = "cd ~/Documents";
       down = "cd ~/Downloads";
       

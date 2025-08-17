@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  name = "UI",
   {
     "NvChad/ui",
     lazy = false,

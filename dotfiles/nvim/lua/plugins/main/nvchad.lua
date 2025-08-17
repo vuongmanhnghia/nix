@@ -3,12 +3,11 @@ local ft_no_navigate = {
   "dap-view",
   "dbui",
   "dbout",
-  "codecompanion",
-  "avante",
 }
 
 ---@type LazySpec
 return {
+  name = "NvChad",
   "NvChad/NvChad",
   branch = "v2.5",
   keys = {

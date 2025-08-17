@@ -21,10 +21,10 @@
       package = pkgs.papirus-icon-theme;
     };
     
-    # === WHITESUR CURSOR THEME ===
+    # === MACOS CURSOR THEME ===
     cursorTheme = {
-      name = "WhiteSur-cursors";
-      package = pkgs.whitesur-cursors;
+      name = "macOS";
+      package = pkgs.apple-cursor;
       size = 24;
     };
     
@@ -39,7 +39,7 @@
       gtk-application-prefer-dark-theme = true;
       gtk-theme-name = "Catppuccin-Mocha-Compact-Blue-Dark";
       gtk-icon-theme-name = "Papirus-Dark";
-      gtk-cursor-theme-name = "WhiteSur-cursors";
+      gtk-cursor-theme-name = "macOS";
       gtk-font-name = "JetBrainsMono Nerd Font 11";
     };
     
@@ -47,7 +47,7 @@
       gtk-application-prefer-dark-theme = true;
       gtk-theme-name = "Catppuccin-Mocha-Compact-Blue-Dark";
       gtk-icon-theme-name = "Papirus-Dark";
-      gtk-cursor-theme-name = "WhiteSur-cursors";
+      gtk-cursor-theme-name = "macOS";
       gtk-font-name = "JetBrainsMono Nerd Font 11";
     };
   };

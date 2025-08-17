@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  name = "File Explorer",
   "nvim-tree/nvim-tree.lua",
   keys = {
     {

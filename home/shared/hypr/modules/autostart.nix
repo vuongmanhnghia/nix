@@ -33,6 +33,9 @@
         # Notification center
         "${pkgs.swaynotificationcenter}/bin/swaync"
         
+        # Set cursor theme
+        "hyprctl setcursor macOS 24"
+        
         # Screen sharing setup
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "dbus-update-activation-environment --systemd XMODIFIERS GTK_IM_MODULE QT_IM_MODULE SDL_IM_MODULE"

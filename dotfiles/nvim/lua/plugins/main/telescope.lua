@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  name = "Telescope",
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
   init = function()

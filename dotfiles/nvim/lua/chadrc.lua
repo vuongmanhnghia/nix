@@ -34,7 +34,6 @@ M.ui = {
       "formatters",
       "separator",
       -- "python_venv",
-      -- "codecompanion",
       "macro_recording",
       "auto_format",
       "end_of_line",
@@ -133,7 +132,6 @@ M.base46 = {
   transparency = false,
   theme_toggle = { "catppuccin", "one_light" },
   integrations = {
-    "avante",
     "blankline",
     "blink",
     "codeactionmenu",

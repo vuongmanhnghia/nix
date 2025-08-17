@@ -14,10 +14,15 @@
   wayland.windowManager.hyprland = {
     settings = {
       env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
+        # === QT PLATFORM THEME ===
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_QPA_PLATFORMTHEME,qt6ct"
+
+        # === CURSOR THEME ===
+        "XCURSOR_THEME,apple-cursor"
+        "XCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,apple-cursor"
+        "HYPRCURSOR_SIZE,24"
       ];
     };
   };
