@@ -13,69 +13,164 @@
 { 
   wayland.windowManager.hyprland = {
     settings = {
-      windowrule = [
-        "noblur, tag:multimedia_video*"
-        "opacity 1.0, tag:multimedia_video*"
-        "opacity 0.8, tag:settings*"
-        "opacity 0.8, class:^(org.gnome.Nautilus)$"
-        "opacity 0.9, class:^(gedit|org.gnome.TextEditor|mousepad)$"
-        "opacity 0.9, class:^(org.pulseaudio.pavucontrol)$"
-        "opacity 0.9, class:^(kitty)$"
-        "opacity 0.85 override 0.7 override 1 override, class:^(discord|vesktop|org.telegram.desktop)$"
-        "opacity 0.8 override 0.6 override 1 override, class:^(Spotify)$"
-        "opacity 0.9 override 0.7 override 1 override, class:^(zen)$"
-        # "opacity 0.8 override 0.6 override 1 override, tag:viewer*"
+      windowrulev2 = [
+        # Disable blur for xwayland context menus
+        "noblur,class:^()$,title:^()$"
+        # "noblu, xwayland:1"
 
-        # FLOAT
-        "float, tag:settings*"
-        "float, tag:viewer*"
-        "float, tag:multimedia_video*"
-        "size 900 506, tag:multimedia_video*"
+
+        # Floating
+        "center, title:^(Open File)(.*)$"
+        "float, title:^(Open File)(.*)$"
+        "center, title:^(Select a File)(.*)$"
+        "float, title:^(Select a File)(.*)$"
+        "center, title:^(Choose wallpaper)(.*)$"
+        "float, title:^(Choose wallpaper)(.*)$"
+        "size 60% 65%, title:^(Choose wallpaper)(.*)$"
+        "center, title:^(Open Folder)(.*)$"
+        "float, title:^(Open Folder)(.*)$"
+        "center, title:^(Save As)(.*)$"
+        "float, title:^(Save As)(.*)$"
+        "center, title:^(Library)(.*)$"
+        "float, title:^(Library)(.*)$"
+        "center, title:^(File Upload)(.*)$"
+        "float, title:^(File Upload)(.*)$"
+        "center, title:^(.*)(wants to save)$"
+        "float, title:^(.*)(wants to save)$"
+        "center, title:^(.*)(wants to open)$"
+        "float, title:^(.*)(wants to open)$"
+        "float, class:^(blueberry\.py)$"
+        "float, class:^(guifetch)$   # FlafyDev/guifetch"
+        "float, class:^(pavucontrol)$"
+        "size 45%, class:^(pavucontrol)$"
+        "center, class:^(pavucontrol)$"
         "float, class:^(org.pulseaudio.pavucontrol)$"
-        "size 50% 60%, class:^(org.pulseaudio.pavucontrol)$"
+        "size 45%, class:^(org.pulseaudio.pavucontrol)$"
+        "center, class:^(org.pulseaudio.pavucontrol)$"
+        "float, class:^(nm-connection-editor)$"
+        "size 45%, class:^(nm-connection-editor)$"
+        "center, class:^(nm-connection-editor)$"
+        "float, class:.*plasmawindowed.*"
+        "float, class:kcm_.*"
+        "float, class:.*bluedevilwizard"
+        "float, title:.*Welcome"
+        "float, title:^(illogical-impulse Settings)$"
+        "float, title:.*Shell conflicts.*"
+        "float, class:org.freedesktop.impl.portal.desktop.kde"
+        "size 60% 65%, class:org.freedesktop.impl.portal.desktop.kde"
+        "float, class:^(Zotero)$"
+        "size 45%, class:^(Zotero)$"
 
-        # Ignore maximize requests from apps. You'll probably like this.
-        "suppressevent maximize, class:.*"
+        # Move
+        # kde-material-you-colors spawns a window when changing dark/light theme. This is to make sure it doesn't interfere at all.
+        "float, class:^(plasma-changeicons)$"
+        "noinitialfocus, class:^(plasma-changeicons)$"
+        "move 999999 999999, class:^(plasma-changeicons)$"
+        # stupid dolphin copy
+        "move 40 80, title:^(Copying — Dolphin)$"
 
-        # Fix some dragging issues with XWayland
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        # Tiling
+        "tile, class:^dev\.warp\.Warp$"
 
-        # POP UPS AND DIALOGUES
-        "float, title:^(Save As|Save a File|Pick Files)$"
-        "size 50% 60%, title:^(Save As|Save a File|Pick Files)$"
-        "center, title:^(Save As|Save a File|Pick Files)$"
+        # Picture-in-Picture
+        "float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+        "keepaspectratio, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+        "move 73% 72%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+        "size 25%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+        "float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+        "pin, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 
-        "float, initialTitle:(Open Files)"
-        "size 70% 60%, initialTitle:(Open Files)"
+        # --- Tearing ---
+        "immediate, title:.*\.exe"
+        "immediate, title:.*minecraft.*"
+        "immediate, class:^(steam_app).*"
+
+        # No shadow for tiled windows (matches windows that are not floating).
+        "noshadow, floating:0"
       ];
 
       layerrule = [
-        "blur, waybar"
-        "ignorealpha 0.5, waybar"
-        "ignorealpha 0.5, tag:notif*"
-        "blur, logout_dialog"
-        # "blur, notifications"
+        # ######## Layer rules ########
+        "xray 1, .*"
+        # "noanim, .*"
+        "noanim, walker"
+        "noanim, selection"
+        "noanim, overview"
+        "noanim, anyrun"
+        "noanim, indicator.*"
+        "noanim, osk"
+        "noanim, hyprpicker"
 
-        # SWAYNC BLUR & XRAY
-        "blur, swaync-control-center"
-        "blur, swaync-notification-window"
-        "ignorezero, swaync-control-center"
-        "ignorezero, swaync-notification-window"
-        "ignorealpha 0.5, swaync-control-center"
-        "ignorealpha 0.5, swaync-notification-window"
-        "xray 0, swaync-control-center"
-        "xray 0, swaync-notification-window"    
+        "noanim, noanim"
+        "blur, gtk-layer-shell"
+        "ignorezero, gtk-layer-shell"
+        "blur, launcher"
+        "ignorealpha 0.5, launcher"
+        "blur, notifications"
+        "ignorealpha 0.69, notifications"
+        "blur, logout_dialog # wlogout"
+
+        "animation slide left, sideleft.*"
+        "animation slide right, sideright.*"
+        "blur, session[0-9]*"
+        "blur, bar[0-9]*"
+        "ignorealpha 0.6, bar[0-9]*"
+        "blur, barcorner.*"
+        "ignorealpha 0.6, barcorner.*"
+        "blur, dock[0-9]*"
+        "ignorealpha 0.6, dock[0-9]*"
+        "blur, indicator.*"
+        "ignorealpha 0.6, indicator.*"
+        "blur, overview[0-9]*"
+        "ignorealpha 0.6, overview[0-9]*"
+        "blur, cheatsheet[0-9]*"
+        "ignorealpha 0.6, cheatsheet[0-9]*"
+        "blur, sideright[0-9]*"
+        "ignorealpha 0.6, sideright[0-9]*"
+        "blur, sideleft[0-9]*"
+        "ignorealpha 0.6, sideleft[0-9]*"
+        "blur, indicator.*"
+        "ignorealpha 0.6, indicator.*"
+        "blur, osk[0-9]*"
+        "ignorealpha 0.6, osk[0-9]*"
+
+        # Quickshell
+        "blurpopups, quickshell:.*"
+        "blur, quickshell:.*"
+        "ignorealpha 0.79, quickshell:.*"
+        "animation slide, quickshell:bar"
+        "animation slide, quickshell:verticalBar"
+        "animation fade, quickshell:screenCorners"
+        "animation slide right, quickshell:sidebarRight"
+        "animation slide left, quickshell:sidebarLeft"
+        "animation slide bottom, quickshell:osk"
+        "animation slide bottom, quickshell:dock"
+        "blur, quickshell:session"
+        "noanim, quickshell:session"
+        "ignorealpha 0, quickshell:session"
+        "animation fade, quickshell:notificationPopup"
+        "blur, quickshell:backgroundWidgets"
+        "ignorealpha 0.05, quickshell:backgroundWidgets"
+        "noanim, quickshell:screenshot"
+        "animation popin 120%, quickshell:screenCorners"
+        "noanim, quickshell:lockWindowPusher"
+
+        # Launchers need to be FAST
+        "noanim, quickshell:overview"
+        "noanim, gtk4-layer-shell"
+        ## outfoxxed's stuff
+        "blur, shell:bar"
+        "ignorezero, shell:bar"
+        "blur, shell:notifications"
+        "ignorealpha 0.1, shell:notifications"
+      ];
+
+      workspace = [
+        "special:special, gapsout:30"
       ];
     };
   };
 }
 
-#layerrule = blur, rofi
-#layerrule = ignorezero, rofi
-#layerrule = ignorealpha 0.5, rofi
-#layerrule = dimaround, rofi
-#layerrule = animation popin 10%, rofi
-#layerrule = blur, notifications
-#layerrule = ignorezero, notifications
 
 

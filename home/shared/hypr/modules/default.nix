@@ -16,5 +16,6 @@
     ./tags.nix
     ./windowrule.nix
     ./workspaces.nix
+    ./plugin.nix
   ];
 }

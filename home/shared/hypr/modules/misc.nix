@@ -13,11 +13,21 @@
   wayland.windowManager.hyprland = {
     settings = {
       misc = {
-        force_default_wallpaper = 0; # Set to 0 or 1 to disable the anime mascot Wallpapers
-        disable_hyprland_logo = true; # If true disables the random hyprland logo / anime girl background. :(
-        vfr = true; # save resources
+        disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        initial_workspace_tracking = 0;
+        vfr = 1;
+        vrr = 1;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        animate_manual_resizes = false;
+        animate_mouse_windowdragging = false;
+        enable_swallow = false;
+        swallow_regex = "foot|kitty|allacritty|Alacritty";
+        new_window_takes_over_fullscreen = 2;
+        allow_session_lock_restore = true;
+        # session_lock_xray = true;
+        initial_workspace_tracking = false;
+        focus_on_activate = true;
       };
     };
   };

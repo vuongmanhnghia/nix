@@ -14,6 +14,7 @@
     settings = {
       monitor = [
         "DP-2, 2560x1440@180, 0x0, 1"
+        # "preferred,auto,1,transform, 0"
       ];
     };
   };
