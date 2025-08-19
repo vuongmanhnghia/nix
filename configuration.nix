@@ -8,7 +8,11 @@
     ./desktop                    # Desktop environment configurations (GNOME, audio, graphics)
     ./programs                   # Application configurations (gaming, development, multimedia)
   ];
-  
+
+  environment.systemPackages = with pkgs; [
+    home-manager
+  ];
+    
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   

@@ -11,16 +11,10 @@
         "keybind" : "l"
     }
     {
-        "label" : "reboot",
-        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl reboot || loginctl reboot",
-        "text" : "Reboot",
-        "keybind" : "r"
-    }
-    {
-        "label" : "shutdown",
-        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl poweroff || loginctl poweroff",
-        "text" : "Shutdown",
-        "keybind" : "s"
+        "label" : "hibernate",
+        "action" : "systemctl hibernate || loginctl hibernate",
+        "text" : "Hibernate",
+        "keybind" : "h"
     }
     {
         "label" : "logout",
@@ -29,16 +23,22 @@
         "keybind" : "e"
     }
     {
+        "label" : "shutdown",
+        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl poweroff || loginctl poweroff",
+        "text" : "Shutdown",
+        "keybind" : "s"
+    }
+    {
         "label" : "suspend",
         "action" : "systemctl suspend || loginctl suspend",
         "text" : "Suspend",
         "keybind" : "u"
     }
     {
-        "label" : "hibernate",
-        "action" : "systemctl hibernate || loginctl hibernate",
-        "text" : "Hibernate",
-        "keybind" : "h"
+        "label" : "reboot",
+        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl reboot || loginctl reboot",
+        "text" : "Reboot",
+        "keybind" : "r"
     }
   '';
 
