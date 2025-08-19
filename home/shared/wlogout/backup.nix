@@ -69,7 +69,7 @@ in
         font-family: "JetBrains Mono NFM";
     }
     
-    @import "/home/nagih/Workspaces/Config/nixos/colors/waybar.css";
+    @import "/home/nagih/Workspaces/Config/nixos/generated/waybar.css";
     
     window {
         background-color: rgba(17, 17, 17, 0.45);

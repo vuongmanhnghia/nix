@@ -96,7 +96,7 @@
 
     # CSS styling
     style = ''
-      @import '/home/nagih/Workspaces/Config/nixos/colors/swaync.css';
+      @import '/home/nagih/Workspaces/Config/nixos/generated/swaync.css';
 
       /* Control Center Styles */
       @define-color text            @on_surface;

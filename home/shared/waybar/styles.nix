@@ -8,7 +8,7 @@
   };
 
   config.waybar.customStyles = ''
-    @import "/home/nagih/Workspaces/Config/nixos/colors/waybar.css";
+    @import "/home/nagih/Workspaces/Config/nixos/generated/waybar.css";
 
     /* === FONT CONFIGURATION === */
     * {

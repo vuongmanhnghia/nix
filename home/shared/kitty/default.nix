@@ -47,7 +47,7 @@
 
     extraConfig = ''
       # Import color scheme
-      include /home/nagih/Workspaces/Config/nixos/colors/kitty.conf
+      include /home/nagih/Workspaces/Config/nixos/generated/kitty.conf
 
       # Copy
       map ctrl+c    copy_or_interrupt

@@ -19,6 +19,7 @@
     ./shared/wlogout/default.nix # Wlogout configuration
     ./shared/cursor.nix          # Cursor theme configuration
     ./shared/foot.nix            # Foot terminal configuration
+    ./shared/fuzzel.nix          # Fuzzel configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===
@@ -76,11 +77,6 @@
   home.file.".config/tmux/random_note.sh" = {
     source = ../dotfiles/tmux/random_note.sh;
     executable = true;
-  };
-
-  # === CAVA CONFIGURATION ===
-  home.file.".config/cava/config" = {
-    source = /home/nagih/Workspaces/Config/nixos/colors/cava.config;
   };
 
   home.sessionPath = [
