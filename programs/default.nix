@@ -8,6 +8,7 @@
     ./multimedia.nix   # Multimedia applications (VLC, GIMP, LibreOffice, Vietnamese input)
     ./entries.nix      # Desktop entries
     ./custom.nix       # Custom applications
+    ./fcitx5.nix       # Vietnamese input
   ];
   
   # === SHELL CONFIGURATION ===

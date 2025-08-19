@@ -1,116 +1,77 @@
 # home/shared/wlogout.nix - Advanced wlogout configuration
 { config, pkgs, lib, ... }:
 
-let
-  # Đường dẫn tới script hyprlock
-  hyprLockScript = "~/Workspaces/Config/nixos/home/shared/hypr/scripts/hyprlock.sh";
-in
 {
-  # Cài đặt wlogout và dependencies
-  home.packages = with pkgs; [
-    wlogout
-    papirus-icon-theme # Icon theme
-  ];
-
   # Tạo file layout với format đúng cho wlogout
   xdg.configFile."wlogout/layout".text = ''
     {
         "label" : "lock",
-        "action" : "${hyprLockScript}",
+        "action" : "loginctl lock-session",
         "text" : "Lock",
         "keybind" : "l"
     }
     {
-        "label" : "reboot", 
-        "action" : "systemctl reboot",
+        "label" : "reboot",
+        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl reboot || loginctl reboot",
         "text" : "Reboot",
         "keybind" : "r"
     }
     {
         "label" : "shutdown",
-        "action" : "systemctl poweroff", 
+        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl poweroff || loginctl poweroff",
         "text" : "Shutdown",
         "keybind" : "s"
     }
     {
         "label" : "logout",
-        "action" : "loginctl kill-session $XDG_SESSION_ID",
-        "text" : "Logout", 
+        "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; pkill Hyprland || pkill sway || pkill niri || loginctl terminate-user $USER",
+        "text" : "Logout",
         "keybind" : "e"
     }
     {
         "label" : "suspend",
-        "action" : "systemctl suspend",
+        "action" : "systemctl suspend || loginctl suspend",
         "text" : "Suspend",
         "keybind" : "u"
     }
     {
         "label" : "hibernate",
-        "action" : "systemctl hibernate",
+        "action" : "systemctl hibernate || loginctl hibernate",
         "text" : "Hibernate",
-        "keybind" : "h" 
+        "keybind" : "h"
     }
   '';
 
-    # Tạo thư mục icons và copy custom icons (nếu có)
-  xdg.configFile."wlogout/icons/.keep".text = ""; # Tạo thư mục
-  
-  xdg.configFile."wlogout/icons/lock.png".source = ./icons/lock.png;
-  xdg.configFile."wlogout/icons/logout.png".source = ./icons/logout.png;
-  xdg.configFile."wlogout/icons/sleep.png".source = ./icons/sleep.png;
-  xdg.configFile."wlogout/icons/power.png".source = ./icons/power.png;
-  xdg.configFile."wlogout/icons/restart.png".source = ./icons/restart.png;
-  xdg.configFile."wlogout/icons/hibernate.png".source = ./icons/hibernate.png;
   # CSS styling với sử dụng system icons
   xdg.configFile."wlogout/style.css".text = ''
     * {
+    
+        all: unset;
         background-image: none;
-        font-size: 20px;
-        font-family: "JetBrains Mono NFM";
+        font-size: 16px;
+        transition: 400ms cubic-bezier(0.05, 0.7, 0.1, 1);
     }
-    
-    @import "/home/nagih/Workspaces/Config/nixos/colors/waybar.css";
-    
+
     window {
-        background-color: rgba(17, 17, 17, 0.45);
+        background: rgba(0, 0, 0, 0.5);
     }
-    
+
     button {
-        border-radius: 20px;
-        margin: 10px;
-        color: @inverse_surface;
-        border-color: @inverse_surface;
-        background-color: rgba(0, 0, 0, 0.5);
-        outline-style: none;
-        border-style: solid;
-        border-width: 0px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 20%;
-        box-shadow: none;
-        text-shadow: none;
-        animation: gradient_f 20s ease-in infinite;
-        opacity: 1;
+        font-family: 'Material Symbols Outlined';
+        font-size: 10rem;
+        background-color: rgba(11, 11, 11, 0.4);
+        color: #FFFFFF;
+        margin: 2rem;
+        border-radius: 2rem;
+        padding: 3rem;
     }
-    
-    button:hover,
-    button:focus {
-        background-color: @on_secondary_fixed_variant;
-        background-size: 30%;
-        animation: gradient_f 20s ease-in infinite;
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682);
+
+    button:focus,
+    button:active,
+    button:hover {
+        background-color: rgba(51, 51, 51, 0.5);
+        border-radius: 4rem;
     }
-    
-    button span {
-        font-size: 1.2em;
-    }
-    
-    #lock { background-image: image(url("./icons/lock.png")); }
-    #logout { background-image: image(url("./icons/logout.png")); }
-    #suspend { background-image: image(url("./icons/sleep.png")); }
-    #shutdown { background-image: image(url("./icons/power.png")); }
-    #reboot { background-image: image(url("./icons/restart.png")); }
-    #hibernate { background-image: image(url("./icons/hibernate.png")); }
   '';
 
   # Shell aliases
