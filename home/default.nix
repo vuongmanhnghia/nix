@@ -13,7 +13,7 @@
     ./shared/zsh.nix             # Zsh shell with aliases and modern CLI tools
     ./shared/neovim.nix          # Neovim editor configuration with LSP
     ./shared/gtk-theme.nix       # GTK theme configuration (Phase 2)
-    ./shared/kitty.nix           # Kitty terminal configuration
+    ./shared/kitty               # Kitty terminal configuration
     ./shared/fastfetch.nix       # Fastfetch configuration
     ./shared/ripgrep.nix         # Ripgrep configuration
     ./shared/wlogout/default.nix # Wlogout configuration
