@@ -18,6 +18,7 @@
     ./shared/ripgrep.nix         # Ripgrep configuration
     ./shared/wlogout/default.nix # Wlogout configuration
     ./shared/cursor.nix          # Cursor theme configuration
+    ./shared/foot.nix            # Foot terminal configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===

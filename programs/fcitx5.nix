@@ -193,6 +193,4 @@
     X-GNOME-Autostart-Notify=false
     X-KDE-autostart-after=panel
   '';
-  
-  
 }
