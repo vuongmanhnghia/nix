@@ -35,5 +35,7 @@
     doxygen         # Documentation generator for multiple programming languages
 
     cloudflared     # Cloudflare Tunnel
+    amazon-q-cli    # Amazon Q CLI
+    qbittorrent     # Torrent client
   ];
 }

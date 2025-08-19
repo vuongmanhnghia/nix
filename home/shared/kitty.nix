@@ -15,10 +15,14 @@
       italic_font = "auto";
       bold_italic_font = "auto";
 
-      # Window settings
-      background_opacity = "0.8";
+      # Window settings - Transparent background
+      background_opacity = "0.7";
+      background_blur = 15;
+      background_image = "none";
+      background_tint = "0.8";
       confirm_os_window_close = 0;
       window_padding_width = 4;
+      window_margin_width = 4;
 
       # Cursor settings
       cursor_trail = 1;
@@ -32,6 +36,10 @@
 
       # Audio
       enable_audio_bell = false;
+
+      # Additional transparency settings
+      dynamic_background_opacity = true;
+      background_image_layout = "scaled";
 
       extraConfig = ''
         # Import color scheme
