@@ -20,6 +20,8 @@
     ./shared/cursor.nix          # Cursor theme configuration
     ./shared/foot.nix            # Foot terminal configuration
     ./shared/fuzzel.nix          # Fuzzel configuration
+    ./shared/qt5ct.nix          # Qt5ct configuration
+    ./shared/qt6ct.nix          # Qt6ct configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===
@@ -60,6 +62,12 @@
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
     NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.npm-cache";
     NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
+  };
+
+  # === SYMLINKS ===
+  home.file.".config/quickshell" = {
+    source = ./shared/quickshell;
+    executable = true;
   };
 
   # === TMUX CONFIGURATION ===
