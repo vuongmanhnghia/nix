@@ -14,7 +14,11 @@
   wayland.windowManager.hyprland = {
     settings = {
       env = [
-        # === QT PLATFORM THEME ===
+        "XCURSOR_SIZE,32"
+        "HYPRCURSOR_SIZE,32"
+        "GDK_SCALE,1"
+        "ELM_SCALE,1"
+        "QT_SCALE_FACTOR,1"
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_QPA_PLATFORMTHEME,qt6ct"
 
