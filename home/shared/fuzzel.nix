@@ -2,11 +2,6 @@
 { config, pkgs, ... }:
 
 {
-  # Cài đặt ripgrep
-  home.packages = with pkgs; [
-    fuzzel
-  ];
-
   # Tạo file cấu hình foot
   xdg.configFile."fuzzel/fuzzel.ini".text = ''
     include=".config/fuzzel/fuzzel_theme.ini"

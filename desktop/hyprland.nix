@@ -74,6 +74,28 @@
 
     hyprlock
     pamixer
+
+    hyprpicker
+    hyprcursor
+    swappy
+    wf-recorder
+    quickshell
+    fuzzel
+
+    foot
+    fish
+    starship
+    eza
+
+
+    kde-material-you-colors
+    kvantum
+    qt5ct
+    qt6ct
+
+    mpv
+    pavucontrol-qt
+    tesseract
   ];
 
   # Display manager
