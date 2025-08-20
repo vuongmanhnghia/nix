@@ -7,5 +7,6 @@
     libreoffice
     evince
     file-roller
+    mpv
   ];
 }

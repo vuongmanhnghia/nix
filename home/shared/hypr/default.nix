@@ -20,4 +20,10 @@
     enable = true;
     package = pkgs.hyprland;
   };
+
+  # === SYMLINKS SCRIPTS ===
+  home.file.".config/hypr/hyprland/scripts" = {
+    source = ./scripts/hyprland;
+    executable = true;
+  };
 }
