@@ -12,7 +12,6 @@
     # Core applications (defined in dotfiles/hypr/conf/programs.conf)
     kitty
     rofi-wayland
-    waybar
     nemo
     firefox
     
@@ -94,6 +93,8 @@
     mpv
     lxqt.pavucontrol-qt
     tesseract
+
+    fuzzel
   ];
 
   # Display manager

@@ -62,6 +62,9 @@
     python3                 # Python runtime
     python3Packages.pywayland  # Python Wayland bindings
     python3Packages.setproctitle  # Process title setting
+    python3Packages.pillow  # PIL for image processing
+    python3Packages.numpy   # NumPy for image processing
+    python3Packages.requests  # HTTP requests
     
     # === MEDIA CONTROL ===
     playerctl               # Media player control
@@ -70,6 +73,13 @@
     ollama                  # Local AI models
     curl                    # HTTP client for API calls
     jq                      # JSON processor
+    
+    # === WALLPAPER & THEMING ===
+    matugen                 # Material Design color generation
+    bc                      # Calculator for math operations
+    xdg-user-dirs          # XDG user directories
+    imagemagick            # Image manipulation and identification
+    cava                   # Audio visualizer
     
     # === UTILITIES ===
     procps                  # Process utilities (pidof, etc.)
@@ -85,9 +95,6 @@
     material-symbols       # Material Design icons
     noto-fonts            # Google Noto fonts
     noto-fonts-emoji      # Emoji support
-    
-    # === IMAGE PROCESSING ===
-    imagemagick           # Image manipulation
   ];
 
   # === ENVIRONMENT VARIABLES ===
@@ -103,7 +110,41 @@
     QS_NO_RELOAD_POPUP = "1";
     
     # Python path for scripts
-    PYTHONPATH = "${pkgs.python3Packages.pywayland}/lib/python3.11/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.11/site-packages";
+    PYTHONPATH = "${pkgs.python3Packages.pywayland}/lib/python3.11/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.11/site-packages:${pkgs.python3Packages.pillow}/lib/python3.11/site-packages:${pkgs.python3Packages.numpy}/lib/python3.11/site-packages:${pkgs.python3Packages.requests}/lib/python3.11/site-packages";
+    
+    # Virtual environment path
+    ILLOGICAL_IMPULSE_VIRTUAL_ENV = "${config.home.homeDirectory}/.local/state/quickshell/.venv";
+  };
+
+  # === HOME ACTIVATION SCRIPT ===
+  home.activation = {
+    setupQuickShellEnvironment = config.lib.dag.entryAfter ["writeBoundary"] ''
+      # Create necessary directories
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/state/quickshell
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/hypr/custom/scripts
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/Pictures/Wallpapers
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/matugen/templates/kde
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/state/quickshell/user/generated
+      
+      # Create Python virtual environment if it doesn't exist
+      if [ ! -d "${config.home.homeDirectory}/.local/state/quickshell/.venv" ]; then
+        $DRY_RUN_CMD ${pkgs.python3}/bin/python -m venv ${config.home.homeDirectory}/.local/state/quickshell/.venv
+        $DRY_RUN_CMD ${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/pip install Pillow numpy requests materialyoucolor
+      fi
+            
+      # Create empty restore script for video wallpapers
+      $DRY_RUN_CMD touch ${config.home.homeDirectory}/.config/hypr/custom/scripts/__restore_video_wallpaper.sh
+      $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.config/hypr/custom/scripts/__restore_video_wallpaper.sh
+      
+      # Create basic KDE wrapper script
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/matugen/templates/kde
+      cat > ${config.home.homeDirectory}/.config/matugen/templates/kde/kde-material-you-colors-wrapper.sh << 'EOF'
+#!/bin/bash
+# Basic KDE Material You colors wrapper
+echo "KDE theming not fully implemented yet"
+EOF
+      $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.config/matugen/templates/kde/kde-material-you-colors-wrapper.sh
+    '';
   };
 
   # === SYSTEMD USER SERVICES ===

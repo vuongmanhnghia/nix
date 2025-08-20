@@ -13,12 +13,12 @@
 {
   wayland.windowManager.hyprland = {
     settings = {
+      "$qsConfig" = "ii";
       "$terminal" = "kitty";
       "$fileManager" = "nemo";
       "$browser" = "firefox";
       "$menu" = "rofi -show drun";
       "$codeEditor" = "cursor --disable-gpu";
-      "$discord" = "discord";
     };
   };
 }

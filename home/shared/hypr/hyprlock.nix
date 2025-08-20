@@ -4,7 +4,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      source = "~/Workspaces/Config/nixos/generated/hyprlock.conf";
+      source = "/home/nagih/.config/hypr/hyprlock/colors.conf";
 
       general = {
         grace = 1;

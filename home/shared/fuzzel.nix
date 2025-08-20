@@ -17,7 +17,6 @@
     [dmenu]
     exit-immediately-if-empty=yes
   '';
-
   # Tạo file cấu hình theme
   # xdg.configFile."fuzzel/fuzzel_theme.ini".text = ''
   #   [colors]

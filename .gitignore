@@ -2,8 +2,7 @@ nohup
 result
 
 current_wallpaper
-colors
-generated
+generated/
 
 .cache
 hardware-configuration.nix

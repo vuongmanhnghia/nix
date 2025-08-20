@@ -6,8 +6,6 @@
   imports = [
     ./shared/hypr/default.nix    # Hyprland configuration
     ./shared/matugen/default.nix # Matugen configuration
-    ./shared/waybar/default.nix  # Waybar configuration
-    ./shared/swaync/default.nix  # Swaync configuration
     ./shared/rofi/default.nix    # Rofi configuration
     ./shared/git.nix             # Git version control configuration
     ./shared/zsh.nix             # Zsh shell with aliases and modern CLI tools
@@ -64,7 +62,8 @@
     NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
   };
 
-  # === SYMLINKS ===
+  # === QUICKSHELL CONFIGURATION ===
+  # Symlink QuickShell configuration from NixOS config
   home.file.".config/quickshell" = {
     source = ./shared/quickshell;
     executable = true;

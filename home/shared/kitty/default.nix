@@ -21,7 +21,7 @@
 
       # Window settings - Transparent background
       background_opacity = "0.7";
-      background_blur = 15;
+      background_blur = 30;
       background_image = "none";
       background_tint = "0.8";
       confirm_os_window_close = 0;

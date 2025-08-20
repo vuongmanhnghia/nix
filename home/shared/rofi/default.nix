@@ -10,7 +10,7 @@
 
   xdg.configFile."rofi/config.rasi".text = ''
     @theme "/dev/null"
-    @import "/home/nagih/Workspaces/Config/nixos/generated/rofi.rasi"
+    @import "/home/nagih/.config/rofi/rofi.rasi"
 
     configuration {
     	modi: "window,run,drun";

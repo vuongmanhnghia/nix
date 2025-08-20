@@ -51,7 +51,7 @@
             };
             
             # Backup existing files instead of failing on conflicts
-            home-manager.backupFileExtension = "backup";
+            # home-manager.backupFileExtension = "backup";
           }
         ];
       };
