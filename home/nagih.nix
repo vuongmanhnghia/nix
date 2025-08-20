@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, quickshell, ... }:
 
 {
   # === IMPORT SHARED CONFIGURATION ===
   imports = [ 
-    ./default.nix         # Import shared home configuration for all users
+    ./default.nix                    # Import shared home configuration for all users
+    ./quickshell-dependencies.nix   # Import QuickShell dependencies
   ];
 
   # === USER INFORMATION ===
@@ -167,5 +168,9 @@
     TERMINAL = "kitty";                                      # Default terminal
     BROWSER = "firefox";                                       # Default browser  
     EDITOR = "nvim";                                          # Default editor
+    
+    # === QUICKSHELL SPECIFIC ===
+    QT_QPA_PLATFORM = "wayland";                            # Force Wayland for Qt
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";              # Disable window decorations
   };
 }

@@ -55,7 +55,7 @@
     
     # Qt theming
     libsForQt5.qt5ct
-    qt6ct
+    kdePackages.qt6ct
     
     # Additional tools
     gnome-characters
@@ -79,8 +79,6 @@
     hyprcursor
     swappy
     wf-recorder
-    quickshell
-    fuzzel
 
     foot
     fish
@@ -88,13 +86,13 @@
     eza
 
 
-    kde-material-you-colors
-    kvantum
-    qt5ct
-    qt6ct
+    python312Packages.kde-material-you-colors
+    # kvantum
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
 
     mpv
-    pavucontrol-qt
+    lxqt.pavucontrol-qt
     tesseract
   ];
 

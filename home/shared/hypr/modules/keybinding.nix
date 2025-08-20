@@ -19,8 +19,8 @@
 
       bind = [
         # Toggle overview/launcher
-        "Super, Super_L, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || fuzzel # [hidden] Launcher (fallback)"
-        "Super, Super_R, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || fuzzel # [hidden] Launcher (fallback)"
+        "Super, Super_L, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || fuzzel" # [hidden] Launcher (fallback)
+        "Super, Super_R, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || fuzzel" # [hidden] Launcher (fallback)
         "Ctrl, Super_L, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
         "Ctrl, Super_R, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
         "Super, mouse:272, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
@@ -60,16 +60,16 @@
         "Super, P, pin # Pin"
 
         #/# bind = Super+Alt, Hash,, # Send to workspace # (1, 2, 3,...)
-        "Super+Alt, 1, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 1" # [hidden]
-        "Super+Alt, 2, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 2" # [hidden]
-        "Super+Alt, 3, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 3" # [hidden]
-        "Super+Alt, 4, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 4" # [hidden]
-        "Super+Alt, 5, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 5" # [hidden]
-        "Super+Alt, 6, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 6" # [hidden]
-        "Super+Alt, 7, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 7" # [hidden]
-        "Super+Alt, 8, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 8" # [hidden]
-        "Super+Alt, 9, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 9" # [hidden]
-        "Super+Alt, 0, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 10" # [hidden]
+        "Super+Shift, 1, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 1" # [hidden]
+        "Super+Shift, 2, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 2" # [hidden]
+        "Super+Shift, 3, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 3" # [hidden]
+        "Super+Shift, 4, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 4" # [hidden]
+        "Super+Shift, 5, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 5" # [hidden]
+        "Super+Shift, 6, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 6" # [hidden]
+        "Super+Shift, 7, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 7" # [hidden]
+        "Super+Shift, 8, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 8" # [hidden]
+        "Super+Shift, 9, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 9" # [hidden]
+        "Super+Shift, 0, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspacesilent 10" # [hidden]
 
         #/#/# bind = Super+Shift, Scroll ↑/↓,, # Send to workspace left/right
         "Super+Shift, mouse_down, movetoworkspace, r-1" # [hidden]
@@ -136,7 +136,7 @@
         # "Super+Alt, Equal, exec, notify-send "Urgent notification" "Ah hell no" -u critical -a 'Hyprland keybind' # [hidden]
 
         ##! Session
-        "Super, L, Lock, exec, loginctl lock-session" # Lock
+        "Super, L, exec, loginctl lock-session" # Lock
         "Super+Shift, L, exec, loginctl lock-session" # [hidden]
         "Super+Shift+Alt, mouse:275, exec, playerctl previous" # [hidden]
         "Super+Shift+Alt, mouse:276, exec, playerctl next || playerctl position \$(bc <<< \"100 * \$(playerctl metadata mpris:length) / 1000000 / 100\")" # [hidden]

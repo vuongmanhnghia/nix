@@ -10,12 +10,21 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs as system
     };
+
+    quickshell = {
+      # add ?ref=<tag> to track a tag
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+
+      # THIS IS IMPORTANT
+      # Mismatched system dependencies will lead to crashes and other issues.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     # Hyprland - latest stable
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }: {
+  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, ... }: {
     nixosConfigurations = {
       # Main system configuration
       nixos = nixpkgs.lib.nixosSystem {
@@ -34,6 +43,11 @@
             # User-specific configurations
             home-manager.users = {
               nagih = import ./home/nagih.nix; # Main user configuration
+            };
+            
+            # Pass quickshell to home manager
+            home-manager.extraSpecialArgs = { 
+              inherit quickshell; 
             };
             
             # Backup existing files instead of failing on conflicts
