@@ -253,7 +253,7 @@ Inline w/ backslash and round brackets \\(e^{i\\pi} + 1 = 0\\)
             StatusItem {
                 icon: Ai.currentModelHasApiKey ? "key" : "key_off"
                 statusText: ""
-                description: Ai.currentModelHasApiKey ? Translation.tr("API key is set\nChange with /key YOUR_API_KEY") : Translation.tr("No API key\nSet it with /key YOUR_API_KEY")
+                description: Ai.currentModelHasApiKey ? Translation.tr("API key is set\nChange with /key AIzaSyBE7Bw6HSX8iLQuKMqI1NkMW6jnxLYhpJk") : Translation.tr("No API key\nSet it with /key AIzaSyBE7Bw6HSX8iLQuKMqI1NkMW6jnxLYhpJk")
             }
             StatusSeparator {}
             StatusItem {
