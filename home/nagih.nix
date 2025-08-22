@@ -4,7 +4,6 @@
   # === IMPORT SHARED CONFIGURATION ===
   imports = [ 
     ./default.nix                    # Import shared home configuration for all users
-    ./quickshell-dependencies.nix   # Import QuickShell dependencies
   ];
 
   # === USER INFORMATION ===
