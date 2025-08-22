@@ -8,6 +8,7 @@
     ./shared/matugen/default.nix # Matugen configuration
     ./shared/git.nix             # Git version control configuration
     ./shared/zsh.nix             # Zsh shell with aliases and modern CLI tools
+    # ./shared/fish.nix            # Fish shell (alternative to zsh) - uncomment to use
     ./shared/neovim.nix          # Neovim editor configuration with LSP
     ./shared/gtk-theme.nix       # GTK theme configuration (Phase 2)
     ./shared/kitty               # Kitty terminal configuration
@@ -19,6 +20,13 @@
     ./shared/fuzzel.nix          # Fuzzel configuration
     ./shared/qt5ct.nix          # Qt5ct configuration
     ./shared/qt6ct.nix          # Qt6ct configuration
+    ./shared/starship.nix        # Starship prompt configuration
+    ./shared/fontconfig.nix      # Font configuration
+    ./shared/xdg-portal.nix      # XDG desktop portal configuration
+    ./shared/browser-flags.nix   # Browser optimization flags
+    ./shared/mpv.nix             # MPV video player configuration
+    ./shared/kde-theme.nix       # KDE theming configuration
+    ./shared/kvantum.nix         # Kvantum Qt theming
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===

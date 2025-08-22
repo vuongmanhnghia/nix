@@ -69,39 +69,39 @@
   '';
 
   # === PROFILE CONFIGURATION - SỬA LỖI ===
-  environment.etc."xdg/fcitx5/profile".text = ''
-    [Groups/0]
-    Name=Default
-    Default Layout=us
-    DefaultIM=us
+  # environment.etc."xdg/fcitx5/profile".text = ''
+  #   [Groups/0]
+  #   Name=Default
+  #   Default Layout=us
+  #   DefaultIM=us
 
-    [Groups/0/Items/0]
-    Name=keyboard-us
-    Layout=us
+  #   [Groups/0/Items/0]
+  #   Name=keyboard-us
+  #   Layout=us
 
-    [Groups/0/Items/1]
-    Name=unikey
-    Layout=us
+  #   [Groups/0/Items/1]
+  #   Name=unikey
+  #   Layout=us
 
-    [GroupOrder]
-    0=Default
-  '';
+  #   [GroupOrder]
+  #   0=Default
+  # '';
 
   # === THÊM: CẤU HÌNH UNIKEY ===
-  environment.etc."xdg/fcitx5/conf/unikey.conf".text = ''
-    # Input Method
-    InputMethod=Telex
-    # Output Charset
-    OutputCharset=Unicode
-    # Process W at word beginning
-    ProcessWAtWordBeginning=True
-    # Spellcheck
-    SpellCheck=True
-    # Macro enabled
-    MacroEnabled=True
-    # Mouse Capture
-    MouseCapture=True
-  '';
+  # environment.etc."xdg/fcitx5/conf/unikey.conf".text = ''
+  #   # Input Method
+  #   InputMethod=Telex
+  #   # Output Charset
+  #   OutputCharset=Unicode
+  #   # Process W at word beginning
+  #   ProcessWAtWordBeginning=True
+  #   # Spellcheck
+  #   SpellCheck=False
+  #   # Macro enabled
+  #   MacroEnabled=True
+  #   # Mouse Capture
+  #   MouseCapture=True
+  # '';
 
   # === UI CONFIGURATION ===
   environment.etc."xdg/fcitx5/conf/classicui.conf".text = ''
@@ -154,7 +154,6 @@
       SDL_IM_MODULE = "fcitx";
       GLFW_IM_MODULE = "fcitx";  # SỬA: Thống nhất
       FCITX_ENABLE_WAYLAND = "1";
-      # THÊM: Đảm bảo fcitx5 tìm được config
       XDG_CONFIG_HOME = "%h/.config";
     };
     
