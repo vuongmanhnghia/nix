@@ -7,34 +7,72 @@ import Quickshell
 import Quickshell.Io
 
 /**
- * Automatically reloads generated material colors.
- * It is necessary to run reapplyTheme() on startup because Singletons are lazily loaded.
+ * Optimized Material Theme Loader with performance improvements.
  */
 Singleton {
     id: root
     property string filePath: Directories.generatedMaterialThemePath
+    property string lastFileContent: ""
+    property bool isReloading: false
 
     function reapplyTheme() {
+        if (root.isReloading) return // Prevent concurrent reloads
+        
+        root.isReloading = true
         themeFileView.reload()
+        
+        // Use debounced timer to avoid rapid successive calls
+        reloadTimer.restart()
     }
 
     function applyColors(fileContent) {
-        const json = JSON.parse(fileContent)
-        for (const key in json) {
-            if (json.hasOwnProperty(key)) {
-                // Convert snake_case to CamelCase
-                const camelCaseKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
-                const m3Key = `m3${camelCaseKey}`
-                Appearance.m3colors[m3Key] = json[key]
-            }
+        if (!fileContent || fileContent.trim() === "") {
+            root.isReloading = false
+            return
         }
         
-        Appearance.m3colors.darkmode = (Appearance.m3colors.m3background.hslLightness < 0.5)
+        // Skip if content hasn't changed (caching)
+        if (fileContent === root.lastFileContent) {
+            root.isReloading = false
+            return
+        }
+        
+        try {
+            const json = JSON.parse(fileContent)
+            
+            // Batch update colors for better performance
+            let colorUpdates = {}
+            
+            for (const key in json) {
+                if (json.hasOwnProperty(key)) {
+                    const camelCaseKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
+                    const m3Key = `m3${camelCaseKey}`
+                    colorUpdates[m3Key] = json[key]
+                }
+            }
+            
+            // Apply all colors at once
+            for (const key in colorUpdates) {
+                Appearance.m3colors[key] = colorUpdates[key]
+            }
+            
+            // Calculate dark mode
+            Appearance.m3colors.darkmode = (Appearance.m3colors.m3background.hslLightness < 0.5)
+            
+            // Cache successful content
+            root.lastFileContent = fileContent
+            
+        } catch (e) {
+            console.error("[MaterialThemeLoader] Error parsing theme file:", e)
+        }
+        
+        root.isReloading = false
     }
 
+    // Debounced timer to prevent rapid successive reloads
     Timer {
-        id: delayedFileRead
-        interval: Config.options?.hacks?.arbitraryRaceConditionDelay ?? 100
+        id: reloadTimer
+        interval: 150 // Slightly longer for stability
         repeat: false
         running: false
         onTriggered: {
@@ -42,17 +80,33 @@ Singleton {
         }
     }
 
-	FileView { 
+    // Optimized IPC Handler
+    IpcHandler {
+        target: "reloadTheme"
+        
+        function reloadTheme() {
+            if (!root.isReloading) {
+                root.reapplyTheme()
+            }
+        }
+    }
+
+    FileView { 
         id: themeFileView
         path: Qt.resolvedUrl(root.filePath)
         watchChanges: true
+        
         onFileChanged: {
-            this.reload()
-            delayedFileRead.start()
+            // Debounce file changes to avoid rapid firing
+            if (!root.isReloading) {
+                this.reload()
+                reloadTimer.restart()
+            }
         }
-        onLoadedChanged: {
-            const fileContent = themeFileView.text()
-            root.applyColors(fileContent)
+        
+        Component.onCompleted: {
+            // Apply initial colors with small delay to ensure UI is ready
+            Qt.callLater(() => root.applyColors(this.text()))
         }
     }
 }

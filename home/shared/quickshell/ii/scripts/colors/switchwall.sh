@@ -1,5 +1,44 @@
 #!/usr/bin/env bash
 
+# Process locking to prevent concurrent executions
+LOCK_FILE="/tmp/switchwall.lock"
+LOCK_TIMEOUT=30
+
+acquire_lock() {
+    local timeout=$1
+    local count=0
+    
+    while [ $count -lt $timeout ]; do
+        if (set -C; echo $$ > "$LOCK_FILE") 2>/dev/null; then
+            trap 'rm -f "$LOCK_FILE"; exit $?' INT TERM EXIT
+            return 0
+        fi
+        
+        # Check if existing lock is stale (process doesn't exist)
+        if [ -f "$LOCK_FILE" ]; then
+            local lock_pid=$(cat "$LOCK_FILE" 2>/dev/null)
+            if ! kill -0 "$lock_pid" 2>/dev/null; then
+                echo "Removing stale lock file"
+                rm -f "$LOCK_FILE"
+                continue
+            fi
+        fi
+        
+        echo "Waiting for another switchwall process to complete... ($count/$timeout)"
+        sleep 1
+        ((count++))
+    done
+    
+    echo "Failed to acquire lock after $timeout seconds"
+    return 1
+}
+
+# Acquire lock or exit
+if ! acquire_lock $LOCK_TIMEOUT; then
+    echo "Another switchwall process is running. Exiting."
+    exit 1
+fi
+
 QUICKSHELL_CONFIG_NAME="ii"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
@@ -11,6 +50,137 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SHELL_CONFIG_FILE="$XDG_CONFIG_HOME/illogical-impulse/config.json"
 MATUGEN_DIR="$XDG_CONFIG_HOME/matugen"
 terminalscheme="$SCRIPT_DIR/terminal/scheme-base.json"
+
+# Optimized function to reload kitty with caching
+reload_kitty() {
+    if ! pidof kitty >/dev/null 2>&1; then
+        echo "ℹ️  Kitty is not running"
+        return 0
+    fi
+    
+    echo "🔄 Reloading kitty..."
+    
+    # Cache kitty config path
+    local kitty_config="/home/nagih/Workspaces/Config/nixos/generated/kitty.conf"
+    if [ ! -f "$kitty_config" ]; then
+        echo "⚠️  Kitty config not found: $kitty_config"
+        return 1
+    fi
+    
+    # Optimized socket detection with caching
+    local socket_path=""
+    local socket_cache="/tmp/kitty-socket-cache"
+    
+    # Try cached socket first
+    if [ -f "$socket_cache" ]; then
+        local cached_socket=$(cat "$socket_cache")
+        if [ -S "$cached_socket" ]; then
+            socket_path="$cached_socket"
+        else
+            rm -f "$socket_cache"
+        fi
+    fi
+    
+    # Find socket if not cached
+    if [ -z "$socket_path" ]; then
+        for socket in /tmp/kitty-socket*; do
+            if [ -S "$socket" ]; then
+                socket_path="$socket"
+                echo "$socket_path" > "$socket_cache"
+                break
+            fi
+        done
+    fi
+    
+    # Try remote control methods in order of preference
+    if [ -n "$socket_path" ]; then
+        if timeout 2 kitten @ --to "unix:$socket_path" set-colors "$kitty_config" 2>/dev/null; then
+            echo "✅ Kitty colors applied via remote control (socket: $(basename "$socket_path"))"
+            return 0
+        elif timeout 2 kitten @ --to "unix:$socket_path" load-config 2>/dev/null; then
+            echo "✅ Kitty config reloaded via remote control (socket: $(basename "$socket_path"))"
+            return 0
+        else
+            # Socket might be stale, remove cache
+            rm -f "$socket_cache"
+        fi
+    fi
+    
+    # Try auto-detection method
+    if timeout 2 kitten @ set-colors "$kitty_config" 2>/dev/null; then
+        echo "✅ Kitty colors applied via remote control (auto)"
+        return 0
+    elif timeout 2 kitten @ load-config 2>/dev/null; then
+        echo "✅ Kitty config reloaded via remote control (auto)"
+        return 0
+    fi
+    
+    # Fallback to SIGUSR1 signal
+    if kill -SIGUSR1 $(pidof kitty) 2>/dev/null; then
+        echo "✅ Kitty reloaded via signal"
+        return 0
+    fi
+    
+    echo "⚠️  Could not reload kitty"
+    return 1
+}
+
+# Function to convert SCSS colors to JSON format for quickshell
+convert_scss_to_json() {
+    local scss_file="$STATE_DIR/user/generated/material_colors.scss"
+    local json_file="$STATE_DIR/user/generated/colors.json"
+    
+    if [ ! -f "$scss_file" ]; then
+        echo "Warning: SCSS file not found at $scss_file, skipping JSON conversion"
+        return 0
+    fi
+    
+    echo "Converting SCSS to JSON..."
+    
+    # Simple conversion using awk
+    awk '
+    BEGIN { print "{" }
+    /^\$[^:]*:[^;]*;/ {
+        gsub(/^\$/, "", $0)
+        gsub(/;$/, "", $0)
+        split($0, parts, ":")
+        key = parts[1]
+        value = parts[2]
+        gsub(/^[ \t]+|[ \t]+$/, "", key)
+        gsub(/^[ \t]+|[ \t]+$/, "", value)
+        if (NR > 1) print ","
+        printf "  \"%s\": \"%s\"", key, value
+    }
+    END { print "\n}" }
+    ' "$scss_file" > "$json_file"
+    
+    echo "Converted SCSS to JSON: $json_file"
+}
+
+# Optimized function to notify quickshell to reload theme
+notify_quickshell_reload() {
+    # Check if quickshell is running first (faster than trying IPC)
+    if ! pgrep -f "quickshell.*ii" >/dev/null 2>&1; then
+        echo "⚠️  Quickshell is not running, skipping IPC notification"
+        return 0
+    fi
+    
+    # Try to send IPC command with timeout
+    if command -v quickshell >/dev/null 2>&1; then
+        echo "🔔 Notifying quickshell to reload theme..."
+        if timeout 3 quickshell -i ~/.config/quickshell/ii --socket=/tmp/quickshell/ii-socket --ipc reloadTheme 2>/dev/null; then
+            echo "✅ Quickshell notified successfully"
+        else
+            echo "⚠️  Could not send IPC command to quickshell (timeout or connection failed)"
+            # Fallback: Touch the colors file to trigger FileView
+            touch ~/.local/state/quickshell/user/generated/colors.json 2>/dev/null && \
+                echo "📁 Triggered file-based reload as fallback"
+        fi
+    else
+        echo "⚠️  Quickshell command not found"
+        return 1
+    fi
+}
 
 handle_kde_material_you_colors() {
     # Check if Qt app theming is enabled in config
@@ -283,14 +453,41 @@ switch() {
     matugen "${matugen_args[@]}"
     source "$(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate"
     python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
-        > "$STATE_DIR"/user/generated/material_colors.scss
+        > "$STATE_DIR/user/generated/material_colors.scss" 2>/dev/null
+    
+    # Convert SCSS to JSON for quickshell
+    convert_scss_to_json
+    
     "$SCRIPT_DIR"/applycolor.sh
     deactivate
+
+    # Notify quickshell to reload theme
+    notify_quickshell_reload
+    
+    # Notify other applications
+    echo "Notifying applications to reload themes..."
+    
+    # Reload hyprland
+    hyprctl reload 2>/dev/null && echo "Hyprland reloaded" || echo "Could not reload Hyprland"
+    
+    # Reload kitty
+    reload_kitty
+    
+    # Reload wallpaper daemon
+    if pidof swww >/dev/null 2>&1; then
+        kill -SIGUSR1 $(pidof swww) 2>/dev/null && echo "Wallpaper daemon reloaded" || echo "Could not reload wallpaper daemon"
+    fi
+
+    # Handle KDE Material You colors
+    handle_kde_material_you_colors
 
     # Pass screen width, height, and wallpaper path to post_process
     max_width_desired="$(hyprctl monitors -j | jq '([.[].width] | min)' | xargs)"
     max_height_desired="$(hyprctl monitors -j | jq '([.[].height] | min)' | xargs)"
     post_process "$max_width_desired" "$max_height_desired" "$imgpath"
+    
+    # Final notification
+    notify-send "Theme Applied" "Colors and themes have been successfully updated from wallpaper" -i "preferences-color" 2>/dev/null || true
 }
 
 main() {

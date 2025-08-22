@@ -10,6 +10,10 @@
     };
     
     settings = {
+      # Remote control for theme reloading
+      allow_remote_control = true;
+      listen_on = "unix:/tmp/kitty-socket";
+      
       # Cursor settings
       cursor_shape = "beam";
       cursor_trail = 1;
