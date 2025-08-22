@@ -62,7 +62,7 @@
       [templates.kitty]
       input_path = '~/Workspaces/Config/nixos/home/shared/matugen/templates/kitty.conf'
       output_path = '~/Workspaces/Config/nixos/generated/kitty.conf'
-      post_hook = "for s in /tmp/kitty-socket*; do [ -S \"$s\" ] && kitten @ --to \"unix:$s\" load-config 2>/dev/null && break; done || kitten @ load-config 2>/dev/null || kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true"
+      post_hook = "kill -SIGUSR1 $(pidof kitty)"
 
       [templates.rofi]
       input_path = '~/Workspaces/Config/nixos/home/shared/matugen/templates/rofi.rasi'
@@ -172,18 +172,6 @@
     # Theme persistence management script
     ".config/scripts/theme-persistence.sh" = {
       source = ../quickshell/ii/scripts/colors/theme-persistence.sh;
-      executable = true;
-    };
-
-    # Debug script
-    ".config/scripts/debug-theme.sh" = {
-      source = ./debug-theme.sh;
-      executable = true;
-    };
-
-    # Kitty reload test script
-    ".config/scripts/test-kitty-reload.sh" = {
-      source = ./test-kitty-reload.sh;
       executable = true;
     };
   };
