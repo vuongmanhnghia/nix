@@ -7,5 +7,7 @@
     lshw      # List hardware information
     pciutils  # PCI bus utilities (lspci)
     usbutils  # USB utilities (lsusb)
+    woeusb-ng # USB device manager
+    ntfs3g    # NTFS driver
   ];
 }

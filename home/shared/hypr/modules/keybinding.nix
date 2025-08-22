@@ -169,7 +169,8 @@
         ##! Apps
         "$mainMod, SPACE, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $terminal kitty -1 foot alacritty wezterm konsole kgx uxterm xterm" # [hidden] (terminal) (alt)
         "$mainMod, D, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh discord" # [hidden] (discord) (alt)
-        "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor" # [hidden] (code editor) (alt)
+        # "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor" # [hidden] (code editor) (alt)
+        "$mainMod, C, exec, $codeEditor" # [hidden] (code editor) (alt)
         "$mainMod, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $fileManager dolphin nautilus nemo thunar" # [hidden] (file manager) (alt)
         "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser google-chrome-stable zen-browser firefox brave chromium microsoft-edge-stable opera librewolf" # [hidden] (browser) (alt)
         

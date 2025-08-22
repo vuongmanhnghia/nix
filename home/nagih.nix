@@ -73,11 +73,17 @@
       # Define other devices for synchronization (replace IDs with actual device IDs)
       devices = {
         "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };   # Laptop device
-        "desktop" = { id = "IZLHQHS-TLCQ6EV-XR73OJA-K5F6AUD-OOBNS4I-G4M5NGL-FYZWEHU-AQF3WA4"; }; # Desktop device
+        "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; }; # Desktop device
       };
       
       # === FOLDER SYNCHRONIZATION CONFIGURATION ===
       folders = {
+        "Pictures" = {
+          id = "pictures";                      # Unique folder identifier
+          path = "/home/nagih/Pictures";        # Local folder path
+          devices = [ "laptop" "desktop" ];     # Devices to sync with
+        };
+        
         # Synchronize Documents folder across devices
         "Documents" = {
           id = "documents";                     # Unique folder identifier
@@ -86,56 +92,11 @@
         };
         
         # Synchronize Workspaces folder for development projects
-        # "Workspaces" = {
-        #   id = "workspaces";                    # Unique folder identifier
-        #   path = "/home/nagih/Workspaces";      # Local folder path
-        #   devices = ["desktop" "laptop"];       # Devices to sync with
-
-        #   ignores = [
-        #     # Loại bỏ nix configuration
-        #     "**/Config/nixos/"
-
-        #     # Loại bỏ các folder node_modules (thường rất lớn)
-        #     "node_modules/"
-        #     "**/node_modules/"
-            
-        #     # Loại bỏ các folder build/dist outputs
-        #     "build/"
-        #     "dist/"
-        #     "**/build/"
-        #     "**/dist/"
-            
-        #     # Loại bỏ các folder cache và temporary
-        #     ".cache/"
-        #     "**/.cache/"
-        #     "tmp/"
-        #     "**/tmp/"
-            
-        #     # Loại bỏ các file log
-        #     "*.log"
-        #     "**/*.log"
-            
-        #     # Loại bỏ các folder cụ thể theo tên
-        #     "project-secret/"
-        #     "old-projects/"
-        #     "archived/"
-            
-        #     # Loại bỏ các file và folder ẩn của IDE
-        #     ".vscode/"
-        #     ".idea/"
-        #     "**/.vscode/"
-        #     "**/.idea/"
-            
-        #     # Loại bỏ các folder git (nếu không muốn sync .git)
-        #     ".git/"
-        #     "**/.git/"
-            
-        #     # Loại bỏ các file backup
-        #     "*.bak"
-        #     "*.backup"
-        #     "*~"
-        #   ];
-        # };
+        "Workspaces" = {
+          id = "workspaces";                    # Unique folder identifier
+          path = "/home/nagih/Workspaces";      # Local folder path
+          devices = ["desktop" "laptop"];       # Devices to sync with
+        };
       };
     };
   };
