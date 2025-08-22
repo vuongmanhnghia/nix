@@ -64,10 +64,6 @@
       output_path = '~/Workspaces/Config/nixos/generated/kitty.conf'
       post_hook = "kill -SIGUSR1 $(pidof kitty)"
 
-      [templates.rofi]
-      input_path = '~/Workspaces/Config/nixos/home/shared/matugen/templates/rofi.rasi'
-      output_path = '~/Workspaces/Config/nixos/generated/rofi.rasi'
-
       [templates.cava]
       input_path = '~/Workspaces/Config/nixos/home/shared/matugen/templates/cava.config'
       output_path = '~/Workspaces/Config/nixos/generated/cava.config'
@@ -101,6 +97,5 @@
     ".config/gtk-3.0/gtk.css".source = "/home/nagih/Workspaces/Config/nixos/generated/gtk-3.0.css";
     # ".config/gtk-4.0/gtk.css".source = "/home/nagih/Workspaces/Config/nixos/generated/gtk-4.0.css";
     ".config/cava/config".source = "/home/nagih/Workspaces/Config/nixos/generated/cava.config";
-    ".config/rofi/rofi.rasi".source = "/home/nagih/Workspaces/Config/nixos/generated/rofi.rasi";
   };
 }

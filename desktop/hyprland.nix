@@ -11,7 +11,6 @@
   environment.systemPackages = with pkgs; [
     # Core applications (defined in dotfiles/hypr/conf/programs.conf)
     kitty
-    rofi-wayland
     nemo
     firefox
     

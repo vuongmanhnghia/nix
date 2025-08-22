@@ -17,7 +17,6 @@
       "$terminal" = "kitty";
       "$fileManager" = "nemo";
       "$browser" = "firefox";
-      "$menu" = "rofi -show drun";
       "$codeEditor" = "cursor --disable-gpu";
     };
   };

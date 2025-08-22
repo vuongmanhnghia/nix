@@ -6,7 +6,6 @@
   imports = [
     ./shared/hypr/default.nix    # Hyprland configuration
     ./shared/matugen/default.nix # Matugen configuration
-    ./shared/rofi/default.nix    # Rofi configuration
     ./shared/git.nix             # Git version control configuration
     ./shared/zsh.nix             # Zsh shell with aliases and modern CLI tools
     ./shared/neovim.nix          # Neovim editor configuration with LSP

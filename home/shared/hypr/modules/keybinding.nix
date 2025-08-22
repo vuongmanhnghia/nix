@@ -13,14 +13,12 @@
   wayland.windowManager.hyprland = {
     settings = {
       "$mainMod" = "SUPER";
-      "$altMod" = "ALT";
 
       bind = [
-        "ALT, SPACE, exec, $menu"
-
         # === QUICK SHELL ===
         "$mainMod, R, exec, pkill quickshell; qs -c $qsConfig &" # [hidden] Restart Quickshell
-        "$mainMod, Super_L, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || fuzzel" # [hidden] Launcher (fallback)
+        "ALT, SPACE, exec, ~/Workspaces/Config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
+        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
 
         "Ctrl, Super_L, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
         "Ctrl, Super_R, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
