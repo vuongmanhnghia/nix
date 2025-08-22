@@ -169,6 +169,12 @@
       executable = true;
     };
 
+    # Theme persistence management script
+    ".config/scripts/theme-persistence.sh" = {
+      source = ../quickshell/ii/scripts/colors/theme-persistence.sh;
+      executable = true;
+    };
+
     # Debug script
     ".config/scripts/debug-theme.sh" = {
       source = ./debug-theme.sh;

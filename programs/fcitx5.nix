@@ -48,7 +48,6 @@
     2=Hangul
 
     [Behavior]
-    # SỬA: Đặt ActiveByDefault=True để fcitx5 luôn active
     ActiveByDefault=True
     # Quan trọng: Để per-application input method
     ShareInputState=False
@@ -74,8 +73,7 @@
     [Groups/0]
     Name=Default
     Default Layout=us
-    # SỬA: Đặt unikey làm default input method
-    DefaultIM=unikey
+    DefaultIM=us
 
     [Groups/0/Items/0]
     Name=keyboard-us
@@ -83,7 +81,6 @@
 
     [Groups/0/Items/1]
     Name=unikey
-    # SỬA: Thêm layout cho unikey
     Layout=us
 
     [GroupOrder]

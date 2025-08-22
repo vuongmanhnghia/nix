@@ -123,7 +123,7 @@ Singleton {
                 property string thumbnailPath: ""
                 property JsonObject parallax: JsonObject {
                     property bool enableWorkspace: true
-                    property real workspaceZoom: 1.07 // Relative to your screen, not wallpaper size
+                    property real workspaceZoom: 1 // Relative to your screen, not wallpaper size
                     property bool enableSidebar: true
                 }
                 property string mantra: ""
