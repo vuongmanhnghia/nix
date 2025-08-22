@@ -27,6 +27,7 @@
     ./shared/mpv.nix             # MPV video player configuration
     ./shared/kde-theme.nix       # KDE theming configuration
     ./shared/kvantum.nix         # Kvantum Qt theming
+    ./shared/kde-dialog.nix      # KDialog configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===
