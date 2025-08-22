@@ -19,10 +19,7 @@
   };
 
   # === SYSTEM PACKAGES ===
-  environment.systemPackages = with pkgs; [
-    fcitx5-configtool
-  ];
-
+  
   # === ENVIRONMENT VARIABLES ===
   environment.sessionVariables = {
     GTK_IM_MODULE = "fcitx";
@@ -36,109 +33,108 @@
   };
 
   # === FCITX5 CONFIG - SỬA LỖI ===
-  environment.etc."xdg/fcitx5/config".text = ''
-    [Hotkey]
-    TriggerKeys=
-    EnumerateWithTriggerKeys=True
-    EnumerateSkipFirst=False
+  # Chuyển sang dùng home-manager để cấu hình fcitx5
+  home-manager.users.nagih.xdg.configFile = {
+    "fcitx5/config".text = ''
+      [Hotkey]
+      TriggerKeys=
+      EnumerateWithTriggerKeys=True
+      EnumerateSkipFirst=False
 
-    [Hotkey/TriggerKeys]
-    0=Control+space
-    1=Zenkaku_Hankaku
-    2=Hangul
+      [Hotkey/TriggerKeys]
+      0=Control+space
+      1=Zenkaku_Hankaku
+      2=Hangul
 
-    [Behavior]
-    ActiveByDefault=True
-    # Quan trọng: Để per-application input method
-    ShareInputState=False
-    PreeditEnabledByDefault=True
-    ShowInputMethodInformation=True
-    showInputMethodInformationWhenFocusIn=True
-    CompactInputMethodInformation=True
-    ShowFirstInputMethodInformation=True
-    DefaultPageSize=5
-    OverrideXkbOption=False
-    CustomXkbOption=
-    EnabledAddons=
-    DisabledAddons=
-    PreloadInputMethod=True
-    AllowInputMethodForPassword=False
-    PreeditInApplication=True
-    # SỬA: Đặt default state là Active
-    DefaultInputMethodState=Active
-  '';
+      [Behavior]
+      ActiveByDefault=True
+      # Quan trọng: Để per-application input method
+      ShareInputState=False
+      PreeditEnabledByDefault=True
+      ShowInputMethodInformation=True
+      showInputMethodInformationWhenFocusIn=False
+      CompactInputMethodInformation=True
+      ShowFirstInputMethodInformation=True
+      DefaultPageSize=5
+      OverrideXkbOption=False
+      CustomXkbOption=
+      EnabledAddons=
+      DisabledAddons=
+      PreloadInputMethod=True
+      AllowInputMethodForPassword=False
+      PreeditInApplication=True
+      # SỬA: Đặt default state là Active
+      DefaultInputMethodState=Active
+    '';
 
-  # === PROFILE CONFIGURATION - SỬA LỖI ===
-  # environment.etc."xdg/fcitx5/profile".text = ''
-  #   [Groups/0]
-  #   Name=Default
-  #   Default Layout=us
-  #   DefaultIM=us
+    "fcitx5/profile".text = ''
+      [Groups/0]
+      Name=Default
+      Default Layout=us
+      DefaultIM=keyboard-us
 
-  #   [Groups/0/Items/0]
-  #   Name=keyboard-us
-  #   Layout=us
+      [Groups/0/Items/0]
+      Name=keyboard-us
+      Layout=us
 
-  #   [Groups/0/Items/1]
-  #   Name=unikey
-  #   Layout=us
+      [Groups/0/Items/1]
+      Name=unikey
+      Layout=us
 
-  #   [GroupOrder]
-  #   0=Default
-  # '';
+      [GroupOrder]
+      0=Default
+    '';
 
-  # === THÊM: CẤU HÌNH UNIKEY ===
-  # environment.etc."xdg/fcitx5/conf/unikey.conf".text = ''
-  #   # Input Method
-  #   InputMethod=Telex
-  #   # Output Charset
-  #   OutputCharset=Unicode
-  #   # Process W at word beginning
-  #   ProcessWAtWordBeginning=True
-  #   # Spellcheck
-  #   SpellCheck=False
-  #   # Macro enabled
-  #   MacroEnabled=True
-  #   # Mouse Capture
-  #   MouseCapture=True
-  # '';
+    "fcitx5/conf/unikey.conf".text = ''
+      # Input Method
+      InputMethod=Telex
+      # Output Charset
+      OutputCharset=Unicode
+      # Process W at word beginning
+      ProcessWAtWordBeginning=True
+      # Spellcheck
+      SpellCheck=False
+      # Macro enabled
+      MacroEnabled=True
+      # Mouse Capture
+      MouseCapture=True
+    '';
 
-  # === UI CONFIGURATION ===
-  environment.etc."xdg/fcitx5/conf/classicui.conf".text = ''
-    # Vertical Candidate List
-    Vertical Candidate List=False
-    # Use mouse wheel to go to prev or next page
-    WheelForPaging=True
-    # Font
-    Font="Rubik 11"
-    # Menu Font
-    MenuFont="Rubik 11"
-    # Tray Font
-    TrayFont="Rubik 11"
-    # Prefer Text Icon
-    PreferTextIcon=False
-    # Show Layout Name In Icon
-    ShowLayoutNameInIcon=True
-    # Use input method language to display text
-    UseInputMethodLanguageToDisplayText=True
-    # Theme
-    Theme=plasma
-    # Follow system light/dark color scheme
-    UseDarkTheme=False
-    # Use accent color if it is supported by theme and desktop
-    UseAccentColor=True
-    # Use Per Screen DPI on X11
-    PerScreenDPI=False
-    # Force font DPI on Wayland
-    ForceWaylandDPI=0
-    # Enable fractional scale under Wayland
-    EnableFractionalScale=True
-  '';
+    "fcitx5/conf/classicui.conf".text = ''
+      # Vertical Candidate List
+      Vertical Candidate List=False
+      # Use mouse wheel to go to prev or next page
+      WheelForPaging=True
+      # Font
+      Font="Rubik 11"
+      # Menu Font
+      MenuFont="Rubik 11"
+      # Tray Font
+      TrayFont="Rubik 11"
+      # Prefer Text Icon
+      PreferTextIcon=False
+      # Show Layout Name In Icon
+      ShowLayoutNameInIcon=True
+      # Use input method language to display text
+      UseInputMethodLanguageToDisplayText=True
+      # Theme
+      Theme=plasma
+      # Follow system light/dark color scheme
+      UseDarkTheme=True
+      # Use accent color if it is supported by theme and desktop
+      UseAccentColor=True
+      # Use Per Screen DPI on X11
+      PerScreenDPI=False
+      # Force font DPI on Wayland
+      ForceWaylandDPI=0
+      # Enable fractional scale under Wayland
+      EnableFractionalScale=True
+    '';
 
-  # === NOTIFICATIONS ===
-  environment.etc."xdg/fcitx5/conf/notifications.conf".text = ''
-    HiddenNotifications=
-  '';
+    "fcitx5/conf/notifications.conf".text = ''
+      HiddenNotifications=
+    '';
+  };
 
   # === SYSTEMD SERVICE - ĐƯỢC CẢI THIỆN ===
   systemd.user.services.fcitx5-daemon = {
@@ -173,7 +169,8 @@
   services.dbus.packages = with pkgs; [ fcitx5 ];
   
   # === THÊM: ĐẢM BẢO FCITX5 AUTOSTART ===
-  environment.etc."xdg/autostart/fcitx5.desktop".text = ''
+  # Chuyển sang dùng home-manager để cấu hình autostart
+  home-manager.users.nagih.xdg.configFile."autostart/fcitx5.desktop".text = ''
     [Desktop Entry]
     Name=Fcitx 5
     GenericName=Input Method
