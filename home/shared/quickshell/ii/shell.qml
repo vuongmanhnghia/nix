@@ -50,23 +50,13 @@ ShellRoot {
     property bool enableSidebarRight: true
     property bool enableVerticalBar: true
 
-    // Force initialization of some singletons with proper order
+    // Force initialization of some singletons
     Component.onCompleted: {
-        console.log("[Shell] Starting initialization sequence...")
-        
-        // Initialize theme system first (critical for UI appearance)
-        MaterialThemeLoader.initializeTheme()
-        
-        // Wait a bit for theme to be applied, then initialize other services
-        Qt.callLater(() => {
-            console.log("[Shell] Initializing core services...")
-            Hyprsunset.load()
-            FirstRunExperience.load()
-            ConflictKiller.load()
-            Cliphist.refresh()
-            
-            console.log("[Shell] Shell initialization complete")
-        })
+        MaterialThemeLoader.reapplyTheme()
+        Hyprsunset.load()
+        FirstRunExperience.load()
+        ConflictKiller.load()
+        Cliphist.refresh()
     }
 
     LazyLoader { active: enableBar && Config.ready && !Config.options.bar.vertical; component: Bar {} }
