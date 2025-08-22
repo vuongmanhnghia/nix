@@ -4,7 +4,7 @@
 
 {
   # Chrome/Chromium flags for Wayland optimization
-  xdg.configFile."chrome-flags.conf".text = ''
+  home.file.".config/chrome-flags.conf".text = ''
     --password-store=gnome-libsecret
     --ozone-platform-hint=wayland
     --gtk-version=4
@@ -14,7 +14,7 @@
   '';
 
   # VS Code flags for Wayland optimization
-  xdg.configFile."code-flags.conf".text = ''
+  home.file.".config/code-flags.conf".text = ''
     --password-store=gnome-libsecret
     --ozone-platform-hint=wayland
     --gtk-version=4
@@ -24,7 +24,7 @@
   '';
 
   # Thorium browser flags
-  xdg.configFile."thorium-flags.conf".text = ''
+  home.file.".config/thorium-flags.conf".text = ''
     --password-store=gnome-libsecret
     --ozone-platform-hint=wayland
     --gtk-version=4

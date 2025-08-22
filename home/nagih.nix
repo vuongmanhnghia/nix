@@ -1,4 +1,4 @@
-{ config, pkgs, quickshell, ... }:
+{ config, pkgs, quickshell ? null, inputs ? {}, ... }:
 
 {
   # === IMPORT SHARED CONFIGURATION ===
@@ -45,13 +45,11 @@
 
     lorien          # Lorien - A modern, feature-rich note-taking app
     
-
     # === VRCHAT ===
     alcom           # Alcom - A modern, feature-rich note-taking app
     alvr            # ALVR - Android VR Headset Emulator
 
     rpi-imager      # Raspberry Pi Imager
-    
   ];
 
   home.shellAliases = {
@@ -70,32 +68,29 @@
       };
       
       # === DEVICE CONFIGURATION ===
-      # Define other devices for synchronization (replace IDs with actual device IDs)
       devices = {
-        "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };   # Laptop device
-        "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; }; # Desktop device
+        "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };
+        "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
       };
       
       # === FOLDER SYNCHRONIZATION CONFIGURATION ===
       folders = {
         "Pictures" = {
-          id = "pictures";                      # Unique folder identifier
-          path = "/home/nagih/Pictures";        # Local folder path
-          devices = [ "laptop" "desktop" ];     # Devices to sync with
+          id = "pictures";
+          path = "/home/nagih/Pictures";
+          devices = [ "laptop" "desktop" ];
         };
         
-        # Synchronize Documents folder across devices
         "Documents" = {
-          id = "documents";                     # Unique folder identifier
-          path = "/home/nagih/Documents";       # Local folder path
-          devices = [ "laptop" "desktop" ];     # Devices to sync with
+          id = "documents";
+          path = "/home/nagih/Documents";
+          devices = [ "laptop" "desktop" ];
         };
         
-        # Synchronize Workspaces folder for development projects
         "Workspaces" = {
-          id = "workspaces";                    # Unique folder identifier
-          path = "/home/nagih/Workspaces";      # Local folder path
-          devices = ["desktop" "laptop"];       # Devices to sync with
+          id = "workspaces";
+          path = "/home/nagih/Workspaces";
+          devices = ["desktop" "laptop"];
         };
       };
     };
@@ -113,25 +108,24 @@
   '';
   
   # === DIRECTORY CREATION ===
-  # Ensure required directories exist for Syncthing
   home.activation.createSyncDirs = config.lib.dag.entryAfter ["writeBoundary"] ''
-    mkdir -p $HOME/Documents   # Create Documents directory if it doesn't exist
-    mkdir -p $HOME/Workspaces  # Create Workspaces directory if it doesn't exist
-    mkdir -p $HOME/Pictures/Screenshots  # Create Screenshots directory for Hyprland
+    mkdir -p $HOME/Documents
+    mkdir -p $HOME/Workspaces
+    mkdir -p $HOME/Pictures/Screenshots
   '';
 
   # === USER-SPECIFIC ENVIRONMENT VARIABLES ===
   home.sessionVariables = {
-    DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";  # Downloads directory path
-    DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents"; # Documents directory path
+    DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
+    DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
     
     # === HYPRLAND SPECIFIC ===
-    TERMINAL = "kitty";                                      # Default terminal
-    BROWSER = "firefox";                                       # Default browser  
-    EDITOR = "nvim";                                          # Default editor
+    TERMINAL = "kitty";
+    BROWSER = "firefox";
+    EDITOR = "nvim";
     
     # === QUICKSHELL SPECIFIC ===
-    QT_QPA_PLATFORM = "wayland";                            # Force Wayland for Qt
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";              # Disable window decorations
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 }

@@ -1,5 +1,5 @@
 {
-  description = "My NixOS configuration"; # Main flake description
+  description = "My NixOS configuration";
 
   inputs = {
     # NixOS packages source - using stable 25.05 release
@@ -8,15 +8,11 @@
     # Home Manager for user environment management
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs as system
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     quickshell = {
-      # add ?ref=<tag> to track a tag
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-
-      # THIS IS IMPORTANT
-      # Mismatched system dependencies will lead to crashes and other issues.
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
@@ -24,37 +20,57 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, ... }: {
+  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, ... }:
+  let
+    system = "x86_64-linux";
+    
+    # Create a special args set với tất cả inputs
+    specialArgs = {
+      inherit quickshell;
+      inputs = { inherit nixpkgs home-manager hyprland quickshell; };
+    };
+  in
+  {
     nixosConfigurations = {
-      # Main system configuration
       nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Target architecture
+        inherit system;
+        inherit specialArgs;
+        
         modules = [
-          ./configuration.nix # Main system configuration
+          # Pass inputs to configuration.nix
+          ({ config, pkgs, ... }: {
+            _module.args = specialArgs;
+          })
+          
+          ./configuration.nix
           
           # Hyprland module
           hyprland.nixosModules.default
 
-          home-manager.nixosModules.home-manager # Home Manager integration
+          # Home Manager integration
+          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;    # Use system's nixpkgs
-            home-manager.useUserPackages = true;  # Install packages to user profile
-            
-            # User-specific configurations
-            home-manager.users = {
-              nagih = import ./home/nagih.nix; # Main user configuration
-            };
-            
-            # Pass quickshell to home manager
-            home-manager.extraSpecialArgs = { 
-              inherit quickshell; 
-            };
-            
-            # Backup existing files instead of failing on conflicts
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
+            
+            # Pass inputs to Home Manager
+            home-manager.extraSpecialArgs = specialArgs;
+            
+            home-manager.users = {
+              nagih = import ./home/nagih.nix;
+            };
           }
         ];
       };
+    };
+    
+    # Optional: Provide development shell
+    devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
+      buildInputs = with nixpkgs.legacyPackages.${system}; [
+        nixos-rebuild
+        home-manager
+      ];
     };
   };
 }

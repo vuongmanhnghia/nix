@@ -6,19 +6,30 @@
     nagih = {
       isNormalUser = true;      # Standard user account (not system user)
       description = "Nagih";    # User description for display
-      # User groups for system permissions
+      home = "/home/nagih";
       extraGroups = [ 
-        "networkmanager"  # Network configuration access
-        "wheel"           # sudo privileges 
-        "docker"          # Docker daemon access
-        "audio"           # Audio devices access
-        "video"           # Video devices and GPU access
-        "disk"            # Disk management access
-        "adbusers"        # D-Bus access
+        "wheel"          # Enable sudo
+        "networkmanager" # Manage network connections
+        "audio"          # Access audio devices
+        "video"          # Access video devices  
+        "input"          # Access input devices
+        "storage"        # Access storage devices
+        "optical"        # Access optical drives
+        "scanner"        # Access scanners
+        "libvirtd"       # Virtualization (if needed)
+        "docker"         # Docker (if needed)
+        "disk"           # Disk management access
+        "adbusers"       # D-Bus access
       ];
-      shell = pkgs.zsh;       # Default shell (zsh)
+      shell = pkgs.zsh;  # Default shell (zsh)
     };
   };
+
+  # Enable zsh system-wide if using it
+  programs.zsh.enable = true;
+  
+  # Security configuration
+  security.sudo.wheelNeedsPassword = true; # Require password for sudo
 
   # === SYSTEM GROUPS ===
   users.groups = {

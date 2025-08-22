@@ -14,6 +14,78 @@
     settings = {
       "$mainMod" = "SUPER";
 
+      # bindid = [
+      #   "$mainMod, Super_L, Toggle overview, global, quickshell:overviewToggleRelease" # Toggle overview/launcher
+      #   "$mainMod, Super_R, Toggle overview, global, quickshell:overviewToggleRelease" # [hidden] Toggle overview/launcher
+      # ];
+
+      # binditn = [
+      #   "$mainMod, catchall, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
+      # ];
+
+      # bindit = [
+      #   "$mainMod, Super_L, global, quickshell:workspaceNumber" # [hidden]
+      #   "$mainMod, Super_R, global, quickshell:workspaceNumber" # [hidden]
+      # ];
+
+      bindd = [
+        "$mainMod, V, Clipboard history >> clipboard, global, quickshell:overviewClipboardToggle" # Clipboard history >> clipboard
+        "$mainMod, Period, Emoji >> clipboard, global, quickshell:overviewEmojiToggle" # Emoji >> clipboard
+        "$mainMod, Tab, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
+        # "$mainMod, A, Toggle left sidebar, global, quickshell:sidebarLeftToggle" # Toggle left sidebar
+        # "$mainMod, N, Toggle right sidebar, global, quickshell:sidebarRightToggle" # Toggle right sidebar
+        "$mainMod, Slash, Toggle cheatsheet, global, quickshell:cheatsheetToggle" # Toggle cheatsheet
+        "$mainMod, K, Toggle on-screen keyboard, global, quickshell:oskToggle" # Toggle on-screen keyboard
+        "$mainMod, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
+        "$mainMod CTRL ALT, Delete, Toggle session menu, global, quickshell:sessionToggle" # Toggle session menu
+        "$mainMod SHIFT, H, Toggle bar, global, quickshell:barToggle" # Toggle bar
+        "$mainMod CTRL, T, Change wallpaper, exec, ~/.config/quickshell/$qsConfig/scripts/colors/switchwall.sh" # Change wallpaper
+        "$mainMod, V, Copy clipboard history entry, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || cliphist list | fuzzel --match-mode fzf --dmenu | cliphist decode | wl-copy" # [hidden]
+        "$mainMod, Period, Copy an emoji, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || ~/.config/hypr/hyprland/scripts/fuzzel-emoji.sh copy" # [hidden] Emoji >> clipboard (fallback)
+        "$mainMod SHIFT, S, Screen snip, exec, qs -p ~/.config/quickshell/$qsConfig/screenshot.qml || pidof slurp || hyprshot --freeze --clipboard-only --mode region --silent" # Screen snip
+        "$mainMod SHIFT, T, Character recognition,exec,grim -g \$(slurp $SLURP_ARGS) tmp.png && tesseract tmp.png - | wl-copy && rm tmp.png" # [hidden]
+        "$mainMod SHIFT, C, Color picker, exec, hyprpicker -a" # Pick color (Hex) >> clipboard
+        "$mainMod Alt, R, Record region (no sound), exec, ~/.config/hypr/hyprland/scripts/record.sh" # Record region (no sound)
+        "Ctrl Alt, R, Record screen (no sound), exec, ~/.config/hypr/hyprland/scripts/record.sh --fullscreen" # [hidden] Record screen (no sound)
+        "$mainMod SHIFT Alt, R, Record screen (with sound), exec, ~/.config/hypr/hyprland/scripts/record.sh --fullscreen-sound" # Record screen (with sound)
+        # AI
+        "$mainMod SHIFT Alt, mouse:273, Generate AI summary for selected text, exec, ~/.config/hypr/hyprland/scripts/ai/primary-buffer-query.sh" # AI summary for selected text
+      ];
+
+      bindle = [
+        "$mainMod, XF86MonBrightnessUp, exec, qs -c $qsConfig ipc call brightness increment || brightnessctl s 5% " # [hidden]
+        "$mainMod, XF86MonBrightnessDown, exec, qs -c $qsConfig ipc call brightness decrement || brightnessctl s 5%-" # [hidden]
+        "$mainMod, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2% " # [hidden]
+        "$mainMod, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-" # [hidden]
+      ];
+
+      bindld = [
+        "$mainMod SHIFT,M, Toggle mute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
+        "$mainMod Alt,M, Toggle mic, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
+        ",Print, Screenshot >> clipboard ,exec,grim - | wl-copy" # Screenshot >> clipboard
+        "Ctrl,Print, Screenshot >> clipboard & save, exec, mkdir -p \$(xdg-user-dir PICTURES)/Screenshots && grim \$(xdg-user-dir PICTURES)/Screenshots/Screenshot_\$(date ' %Y-%m-%d_%H.%M.%S').png" # Screenshot >> clipboard & file
+      ];
+
+      bindl = [
+        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
+        "Alt ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
+        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
+        "$mainMod SHIFT, N, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # Next track
+        ",XF86AudioNext, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # [hidden]
+        ",XF86AudioPrev, exec, playerctl previous" # [hidden]
+        "$mainMod SHIFT, B, exec, playerctl previous" # Previous track
+        "$mainMod SHIFT, P, exec, playerctl play-pause" # Play/pause media
+        ",XF86AudioPlay, exec, playerctl play-pause" # [hidden]
+        ",XF86AudioPause, exec, playerctl play-pause" # [hidden]
+      ];
+
+      # Move window
+      bindm = [
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
+        "$mainMod, mouse:274, movewindow" # [hidden]"
+      ];
+
       bind = [
         # === QUICK SHELL ===
         "$mainMod, R, exec, pkill quickshell; qs -c $qsConfig &" # [hidden] Restart Quickshell
@@ -189,18 +261,6 @@
         "$mainMod SHIFT, j, resizeactive,0 50"
       ];
 
-      # Move window
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
-
-      bindl = [
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
-      ];
 
       bindel = [
         ", XF86AudioRaiseVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc"
