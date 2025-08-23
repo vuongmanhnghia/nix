@@ -8,7 +8,7 @@
 
   # Install KDE theme packages
   home.packages = with pkgs; [
-    python312Packages.kde-material-you-colors
+    python3Packages.kde-material-you-colors
   ];
 
   home.file = {

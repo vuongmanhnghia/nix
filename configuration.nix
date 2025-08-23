@@ -8,6 +8,16 @@
     ./desktop                    # Desktop environment configurations (GNOME, audio, graphics)
     ./programs                   # Application configurations (gaming, development, multimedia)
   ];
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    openssl
+    curl
+    glibc
+    zlib
+    libgcc
+  ];
     
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

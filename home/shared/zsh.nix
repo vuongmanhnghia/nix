@@ -128,7 +128,7 @@
       down = "cd ~/Downloads";
 
       # === CLEANING ===
-      clean-fcitx5 = "~/Workspaces/Config/nixos/scripts/clean/fcitx5.sh";
+      clean-backup = "~/Workspaces/Config/nixos/scripts/clean/hm-backup.sh";
       
       # === QUICK UTILITIES ===
       cls = "clear";
@@ -250,6 +250,8 @@
       # === POWERLEVEL10K CONFIGURATION ===
       # To customize prompt, run: p10k configure
       [[ ! -f ~/.config/dotfiles/zsh/p10k.zsh ]] || source ~/.config/dotfiles/zsh/p10k.zsh
+
+      export PATH="$HOME/.local/bin:$PATH"
     '';
   };
 

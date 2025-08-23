@@ -4,6 +4,7 @@
   inputs = {
     # NixOS packages source - using stable 25.05 release
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     
     # Home Manager for user environment management
     home-manager = {
@@ -20,14 +21,19 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, quickshell, ... }:
   let
     system = "x86_64-linux";
+
+    unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
     
     # Create a special args set với tất cả inputs
     specialArgs = {
-      inherit quickshell;
-      inputs = { inherit nixpkgs home-manager hyprland quickshell; };
+      inherit quickshell unstable;
+      inputs = { inherit nixpkgs nixpkgs-unstable home-manager hyprland quickshell; };
     };
   in
   {

@@ -84,7 +84,7 @@
     eza
 
 
-    python312Packages.kde-material-you-colors
+    python3Packages.kde-material-you-colors
     # kvantum
     libsForQt5.qt5ct
     qt6Packages.qt6ct

@@ -35,7 +35,9 @@
     blesh            # Bash Line Editor with syntax highlighting
     
     # === ADDITIONAL CLI TOOLS ===
-    thefuck          # Command correction tool
+    # thefuck          # Command correction tool
+    pay-respects     # Pay respects to the command line, instead of thefuck
+
     mcfly            # Neural command history search
     
     # === ARCHIVE AND COMPRESSION TOOLS ===
