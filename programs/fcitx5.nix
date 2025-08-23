@@ -1,189 +1,197 @@
 { config, lib, pkgs, ... }:
 
 {
-  # === CLEAN FCITX5 CONFIGURATION ===
+  # === SYSTEM-LEVEL FCITX5 CONFIGURATION ===
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
     fcitx5 = {
       waylandFrontend = true;
+      # FIX: Simplify addon list, fcitx5-with-addons có thể conflict
       addons = with pkgs; [
-        fcitx5-unikey          # Vietnamese input method
-        fcitx5-gtk             # GTK integration
-        libsForQt5.fcitx5-qt   # Qt5 integration
-        qt6Packages.fcitx5-qt  # Qt6 integration  
-        fcitx5-configtool      # Configuration tool
-        fcitx5-with-addons     # Additional addons
+        fcitx5-unikey
+        fcitx5-gtk
+        fcitx5-configtool
+        # Conditional Qt packages based on desktop
+        (lib.mkIf (config.services.xserver.desktopManager.plasma5.enable or false) libsForQt5.fcitx5-qt)
+        (lib.mkIf (config.services.xserver.desktopManager.plasma6.enable or false) qt6Packages.fcitx5-qt)
       ];
     };
   };
 
-  # === SYSTEM PACKAGES ===
-  
   # === ENVIRONMENT VARIABLES ===
   environment.sessionVariables = {
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
     SDL_IM_MODULE = "fcitx";
-    # SỬA: Thống nhất dùng fcitx thay vì ibus
     GLFW_IM_MODULE = "fcitx";
-    
     FCITX_ENABLE_WAYLAND = "1";
   };
 
-  # === FCITX5 CONFIG - SỬA LỖI ===
-  # Chuyển sang dùng home-manager để cấu hình fcitx5
-  home-manager.users.nagih.xdg.configFile = {
-    "fcitx5/config".text = ''
-      [Hotkey]
-      TriggerKeys=
-      EnumerateWithTriggerKeys=True
-      EnumerateSkipFirst=False
+  # === DBUS & SYSTEMD - Loại bỏ custom systemd service ===
+  # NixOS tự động handle fcitx5 systemd service khi enable i18n.inputMethod
 
-      [Hotkey/TriggerKeys]
-      0=Control+space
-      1=Zenkaku_Hankaku
-      2=Hangul
+  # === HOME-MANAGER CONFIGURATION ===
+  home-manager.users.nagih = {
+    # XÓA systemd.user.services.fcitx5-daemon - để NixOS handle
 
-      [Behavior]
-      ActiveByDefault=True
-      # Quan trọng: Để per-application input method
-      ShareInputState=False
-      PreeditEnabledByDefault=True
-      ShowInputMethodInformation=True
-      showInputMethodInformationWhenFocusIn=False
-      CompactInputMethodInformation=True
-      ShowFirstInputMethodInformation=True
-      DefaultPageSize=5
-      OverrideXkbOption=False
-      CustomXkbOption=
-      EnabledAddons=
-      DisabledAddons=
-      PreloadInputMethod=True
-      AllowInputMethodForPassword=False
-      PreeditInApplication=True
-      # SỬA: Đặt default state là Active
-      DefaultInputMethodState=Active
-    '';
+    # SỬ DỤNG home.file THAY VÈ activation script phức tạp
+    home.file = {
+      # FCITX5 Main Config
+      ".config/fcitx5/config".text = ''
+        [Hotkey]
+        TriggerKeys=
+        EnumerateWithTriggerKeys=True
+        EnumerateSkipFirst=False
 
-    "fcitx5/profile".text = ''
-      [Groups/0]
-      Name=Default
-      Default Layout=us
-      DefaultIM=keyboard-us
+        [Hotkey/TriggerKeys]
+        0=Control+space
 
-      [Groups/0/Items/0]
-      Name=keyboard-us
-      Layout=us
+        [Behavior]
+        ActiveByDefault=False
+        ShareInputState=No
+        PreeditEnabledByDefault=True
+        ShowInputMethodInformation=True
+        showInputMethodInformationWhenFocusIn=False
+        CompactInputMethodInformation=True
+        ShowFirstInputMethodInformation=True
+        DefaultPageSize=5
+        OverrideXkbOption=False
+        CustomXkbOption=
+        EnabledAddons=
+        DisabledAddons=
+        PreloadInputMethod=True
+        AllowInputMethodForPassword=False
+        PreeditInApplication=True
+        # QUAN TRỌNG: Đặt default state là Inactive để giữ keyboard-us làm default
+        DefaultInputMethodState=Inactive
+      '';
 
-      [Groups/0/Items/1]
-      Name=unikey
-      Layout=us
+      # FCITX5 Profile - EXPLICIT UNIKEY SETUP
+      ".config/fcitx5/profile".text = ''
+        [Groups/0]
+        Name=Default
+        Default Layout=us
+        DefaultIM=keyboard-us
 
-      [GroupOrder]
-      0=Default
-    '';
+        [Groups/0/Items/0]
+        Name=keyboard-us
+        Layout=us
 
-    "fcitx5/conf/unikey.conf".text = ''
-      # Input Method
-      InputMethod=Telex
-      # Output Charset
-      OutputCharset=Unicode
-      # Process W at word beginning
-      ProcessWAtWordBeginning=True
-      # Spellcheck
-      SpellCheck=False
-      # Macro enabled
-      MacroEnabled=True
-      # Mouse Capture
-      MouseCapture=True
-    '';
+        [Groups/0/Items/1]
+        Name=unikey
+        Layout=us
 
-    "fcitx5/conf/classicui.conf".text = ''
-      # Vertical Candidate List
-      Vertical Candidate List=False
-      # Use mouse wheel to go to prev or next page
-      WheelForPaging=True
-      # Font
-      Font="Rubik 11"
-      # Menu Font
-      MenuFont="Rubik 11"
-      # Tray Font
-      TrayFont="Rubik 11"
-      # Prefer Text Icon
-      PreferTextIcon=False
-      # Show Layout Name In Icon
-      ShowLayoutNameInIcon=True
-      # Use input method language to display text
-      UseInputMethodLanguageToDisplayText=True
-      # Theme
-      Theme=plasma
-      # Follow system light/dark color scheme
-      UseDarkTheme=True
-      # Use accent color if it is supported by theme and desktop
-      UseAccentColor=True
-      # Use Per Screen DPI on X11
-      PerScreenDPI=False
-      # Force font DPI on Wayland
-      ForceWaylandDPI=0
-      # Enable fractional scale under Wayland
-      EnableFractionalScale=True
-    '';
+        [GroupOrder]
+        0=Default
+      '';
 
-    "fcitx5/conf/notifications.conf".text = ''
-      HiddenNotifications=
-    '';
-  };
+      # THÊM: Addon configuration để force enable unikey
+      ".config/fcitx5/conf/addon.conf".text = ''
+        [Addons]
+        # Core addons
+        keyboard=True
+        waylandim=True
+        xcb=True
+        clipboard=True
+        unicode=True
+        quickphrase=True
+        classicui=True
+        notifications=True
+        
+        # Vietnamese input
+        unikey=True
+        
+        # Optional addons
+        fullwidth=False
+        halfwidth=False
+        punctuation=False
+        spell=False
+      '';
 
-  # === SYSTEMD SERVICE - ĐƯỢC CẢI THIỆN ===
-  systemd.user.services.fcitx5-daemon = {
-    description = "Fcitx5 input method editor";
-    partOf = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    wantedBy = [ "graphical-session.target" ];
-    
-    environment = {
-      GTK_IM_MODULE = "fcitx";
-      QT_IM_MODULE = "fcitx";
-      XMODIFIERS = "@im=fcitx";
-      SDL_IM_MODULE = "fcitx";
-      GLFW_IM_MODULE = "fcitx";  # SỬA: Thống nhất
-      FCITX_ENABLE_WAYLAND = "1";
-      XDG_CONFIG_HOME = "%h/.config";
+      # Unikey Configuration
+      ".config/fcitx5/conf/unikey.conf".text = ''
+        InputMethod=Telex
+        OutputCharset=Unicode
+        ProcessWAtWordBeginning=True
+        SpellCheck=False
+        MacroEnabled=True
+        MouseCapture=True
+      '';
+
+      # UI Configuration
+      ".config/fcitx5/conf/classicui.conf".text = ''
+        Vertical Candidate List=False
+        WheelForPaging=True
+        Font="Rubik 11"
+        MenuFont="Rubik 11"
+        TrayFont="Rubik 11"
+        PreferTextIcon=False
+        ShowLayoutNameInIcon=True
+        UseInputMethodLanguageToDisplayText=True
+        Theme=default
+        UseDarkTheme=True
+        UseAccentColor=True
+        PerScreenDPI=False
+        ForceWaylandDPI=0
+        EnableFractionalScale=True
+      '';
+
+      # Notifications
+      ".config/fcitx5/conf/notifications.conf".text = ''
+        HiddenNotifications=
+      '';
+
+      # THÊM: Global Config để enforce default behavior
+      ".config/fcitx5/conf/globalconfig.conf".text = ''
+        [Hotkey]
+        TriggerKeys=
+        EnumerateWithTriggerKeys=True
+        EnumerateSkipFirst=False
+
+        [Hotkey/TriggerKeys]
+        0=Control+space
+
+        [Behavior]
+        ActiveByDefault=False
+        ShareInputState=No
+        PreeditEnabledByDefault=True
+        ShowInputMethodInformation=True
+        showInputMethodInformationWhenFocusIn=False
+        CompactInputMethodInformation=True
+        ShowFirstInputMethodInformation=True
+        DefaultPageSize=5
+        OverrideXkbOption=False
+        CustomXkbOption=
+        EnabledAddons=
+        DisabledAddons=
+        PreloadInputMethod=True
+        AllowInputMethodForPassword=False
+        PreeditInApplication=True
+        DefaultInputMethodState=Inactive
+      '';
     };
-    
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.fcitx.Fcitx5";
-      ExecStart = "${pkgs.fcitx5}/bin/fcitx5";
-      ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
-      Restart = "on-failure";
-      RestartSec = 3;
-      # THÊM: Đảm bảo service chạy sau khi desktop environment sẵn sàng
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
-    };
-  };
 
-  # === DBUS CONFIGURATION ===
-  services.dbus.packages = with pkgs; [ fcitx5 ];
-  
-  # === THÊM: ĐẢM BẢO FCITX5 AUTOSTART ===
-  # Chuyển sang dùng home-manager để cấu hình autostart
-  home-manager.users.nagih.xdg.configFile."autostart/fcitx5.desktop".text = ''
-    [Desktop Entry]
-    Name=Fcitx 5
-    GenericName=Input Method
-    Comment=Start Input Method
-    Exec=fcitx5
-    Icon=fcitx
-    Terminal=false
-    Type=Application
-    Categories=System;Utility;
-    StartupNotify=false
-    X-GNOME-Autostart-Phase=Applications
-    X-GNOME-AutoRestart=false
-    X-GNOME-Autostart-Notify=false
-    X-KDE-autostart-after=panel
-  '';
+    # AUTOSTART - Sử dụng home-manager's built-in functionality
+    xdg.configFile."autostart/fcitx5.desktop".text = ''
+      [Desktop Entry]
+      Name=Fcitx 5
+      GenericName=Input Method
+      Comment=Start Input Method
+      Exec=fcitx5 -d
+      Icon=fcitx
+      Terminal=false
+      Type=Application
+      Categories=System;Utility;
+      StartupNotify=false
+      X-GNOME-Autostart-Phase=Applications
+      X-GNOME-AutoRestart=false
+      X-GNOME-Autostart-Notify=false
+      X-KDE-autostart-after=panel
+      Hidden=false
+    '';
+
+    # NixOS tự động tạo systemd service, không cần override
+  };
 }

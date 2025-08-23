@@ -101,6 +101,7 @@
       generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       nix-clean = "sudo nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --optimize";
       nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --impure";
+
       # === TMUX WORKFLOW (Enhanced) ===
       tm = "tmux";
       tma = "tmux attach-session -t";
@@ -125,6 +126,9 @@
       # === DOCUMENTATION ===
       docs = "cd ~/Documents";
       down = "cd ~/Downloads";
+
+      # === CLEANING ===
+      clean-fcitx5 = "~/Workspaces/Config/nixos/scripts/clean/fcitx5.sh";
       
       # === QUICK UTILITIES ===
       cls = "clear";
