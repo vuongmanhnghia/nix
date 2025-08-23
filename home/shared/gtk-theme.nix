@@ -51,6 +51,16 @@
       gtk-font-name = "JetBrainsMono Nerd Font 11";
     };
   };
+
+  # === CUSTOM ICONS ===
+  home.file = {
+    # Custom icons trong thư mục riêng
+    ".local/share/icons/custom" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/.local/share/icons";
+      recursive = true;
+    };
+  };
+
   
   # === QT THEME CONFIGURATION ===
   qt = {

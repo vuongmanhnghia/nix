@@ -9,7 +9,6 @@
     ./shared/quickshell          # QuickShell configuration
     ./shared/git.nix             # Git version control configuration
     ./shared/zsh.nix             # Zsh shell with aliases and modern CLI tools
-    # ./shared/fish.nix            # Fish shell (alternative to zsh) - uncomment to use
     ./shared/neovim.nix          # Neovim editor configuration with LSP
     ./shared/gtk-theme.nix       # GTK theme configuration (Phase 2)
     ./shared/kitty               # Kitty terminal configuration
@@ -29,6 +28,7 @@
     ./shared/kde-theme.nix       # KDE theming configuration
     ./shared/kvantum.nix         # Kvantum Qt theming
     ./shared/kde-dialog.nix      # KDialog configuration
+    ./shared/tmux.nix            # Tmux configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===
@@ -71,21 +71,11 @@
     NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
   };
 
-  # === TMUX CONFIGURATION ===
-  programs.tmux = {
-    enable = true;
-    
-    # Use the existing tmux.conf file
-    extraConfig = builtins.readFile ../dotfiles/tmux/tmux.conf;
-    
-    # Enable plugins that are referenced in the config
-    plugins = with pkgs.tmuxPlugins; [
-      catppuccin
-    ];
-  };
-  home.file.".config/tmux/random_note.sh" = {
-    source = ../dotfiles/tmux/random_note.sh;
-    executable = true;
+  home.file = {
+    ".config/fish" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/.config/fish";
+      recursive = true;
+    };
   };
 
   home.sessionPath = [
