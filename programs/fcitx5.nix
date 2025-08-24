@@ -46,13 +46,13 @@
         EnumerateSkipFirst=False
 
         [Hotkey/TriggerKeys]
-        0=Control+space
+        0=Control+Super+space
 
         [Behavior]
         ActiveByDefault=False
         ShareInputState=No
         PreeditEnabledByDefault=True
-        ShowInputMethodInformation=True
+        ShowInputMethodInformation=False
         showInputMethodInformationWhenFocusIn=False
         CompactInputMethodInformation=True
         ShowFirstInputMethodInformation=True

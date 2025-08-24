@@ -25,15 +25,15 @@ let
   };
 
   # === CURSOR CONFIGURATION ===
-  cursorDesktopItem = pkgs.makeDesktopItem {
-    name = "cursor-wayland";
-    desktopName = "Cursor (Wayland)";
-    exec = "cursor --disable-gpu";
-    terminal = false;
-    categories = [ "Development" "IDE" ];
-    startupWMClass = "cursor";
-    icon = "cursor";
-  };
+  # cursorDesktopItem = pkgs.makeDesktopItem {
+  #   name = "cursor-wayland";
+  #   desktopName = "Cursor (Wayland)";
+  #   exec = "cursor --disable-gpu";
+  #   terminal = false;
+  #   categories = [ "Development" "IDE" ];
+  #   startupWMClass = "cursor";
+  #   icon = "cursor";
+  # };
 
   chat2dbDesktopItem = pkgs.makeDesktopItem {
     name = "chat2db";
@@ -48,7 +48,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     notionDesktopItem
-    cursorDesktopItem
+    # cursorDesktopItem
     notion-app
     chat2dbDesktopItem
   ];

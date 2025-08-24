@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -22,7 +22,7 @@
     # === WEB DEVELOPMENT AND API TOOLS ===
     burpsuite                 # Web application security testing tool 
     postman                   # API development tool
-    yaak                      # API development tool
+
     claude-code               # AI-powered code editor
     vscode                    # Visual Studio Code editor
 

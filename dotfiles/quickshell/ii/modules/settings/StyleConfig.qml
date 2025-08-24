@@ -26,6 +26,18 @@ ContentPage {
     }
 
     Process {
+        id: konachanSoSafeWallProc
+        property string status: ""
+        command: ["bash", "-c", FileUtils.trimFileProtocol(`${Directories.scriptPath}/colors/random_konachan_nosafe.sh`)]
+        stdout: SplitParser {
+            onRead: data => {
+                console.log(`Konachan wall proc output: ${data}`);
+                konachanSoSafeWallProc.status = data.trim();
+            }
+        }
+    }
+
+    Process {
         id: saveWallpaperProc
         property string status: ""
         command: ["bash", "-c", FileUtils.trimFileProtocol(`${Directories.scriptPath}/colors/save_current_wallpaper.sh`)]
@@ -81,7 +93,7 @@ ContentPage {
         ContentSubsection {
             title: Translation.tr("Wallpaper")
             RowLayout {
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignLeft
                 RippleButtonWithIcon {
                     id: rndWallBtn
                     buttonRadius: Appearance.rounding.small
@@ -95,6 +107,23 @@ ContentPage {
                         content: Translation.tr("Random SFW Anime wallpaper from Konachan\nImage is saved to ~/Pictures/Wallpapers")
                     }
                 }
+                RippleButtonWithIcon {
+                    id: rndWallNS
+                    buttonRadius: Appearance.rounding.small
+                    materialIcon: "wallpaper"
+                    mainText: konachanSoSafeWallProc.running ? Translation.tr("Be patient...") : Translation.tr("Random: Konachan (No Safe)")
+                    onClicked: {
+                        console.log(konachanSoSafeWallProc.command.join(" "))
+                        konachanSoSafeWallProc.running = true;
+                    }
+                    StyledToolTip {
+                        content: Translation.tr("Random SFW Anime wallpaper from Konachan\nImage is saved to ~/Pictures/Wallpapers")
+                    }
+                }
+            }
+
+            RowLayout {
+                Layout.alignment: Qt.AlignLeft
                 RippleButtonWithIcon {
                     id: saveWallpaperBtn
                     buttonRadius: Appearance.rounding.small
