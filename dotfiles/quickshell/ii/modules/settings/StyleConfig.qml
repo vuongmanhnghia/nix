@@ -25,6 +25,18 @@ ContentPage {
         }
     }
 
+    Process {
+        id: saveWallpaperProc
+        property string status: ""
+        command: ["bash", "-c", FileUtils.trimFileProtocol(`${Directories.scriptPath}/colors/save_current_wallpaper.sh`)]
+        stdout: SplitParser {
+            onRead: data => {
+                console.log(`Save wallpaper proc output: ${data}`);
+                saveWallpaperProc.status = data.trim();
+            }
+        }
+    }
+
     ContentSection {
         title: Translation.tr("Colors & Wallpaper")
 
@@ -81,6 +93,19 @@ ContentPage {
                     }
                     StyledToolTip {
                         content: Translation.tr("Random SFW Anime wallpaper from Konachan\nImage is saved to ~/Pictures/Wallpapers")
+                    }
+                }
+                RippleButtonWithIcon {
+                    id: saveWallpaperBtn
+                    buttonRadius: Appearance.rounding.small
+                    materialIcon: "save"
+                    mainText: saveWallpaperProc.running ? Translation.tr("Saving...") : Translation.tr("Save Image")
+                    onClicked: {
+                        console.log(saveWallpaperProc.command.join(" "))
+                        saveWallpaperProc.running = true;
+                    }
+                    StyledToolTip {
+                        content: Translation.tr("Save current wallpaper to ~/Pictures/wpp")
                     }
                 }
                 RippleButtonWithIcon {

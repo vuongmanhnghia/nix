@@ -17,7 +17,7 @@
       "$terminal" = "kitty";
       "$fileManager" = "nemo";
       "$browser" = "firefox";
-      "$codeEditor" = "cursor --disable-gpu";
+      "$codeEditor" = "cursor";
     };
   };
 }

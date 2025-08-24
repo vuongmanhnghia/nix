@@ -28,7 +28,7 @@ STATE_DIR="$XDG_STATE_HOME/quickshell"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 mkdir -p "$PICTURES_DIR/Wallpapers"
-page=$((1 + RANDOM % 1000));
+page=$((1 + RANDOM % 50000));
 response=$(curl "https://konachan.net/post.json?tags=rating%3Asafe&limit=1&page=$page")
 link=$(echo "$response" | jq '.[0].file_url' -r);
 ext=$(echo "$link" | awk -F. '{print $NF}')
