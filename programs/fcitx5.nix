@@ -127,7 +127,7 @@
         Font="Rubik 11"
         MenuFont="Rubik 11"
         TrayFont="Rubik 11"
-        PreferTextIcon=False
+        PreferTextIcon=True
         ShowLayoutNameInIcon=True
         UseInputMethodLanguageToDisplayText=True
         Theme=default

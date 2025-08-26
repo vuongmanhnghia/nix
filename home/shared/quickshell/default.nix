@@ -47,7 +47,7 @@
       # Create Python virtual environment if it doesn't exist
       if [ ! -d "${config.home.homeDirectory}/.local/state/quickshell/.venv" ]; then
         $DRY_RUN_CMD ${pkgs.python3}/bin/python -m venv ${config.home.homeDirectory}/.local/state/quickshell/.venv
-        $DRY_RUN_CMD ${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/pip install Pillow numpy requests materialyoucolor
+        $DRY_RUN_CMD ${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/pip install Pillow numpy requests materialyoucolor pywayland setproctitle
       fi
             
       # Create empty restore script for video wallpapers

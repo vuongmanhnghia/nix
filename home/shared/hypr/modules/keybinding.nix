@@ -31,7 +31,8 @@
       bindd = [
         "$mainMod, V, Clipboard history >> clipboard, global, quickshell:overviewClipboardToggle" # Clipboard history >> clipboard
         "$mainMod, Period, Emoji >> clipboard, global, quickshell:overviewEmojiToggle" # Emoji >> clipboard
-        "$mainMod, Tab, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
+        # "$mainMod, Tab, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
+        "ALT, SPACE, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
         # "$mainMod, A, Toggle left sidebar, global, quickshell:sidebarLeftToggle" # Toggle left sidebar
         # "$mainMod, N, Toggle right sidebar, global, quickshell:sidebarRightToggle" # Toggle right sidebar
         "$mainMod, Slash, Toggle cheatsheet, global, quickshell:cheatsheetToggle" # Toggle cheatsheet
@@ -89,7 +90,7 @@
       bind = [
         # === QUICK SHELL ===
         "$mainMod, R, exec, pkill quickshell; qs -c $qsConfig &" # [hidden] Restart Quickshell
-        "ALT, SPACE, exec, ~/Workspaces/Config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
+        # "ALT, SPACE, exec, ~/Workspaces/Config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
         "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
 
         "Ctrl, Super_L, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
