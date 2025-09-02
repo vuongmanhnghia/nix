@@ -37,5 +37,8 @@
     cloudflared     # Cloudflare Tunnel
     amazon-q-cli    # Amazon Q CLI
     qbittorrent     # Torrent client
+    speedtest-cli
+
+    android-studio
   ];
 }

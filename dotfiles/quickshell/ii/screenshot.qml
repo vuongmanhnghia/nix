@@ -327,10 +327,25 @@ ShellRoot {
                     snipProc.startDetached();
                     Qt.quit();
                 }
-                command: ["bash", "-c", 
-                    `magick ${StringUtils.shellSingleQuoteEscape(panelWindow.screenshotPath)} `
-                    + `-crop ${panelWindow.regionWidth * panelWindow.monitorScale}x${panelWindow.regionHeight * panelWindow.monitorScale}+${panelWindow.regionX * panelWindow.monitorScale}+${panelWindow.regionY * panelWindow.monitorScale} - ` 
-                    + `| ${panelWindow.mouseButton === Qt.LeftButton ? "wl-copy" : "swappy -f -"}`]
+                command: ["bash", "-lc", 
+                    `set -o pipefail; TMP_CROP=\"${StringUtils.shellSingleQuoteEscape(root.screenshotDir)}/crop-$(date +%s%3N).png\"; `
+                    + `echo \"snip mouseButton=${panelWindow.mouseButton} LMB=${Qt.LeftButton} RMB=${Qt.RightButton}\" 1>&2; `
+                    + `magick ${StringUtils.shellSingleQuoteEscape(panelWindow.screenshotPath)} -crop ${Math.round(panelWindow.regionWidth * panelWindow.monitorScale)}x${Math.round(panelWindow.regionHeight * panelWindow.monitorScale)}+${Math.round(panelWindow.regionX * panelWindow.monitorScale)}+${Math.round(panelWindow.regionY * panelWindow.monitorScale)} \"$TMP_CROP\" && `
+                    + `echo \"wrote $TMP_CROP\" 1>&2; `
+                    + `if [ ${panelWindow.mouseButton} -eq ${Qt.LeftButton} ]; then `
+                    + `  wl-copy < \"$TMP_CROP\"; `
+                    + `else `
+                    + `  swappy -f \"$TMP_CROP\"; `
+                    + `fi`]
+                onExited: (exitCode, exitStatus) => {
+                    console.log(`snipProc exited with code=${exitCode}, status=${exitStatus}`);
+                }
+                stdout: StdioCollector {
+                    onStreamFinished: console.log("snip stdout:", text)
+                }
+                stderr: StdioCollector {
+                    onStreamFinished: console.warn("snip stderr:", text)
+                }
             }
 
             ScreencopyView {
