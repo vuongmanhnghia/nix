@@ -67,13 +67,6 @@
     enableAllFirmware = true; # Bao gồm non-free firmware nếu cần
   };
 
-  # === POWER MANAGEMENT ===
-  # Tắt power management cho network interfaces để tránh throttling
-  powerManagement = {
-    enable = true;
-    powertop.enable = false; # Tắt powertop auto-tuning
-  };
-
   # === SERVICES ===
   # Systemd-resolved cho DNS caching
   services.resolved = {

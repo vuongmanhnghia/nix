@@ -11,6 +11,7 @@
     ./tools.nix
     ./networks.nix
     ./system.nix
+    ./java.nix
   ];
 
   environment.systemPackages = with pkgs; [

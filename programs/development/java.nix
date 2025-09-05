@@ -1,0 +1,49 @@
+# /etc/nixos/configuration.nix - Updated for NixOS 25.05
+{ config, pkgs, lib, ... }:
+
+{
+  # Android development packages
+  environment.systemPackages = with pkgs; [
+    # IntelliJ IDEA Community Edition
+    jetbrains.idea-community
+    
+    # Android SDK và tools
+    android-tools   # adb, fastboot, etc.
+    
+    # Java Development Kit (latest stable)
+    jdk            # Uses latest JDK instead of jdk11
+    
+    # Build tools
+    gradle
+    
+    # Emulator dependencies
+    qemu
+    libGL
+    
+    # System libraries for emulator
+    stdenv.cc.cc.lib
+    zlib
+    ncurses5
+    
+    # USB debugging support
+    usbutils
+  ];
+
+  # Enable Android development
+  programs.adb.enable = true;
+  
+  # Add user to adbusers group for USB debugging
+  users.users.nagih.extraGroups = [ "adbusers" "libvirtd" ];
+
+  # Hardware acceleration và virtualization
+  virtualisation.libvirtd.enable = true;
+  boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
+
+  # USB debugging rules
+  services.udev.packages = [ pkgs.android-udev-rules ];
+
+  # Environment variables for development
+  environment.variables = {
+    JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
+  };
+}
