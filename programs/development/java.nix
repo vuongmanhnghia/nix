@@ -8,42 +8,44 @@
     jetbrains.idea-community
     
     # Android SDK và tools
-    android-tools   # adb, fastboot, etc.
+    # android-tools   # adb, fastboot, etc.
+
+    # androidenv.androidPkgs.tools
+    # androidenv.androidPkgs.platform-tools
+    # androidenv.androidPkgs.emulator
+    # androidenv.androidPkgs.androidsdk
     
     # Java Development Kit (latest stable)
-    jdk            # Uses latest JDK instead of jdk11
+    # jdk            
     
     # Build tools
-    gradle
+    # gradle
     
     # Emulator dependencies
-    qemu
-    libGL
+    # qemu
+    # libGL
     
     # System libraries for emulator
-    stdenv.cc.cc.lib
-    zlib
-    ncurses5
+    # stdenv.cc.cc.lib
+    # zlib
+    # ncurses5
     
     # USB debugging support
-    usbutils
+    # usbutils
   ];
 
   # Enable Android development
-  programs.adb.enable = true;
-  
-  # Add user to adbusers group for USB debugging
-  users.users.nagih.extraGroups = [ "adbusers" "libvirtd" ];
+  # programs.adb.enable = true;
 
   # Hardware acceleration và virtualization
-  virtualisation.libvirtd.enable = true;
-  boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
+  # virtualisation.libvirtd.enable = true;
+  # boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
 
   # USB debugging rules
-  services.udev.packages = [ pkgs.android-udev-rules ];
+  # services.udev.packages = [ pkgs.android-udev-rules ];
 
   # Environment variables for development
-  environment.variables = {
-    JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
-  };
+  # environment.variables = {
+  #   JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
+  # };
 }
