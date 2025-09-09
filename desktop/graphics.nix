@@ -11,6 +11,7 @@
     extraPackages = with pkgs; [
       nvidia-vaapi-driver # VA-API driver for hardware video acceleration
       vulkan-loader # Vulkan graphics API loader
+      vulkan-tools # Vulkan utilities
       vulkan-validation-layers # Vulkan debugging and validation
     ];
   };

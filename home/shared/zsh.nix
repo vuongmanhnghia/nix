@@ -102,6 +102,10 @@
       nix-clean = "sudo nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --optimize";
       nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --impure";
 
+      # === CODE EDITOR WORKFLOW (Enhanced) ===
+      code = "cursor";
+      idea = "idea-community";
+      
       # === TMUX WORKFLOW (Enhanced) ===
       tm = "tmux";
       tma = "tmux attach-session -t";
@@ -119,10 +123,10 @@
       # === DEVELOPMENT SHORTCUTS ===
       wsp = "cd ~/Workspaces";
       prj = "cd ~/Workspaces/projects";
-      bot = "cd ~/Workspaces/projects/bot";
-      ai = "cd ~/Workspaces/projects/ai";
-      serv = "cd ~/Workspaces/projects/services";
-      micro = "cd ~/Workspaces/projects/microservices";
+      noob = "cd ~/Workspaces/noob";
+      ptit = "cd ~/Workspaces/ptit";
+      vir = "cd ~/Workspaces/virtual";
+      
       # === DOCUMENTATION ===
       docs = "cd ~/Documents";
       down = "cd ~/Downloads";

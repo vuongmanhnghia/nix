@@ -38,8 +38,8 @@
   # programs.adb.enable = true;
 
   # Hardware acceleration và virtualization
-  # virtualisation.libvirtd.enable = true;
-  # boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
+  virtualisation.libvirtd.enable = true;
+  boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
 
   # USB debugging rules
   # services.udev.packages = [ pkgs.android-udev-rules ];

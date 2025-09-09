@@ -40,42 +40,4 @@
     GOPROXY = "https://proxy.golang.org";   # Go module proxy
     GOSUMDB = "sum.golang.org";            # Go checksum database
   };
-
-  # === GO SHELL INITIALIZATION ===
-  programs.zsh.interactiveShellInit = ''
-    # Go development aliases
-    alias gob="go build"
-    alias gor="go run"
-    alias got="go test"
-    alias gotv="go test -v"
-    alias goc="go clean"
-    alias goi="go install"
-    alias gom="go mod"
-    alias gof="go fmt"
-    alias godoc="go doc"
-    alias goget="go get"
-    
-    # Go workspace navigation
-    alias gowork="cd $GOPATH/src"
-    alias gobin="cd $GOPATH/bin"
-    
-    # Go testing shortcuts
-    alias gotest="go test ./..."
-    alias gobench="go test -bench=."
-    alias gocover="go test -cover"
-    
-    # Go linting and formatting
-    alias golint="golangci-lint run"
-    alias gofmt="gofumpt -w ."
-    alias goimp="goimports -w ."
-    
-    # Go build shortcuts
-    alias gobuild="go build -v"
-    alias goinstall="go install -v"
-    
-    # Add Go bin to PATH if not already there
-    if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
-      export PATH="$GOPATH/bin:$PATH"
-    fi
-  '';
 } 

@@ -45,13 +45,5 @@
     elif [[ -f venv/bin/activate ]]; then
       source venv/bin/activate
     fi
-    
-    # Python aliases
-    alias py="python3"
-    alias pip="pip3"
-    alias pytest="python3 -m pytest"
-    alias black="python3 -m black"
-    alias isort="python3 -m isort"
-    alias flake8="python3 -m flake8"
   '';
 } 

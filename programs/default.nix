@@ -10,7 +10,4 @@
     ./custom.nix       # Custom applications
     ./fcitx5.nix       # Vietnamese input
   ];
-  
-  # === SHELL CONFIGURATION ===
-  programs.zsh.enable = true;  # Enable zsh shell with proper PATH configuration
 } 

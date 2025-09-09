@@ -48,13 +48,6 @@
     VISUAL = "nvim";
   };
 
-  # Cài đặt shell aliases hữu ích
-  programs.bash.shellAliases = {
-    v = "nvim";
-    vi = "nvim";
-    vim = "nvim";
-  };
-
   programs.zsh.shellAliases = {
     v = "nvim";
     vi = "nvim";

@@ -18,10 +18,4 @@
     JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
     PATH = "${config.home.homeDirectory}/Android/Sdk/platform-tools:${config.home.homeDirectory}/Android/Sdk/cmdline-tools/latest/bin:$PATH";
   };
-
-  # Shell aliases for convenience
-  programs.bash.shellAliases = {
-    idea = "idea-community";
-    android-studio = "idea-community";
-  };
 }
