@@ -24,7 +24,6 @@
     postman                   # API development tool
 
     claude-code               # AI-powered code editor
-    vscode                    # Visual Studio Code editor
 
     # === TOOLS ===
     hugo                       # Static site generator

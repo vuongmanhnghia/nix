@@ -28,9 +28,10 @@
     unstable.firefox         # Firefox web browser
     unstable.discord         # Discord chat and communication platform
     unstable.spotify         # Spotify music streaming service
+    unstable.vscode          # Visual Studio Code - Source code editor
     unstable.code-cursor     # Cursor AI-powered code editor
     unstable.navicat-premium # Navicat Premium - Database management tool
-   
+    
     # === GAMING APPLICATIONS ===
     unstable.steam           # Steam gaming platform
     unstable.steam-run       # Steam runtime for non-Steam applications
@@ -52,7 +53,7 @@
   ];
 
   home.shellAliases = {
-    blog = "cd /home/nagih/blog";
+    blog = "cd /home/nagih/hugo";
   };
   
   # === SYNCTHING FILE SYNCHRONIZATION SERVICE ===

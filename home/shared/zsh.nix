@@ -94,7 +94,7 @@
       
       # === SYSTEM MANAGEMENT (Enhanced) ===
       oh = "cd ~/ && echo 'Went back home'";
-      config = "cd ~/Workspaces/Config/nixos";
+      nixc = "cd ~/Workspaces/Config/nixos";
       nix-rebuild = "sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --impure";
       nix-test = "sudo nixos-rebuild test --flake ~/Workspaces/Config/nixos --impure";
       home-rebuild = "home-manager switch --flake ~/Workspaces/Config/nixos";
