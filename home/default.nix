@@ -29,7 +29,6 @@
     ./shared/kvantum.nix         # Kvantum Qt theming
     ./shared/kde-dialog.nix      # KDialog configuration
     ./shared/tmux.nix            # Tmux configuration
-    ./shared/java.nix            # Java configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===

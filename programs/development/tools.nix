@@ -24,6 +24,8 @@
     postman                   # API development tool
 
     claude-code               # AI-powered code editor
+    pm2                       # Process manager for Node.js
+    nodePackages.vercel       # Vercel CLI
 
     # === TOOLS ===
     hugo                       # Static site generator

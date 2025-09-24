@@ -37,7 +37,7 @@
         # "$mainMod, N, Toggle right sidebar, global, quickshell:sidebarRightToggle" # Toggle right sidebar
         "$mainMod, Slash, Toggle cheatsheet, global, quickshell:cheatsheetToggle" # Toggle cheatsheet
         "$mainMod, K, Toggle on-screen keyboard, global, quickshell:oskToggle" # Toggle on-screen keyboard
-        "$mainMod, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
+        "$mainMod SHIFT, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
         "$mainMod CTRL ALT, Delete, Toggle session menu, global, quickshell:sessionToggle" # Toggle session menu
         "$mainMod SHIFT, H, Toggle bar, global, quickshell:barToggle" # Toggle bar
         "$mainMod CTRL, T, Change wallpaper, exec, ~/.config/quickshell/$qsConfig/scripts/colors/switchwall.sh" # Change wallpaper

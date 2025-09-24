@@ -63,6 +63,8 @@
     "nvidia_modeset" # Modesetting support for Wayland
     "nvidia_uvm" # Unified Virtual Memory support
     "nvidia_drm" # Direct Rendering Manager support
+    "kvm-intel" # KVM Intel driver
+    "kvm-amd" # KVM AMD driver
   ];
   
   # Blacklist open-source Nouveau driver to prevent conflicts
