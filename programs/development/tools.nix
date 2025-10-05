@@ -11,7 +11,6 @@
     # === TERMINAL MULTIPLEXER AND UTILITIES ===
     tmux                      # Terminal multiplexer for managing multiple terminal sessions
     termius                   # SSH client
-    docker-compose            # Multi-container Docker orchestration
     
     # === SYNTAX HIGHLIGHTING AND CODE TOOLS ===
     highlight                 # Universal syntax highlighter
@@ -23,7 +22,6 @@
     burpsuite                 # Web application security testing tool 
     postman                   # API development tool
 
-    claude-code               # AI-powered code editor
     pm2                       # Process manager for Node.js
     nodePackages.vercel       # Vercel CLI
 
@@ -38,6 +36,6 @@
     cloudflared     # Cloudflare Tunnel
     amazon-q-cli    # Amazon Q CLI
     qbittorrent     # Torrent client
-    speedtest-cli
+    speedtest-cli   # Internet speed test command line interface
   ];
 }

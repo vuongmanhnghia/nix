@@ -16,8 +16,8 @@
         "storage"        # Access storage devices
         "optical"        # Access optical drives
         "scanner"        # Access scanners
-        "libvirtd"       # Virtualization (if needed)
-        "docker"         # Docker (if needed)
+        "libvirtd"       # Virtualization
+        "docker"         # Docker 
         "disk"           # Disk management access
         "adbusers"       # D-Bus access
         "kvm"            # KVM access

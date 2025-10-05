@@ -3,10 +3,10 @@
 {
   environment.systemPackages = with pkgs; [
     vlc
-    gimp
+    # gimp
     libreoffice
     evince
     file-roller
-    mpv
+    # mpv
   ];
 }

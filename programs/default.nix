@@ -3,9 +3,9 @@
 {
   # === APPLICATION CONFIGURATION MODULES ===
   imports = [
-    ./development      # Development tools (Docker, Git, programming languages, IDEs)
-    ./gaming.nix       # Gaming platform (Steam, GameMode, controllers, Wine)
-    ./multimedia.nix   # Multimedia applications (VLC, GIMP, LibreOffice, Vietnamese input)
+    ./development      # Development tools
+    ./gaming.nix       # Gaming platform 
+    ./multimedia.nix   # Multimedia applications
     ./entries.nix      # Desktop entries
     ./custom.nix       # Custom applications
     ./fcitx5.nix       # Vietnamese input

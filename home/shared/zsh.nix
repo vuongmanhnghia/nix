@@ -235,7 +235,7 @@
       # === DEVELOPMENT ENVIRONMENT VARIABLES ===
       export EDITOR="nvim"
       export VISUAL="nvim"
-      export BROWSER="firefox"
+      export BROWSER="brave"
       export TERMINAL="wezterm"
       export MANPAGER="nvim +Man!"
       

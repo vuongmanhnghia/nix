@@ -12,7 +12,6 @@
     # Core applications (defined in dotfiles/hypr/conf/programs.conf)
     kitty
     nemo
-    firefox
     
     # Wayland utilities
     wl-clipboard
@@ -94,6 +93,7 @@
     tesseract
 
     fuzzel
+    wdisplays
   ];
 
   # Display manager

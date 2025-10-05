@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ...}:
 
 {
   environment.systemPackages = with pkgs; [
-    docker-compose
+    docker-compose    # Multi-container Docker orchestration
+    virtualbox        # Virtualization software for running virtual machines
+    vagrant           # Development environment manager
   ];
 
   # === DOCKER CONFIGURATION ===
@@ -14,7 +16,4 @@
       dates = "weekly";   # Run cleanup weekly
     };
   };
-
-  # === USER PERMISSIONS ===
-  users.users.nagih.extraGroups = [ "docker" ];  # Add user to docker group for container management
 }

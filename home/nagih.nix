@@ -25,19 +25,11 @@
   # === USER-SPECIFIC APPLICATIONS ===
   home.packages = with pkgs; [
     # === PERSONAL PRODUCTIVITY APPLICATIONS ===
-    unstable.firefox                  # Firefox web browser
+    unstable.brave                    # Brave web browser
     unstable.discord                  # Discord chat and communication platform
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
-    unstable.code-cursor              # Cursor AI-powered code editor
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
-    unstable.navicat-premium          # Navicat Premium - Database management tool
-    
-    # === GAMING APPLICATIONS ===
-    unstable.steam                    # Steam gaming platform
-    unstable.steam-run                # Steam runtime for non-Steam applications
-    unstable.protonup-qt              # Proton version management GUI tool
-    unstable.winetricks               # Wine/Proton dependency management tool
     unstable.telegram-desktop         # Telegram desktop
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
@@ -46,12 +38,11 @@
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
 
     unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
-    
-    # === VRCHAT ===
-    unstable.alcom                    # Alcom - A modern, feature-rich note-taking app
-    unstable.alvr                     # ALVR - Android VR Headset Emulator
-
     unstable.rpi-imager               # Raspberry Pi Imager
+
+    # === VRCHAT ===
+    # unstable.alcom                    # Alcom - A modern, feature-rich note-taking app
+    # unstable.alvr                     # ALVR - Android VR Headset Emulator
   ];
 
   home.shellAliases = {
@@ -123,7 +114,7 @@
     
     # === HYPRLAND SPECIFIC ===
     TERMINAL = "kitty";
-    BROWSER = "firefox";
+    BROWSER = "brave";
     EDITOR = "nvim";
     
     # === QUICKSHELL SPECIFIC ===

@@ -34,7 +34,7 @@ inc_volume() {
     if [ "$(pamixer --get-mute)" == "true" ]; then
         toggle_mute
     else
-        pamixer -i 1 --allow-boost --set-limit 150
+        pamixer -i 5 --allow-boost --set-limit 150
     fi
 }
 
@@ -43,7 +43,7 @@ dec_volume() {
     if [ "$(pamixer --get-mute)" == "true" ]; then
         toggle_mute
     else
-        pamixer -d 1
+        pamixer -d 5
     fi
 }
 

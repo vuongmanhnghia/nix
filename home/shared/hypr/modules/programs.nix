@@ -16,8 +16,8 @@
       "$qsConfig" = "ii";
       "$terminal" = "kitty";
       "$fileManager" = "nemo";
-      "$browser" = "firefox";
-      "$codeEditor" = "cursor";
+      "$browser" = "brave";
+      "$codeEditor" = "code";
     };
   };
 }

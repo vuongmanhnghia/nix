@@ -6,11 +6,11 @@
     ./python.nix
     ./golang.nix
     ./database.nix
-    ./docker.nix
     ./git.nix
     ./tools.nix
     ./networks.nix
     ./system.nix
+    ./virtual.nix
   ];
 
   environment.systemPackages = with pkgs; [

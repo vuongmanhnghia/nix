@@ -36,7 +36,7 @@
         # "$mainMod, A, Toggle left sidebar, global, quickshell:sidebarLeftToggle" # Toggle left sidebar
         # "$mainMod, N, Toggle right sidebar, global, quickshell:sidebarRightToggle" # Toggle right sidebar
         "$mainMod, Slash, Toggle cheatsheet, global, quickshell:cheatsheetToggle" # Toggle cheatsheet
-        "$mainMod, K, Toggle on-screen keyboard, global, quickshell:oskToggle" # Toggle on-screen keyboard
+        # "$mainMod, K, Toggle on-screen keyboard, global, quickshell:oskToggle" # Toggle on-screen keyboard
         "$mainMod SHIFT, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
         "$mainMod CTRL ALT, Delete, Toggle session menu, global, quickshell:sessionToggle" # Toggle session menu
         "$mainMod SHIFT, H, Toggle bar, global, quickshell:barToggle" # Toggle bar
@@ -91,8 +91,7 @@
         # === QUICK SHELL ===
         "$mainMod, R, exec, pkill quickshell; qs -c $qsConfig &" # [hidden] Restart Quickshell
         # "ALT, SPACE, exec, ~/Workspaces/Config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
-        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
-
+        
         "Ctrl, Super_L, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
         "Ctrl, Super_R, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
 
@@ -114,13 +113,19 @@
         "SHIFT $mainMod ALT, Slash, exec, qs -p ~/.config/quickshell/$qsConfig/welcome.qml" # [hidden] Launch welcome app
         "Ctrl $mainMod, R, exec, killall ags agsv1 gjs ydotool qs quickshell; qs -c $qsConfig &" # Restart widgets
 
+        # === VOLUME ===
+        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
+        "$mainMod SHIFT, up, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-inc"
+        "$mainMod SHIFT, down, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-dec"
+        
+        "$mainMod, up, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc"
+        "$mainMod, down, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --dec"
+
         # === WORKSPACE MANAGEMENT ===
 
         #/# bind = $mainMod, ←/↑/→/↓,, # Focus in direction
         "$mainMod, left, movefocus, l" 
         "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
 
         #/# bind = $mainMod SHIFT, ←/↑/→/↓,, # Move in direction
         "$mainMod CTRL, left, movewindow, l"
@@ -243,7 +248,7 @@
         # "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor" # [hidden] (code editor) (alt)
         "$mainMod, C, exec, $codeEditor" # [hidden] (code editor) (alt)
         "$mainMod, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $fileManager dolphin nautilus nemo thunar" # [hidden] (file manager) (alt)
-        "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser google-chrome-stable zen-browser firefox brave chromium microsoft-edge-stable opera librewolf" # [hidden] (browser) (alt)
+        "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser google-chrome-stable zen-browser brave firefox chromium microsoft-edge-stable opera librewolf" # [hidden] (browser) (alt)
         
         "$mainMod SHIFT, W, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh wps onlyoffice-desktopeditors" # Office software
         "$mainMod, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh kate gnome-text-editor emacs" # Text editor

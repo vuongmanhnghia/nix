@@ -13,15 +13,12 @@
   wayland.windowManager.hyprland = {
     settings = {
       general = {
-        gaps_in = 5;
-        gaps_out = 5;
+        gaps_in = 3;
+        gaps_out = 3;
         gaps_workspaces = 50;
 
-        border_size = 2;
+        border_size = 1;
         
-        # "col.active_border" = "rgba(0DB7D4FF)"; // NEW
-        # "col.inactive_border" = "rgba(31313600)"; // NEW
-
         "col.active_border" = "$outline";
         "col.inactive_border" = "$outline_variant";
 
