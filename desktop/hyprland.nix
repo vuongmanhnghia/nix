@@ -9,6 +9,7 @@
 
   # Essential system packages for Hyprland
   environment.systemPackages = with pkgs; [
+    papirus-icon-theme
     # Core applications (defined in dotfiles/hypr/conf/programs.conf)
     kitty
     nemo
