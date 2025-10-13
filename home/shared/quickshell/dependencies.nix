@@ -30,7 +30,6 @@
 
     kdePackages.qt5compat
     kdePackages.syntax-highlighting
-    kdePackages.dolphin
     kdePackages.bluedevil
     gnome-keyring
     kdePackages.plasma-nm
