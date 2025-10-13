@@ -6,7 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-GroupButton {
+RippleButton {
     id: lightDarkButtonRoot
     required property bool dark
     property color previewBg: dark ? ColorUtils.colorWithHueOf("#3f3838", Appearance.m3colors.m3primary) : 
@@ -72,8 +72,8 @@ GroupButton {
                         Layout.bottomMargin: 5
                         Layout.fillWidth: true
                         value: 0.7
-                        sperm: true
-                        animateSperm: lightDarkButtonRoot.toggled
+                        wavy: true
+                        animateWave: lightDarkButtonRoot.toggled
                         highlightColor: lightDarkButtonRoot.toggled ? Appearance.m3colors.m3primary : lightDarkButtonRoot.previewFg
                         trackColor: ColorUtils.mix(lightDarkButtonRoot.previewBg, lightDarkButtonRoot.previewFg, 0.5)
                     }

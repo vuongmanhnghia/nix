@@ -10,7 +10,9 @@ Singleton {
      * @returns {string}
      */
     function trimFileProtocol(str) {
-        return str.startsWith("file://") ? str.slice(7) : str;
+        let s = str;
+        if (typeof s !== "string") s = str.toString(); // Convert to string if it's an url or whatever
+        return s.startsWith("file://") ? s.slice(7) : s;
     }
 
     /**
@@ -22,6 +24,20 @@ Singleton {
         if (typeof str !== "string") return "";
         const trimmed = trimFileProtocol(str);
         return trimmed.split(/[\\/]/).pop();
+    }
+
+    /**
+     * Extracts the folder name from a directory path
+     * @param {string} str
+     * @returns {string}
+     */
+    function folderNameForPath(str) {
+        if (typeof str !== "string") return "";
+        const trimmed = trimFileProtocol(str);
+        // Remove trailing slash if present
+        const noTrailing = trimmed.endsWith("/") ? trimmed.slice(0, -1) : trimmed;
+        if (!noTrailing) return "";
+        return noTrailing.split(/[\\/]/).pop();
     }
 
     /**
@@ -37,5 +53,19 @@ Singleton {
             return trimmed.slice(0, lastDot);
         }
         return trimmed;
+    }
+
+    /**
+     * Returns the parent directory of a given file path
+     * @param {string} str
+     * @returns {string}
+     */
+    function parentDirectory(str) {
+        if (typeof str !== "string") return "";
+        const trimmed = trimFileProtocol(str);
+        const parts = trimmed.split(/[\\/]/);
+        if (parts.length <= 1) return "";
+        parts.pop();
+        return parts.join("/");
     }
 }

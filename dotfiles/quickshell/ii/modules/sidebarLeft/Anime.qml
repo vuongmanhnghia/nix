@@ -24,6 +24,15 @@ Item {
     property var suggestionList: []
 
     Connections {
+        target: Config
+        function onReadyChanged() {
+            if (Config.options.policies.weeb !== 0) {
+                Quickshell.execDetached(["bash", "-c", `mkdir -p '${root.downloadPath}' && mkdir -p '${root.nsfwPath}'`])
+            }
+        }
+    }
+
+    Connections {
         target: Booru
         function onTagSuggestion(query, suggestions) {
             root.suggestionQuery = query;
@@ -132,6 +141,21 @@ Item {
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: Rectangle {
+                    width: swipeView.width
+                    height: swipeView.height
+                    radius: Appearance.rounding.small
+                }
+            }
+
+            ScrollEdgeFade {
+                target: booruResponseListView
+                vertical: true
+            }
+
             StyledListView { // Booru responses
                 id: booruResponseListView
                 anchors.fill: parent
@@ -141,16 +165,6 @@ Item {
                 mouseScrollFactor: Config.options.interactions.scrolling.mouseScrollFactor * 1.4
 
                 property int lastResponseLength: 0
-
-                clip: true
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        width: swipeView.width
-                        height: swipeView.height
-                        radius: Appearance.rounding.small
-                    }
-                }
 
                 model: ScriptModel {
                     values: {
@@ -184,10 +198,9 @@ Item {
                     anchors.centerIn: parent
                     spacing: 5
 
-                    MaterialSymbol {
+                    CookieWrappedMaterialSymbol {
                         Layout.alignment: Qt.AlignHCenter
                         iconSize: 60
-                        color: Appearance.m3colors.m3outline
                         text: "bookmark_heart"
                     }
                     StyledText {
@@ -500,23 +513,21 @@ Item {
                     text: "•"
                 }
 
-                Item { // NSFW toggle
+                MouseArea { // NSFW toggle
                     visible: width > 0
                     implicitWidth: switchesRow.implicitWidth
                     Layout.fillHeight: true
+
+                    hoverEnabled: true
+                    PointingHandInteraction {}
+                    onPressed: {
+                        nsfwSwitch.checked = !nsfwSwitch.checked
+                    }
 
                     RowLayout {
                         id: switchesRow
                         spacing: 5
                         anchors.centerIn: parent
-
-                        MouseArea {
-                            hoverEnabled: true
-                            PointingHandInteraction {}
-                            onClicked: {
-                                nsfwSwitch.checked = !nsfwSwitch.checked
-                            }
-                        }
 
                         StyledText {
                             Layout.fillHeight: true
@@ -538,6 +549,7 @@ Item {
                             }
                         }
                     }
+
                 }
 
                 Item { Layout.fillWidth: true }
@@ -552,8 +564,8 @@ Item {
                             buttonText: commandRepresentation
                             colBackground: Appearance.colors.colLayer2
 
-                            onClicked: {
-                                if(modelData.sendDirectly) {
+                            downAction: () => {
+                                if (modelData.sendDirectly) {
                                     root.handleInput(commandRepresentation)
                                 } else {
                                     tagInputField.text = commandRepresentation + " "

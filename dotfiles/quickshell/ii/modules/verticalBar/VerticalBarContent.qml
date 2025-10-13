@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Bluetooth
 import Quickshell.Services.UPower
 import qs
 import qs.services
@@ -79,7 +80,7 @@ Item { // Bar content region
         }
     }
 
-    ColumnLayout { // Middle section
+    Column { // Middle section
         id: middleSection
         anchors.centerIn: parent
         spacing: 4
@@ -109,8 +110,9 @@ Item { // Bar content region
             vertical: true
             padding: 6
 
-            Workspaces {
+            Bar.Workspaces {
                 id: workspacesWidget
+                vertical: true
                 MouseArea {
                     // Right-click to toggle overview
                     anchors.fill: parent
@@ -154,8 +156,6 @@ Item { // Bar content region
                 Layout.fillWidth: true
                 Layout.fillHeight: false
             }
-
-
             
         }
     }
@@ -267,14 +267,24 @@ Item { // Bar content region
                             color: rightSidebarButton.colText
                         }
                     }
-                    Loader {
-                        active: HyprlandXkb.layoutCodes.length > 1
-                        visible: active
+                    Bar.HyprlandXkbIndicator {
+                        vertical: true
+                        Layout.alignment: Qt.AlignHCenter
                         Layout.bottomMargin: indicatorsColumnLayout.realSpacing
-                        sourceComponent: StyledText {
-                            text: HyprlandXkb.currentLayoutCode
-                            font.pixelSize: Appearance.font.pixelSize.small
-                            color: rightSidebarButton.colText
+                        color: rightSidebarButton.colText
+                    }
+                    Revealer {
+                        vertical: true
+                        reveal: Notifications.silent || Notifications.unread > 0
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: reveal ? indicatorsColumnLayout.realSpacing : 0
+                        implicitHeight: reveal ? notificationUnreadCount.implicitHeight : 0
+                        implicitWidth: reveal ? notificationUnreadCount.implicitWidth : 0
+                        Behavior on Layout.bottomMargin {
+                            animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
+                        }
+                        Bar.NotificationUnreadCount {
+                            id: notificationUnreadCount
                         }
                     }
                     MaterialSymbol {
@@ -284,7 +294,8 @@ Item { // Bar content region
                         color: rightSidebarButton.colText
                     }
                     MaterialSymbol {
-                        text: Bluetooth.bluetoothConnected ? "bluetooth_connected" : Bluetooth.bluetoothEnabled ? "bluetooth" : "bluetooth_disabled"
+                        visible: BluetoothStatus.available
+                        text: BluetoothStatus.connected ? "bluetooth_connected" : BluetoothStatus.enabled ? "bluetooth" : "bluetooth_disabled"
                         iconSize: Appearance.font.pixelSize.larger
                         color: rightSidebarButton.colText
                     }

@@ -60,7 +60,7 @@ Singleton {
 
     component NotifTimer: Timer {
         required property int notificationId
-        interval: 5000
+        interval: 7000
         running: true
         onTriggered: () => {
             root.timeoutNotification(notificationId);
@@ -69,6 +69,7 @@ Singleton {
     }
 
     property bool silent: false
+    property int unread: 0
     property var filePath: Directories.notificationsPath
     property list<Notif> list: []
     property var popupList: list.filter((notif) => notif.popup);
@@ -168,15 +169,20 @@ Singleton {
                 if (notification.expireTimeout != 0) {
                     newNotifObject.timer = notifTimerComponent.createObject(root, {
                         "notificationId": newNotifObject.notificationId,
-                        "interval": notification.expireTimeout < 0 ? 5000 : notification.expireTimeout,
+                        "interval": notification.expireTimeout < 0 ? (Config?.options.notifications.timeout ?? 7000) : notification.expireTimeout,
                     });
                 }
             }
 
+            root.unread++;
             root.notify(newNotifObject);
             // console.log(notifToString(newNotifObject));
             notifFileView.setText(stringifyList(root.list));
         }
+    }
+
+    function markAllRead() {
+        root.unread = 0;
     }
 
     function discardNotification(id) {

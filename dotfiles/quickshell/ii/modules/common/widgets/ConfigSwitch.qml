@@ -6,18 +6,28 @@ import QtQuick.Controls
 
 RippleButton {
     id: root
+    property string buttonIcon
+
     Layout.fillWidth: true
     implicitHeight: contentItem.implicitHeight + 8 * 2
+    font.pixelSize: Appearance.font.pixelSize.small
+    
     onClicked: checked = !checked
 
     contentItem: RowLayout {
         spacing: 10
+        OptionalMaterialSymbol {
+            icon: root.buttonIcon
+            opacity: root.enabled ? 1 : 0.4
+            iconSize: Appearance.font.pixelSize.larger
+        }
         StyledText {
             id: labelWidget
             Layout.fillWidth: true
             text: root.text
-            font.pixelSize: Appearance.font.pixelSize.small
+            font: root.font
             color: Appearance.colors.colOnSecondaryContainer
+            opacity: root.enabled ? 1 : 0.4
         }
         StyledSwitch {
             id: switchWidget

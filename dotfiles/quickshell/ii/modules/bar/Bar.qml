@@ -1,11 +1,9 @@
 import "./weather"
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Hyprland
-import Quickshell.Services.UPower
 import qs
 import qs.services
 import qs.modules.common
@@ -14,8 +12,6 @@ import qs.modules.common.functions
 
 Scope {
     id: bar
-
-    readonly property int osdHideMouseMoveThreshold: 20
     property bool showBarBackground: Config.options.bar.showBackground
 
     Variants {
@@ -77,17 +73,26 @@ Scope {
                     right: true
                 }
 
+                margins {
+                    right: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.right) * -1
+                    bottom: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.bottom) * -1
+                }
+
                 MouseArea  {
                     id: hoverRegion
                     hoverEnabled: true
-                    anchors.fill: parent
+                    anchors {
+                        fill: parent
+                        rightMargin: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.right) * 1
+                        bottomMargin: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.bottom) * 1
+                    }
 
                     Item {
                         id: hoverMaskRegion
                         anchors {
                             fill: barContent
-                            topMargin: -1
-                            bottomMargin: -1
+                            topMargin: -Config.options.bar.autoHide.hoverRegionWidth
+                            bottomMargin: -Config.options.bar.autoHide.hoverRegionWidth
                         }
                     }
 
@@ -101,7 +106,8 @@ Scope {
                             top: parent.top
                             bottom: undefined
                             topMargin: (Config?.options.bar.autoHide.enable && !mustShow) ? -Appearance.sizes.barHeight : 0
-                            bottomMargin: 0
+                            bottomMargin: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.bottom) * -1
+                            rightMargin: (Config.options.interactions.deadPixelWorkaround.enable && barRoot.anchors.right) * -1
                         }
                         Behavior on anchors.topMargin {
                             animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)

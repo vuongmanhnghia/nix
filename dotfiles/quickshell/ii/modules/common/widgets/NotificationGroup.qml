@@ -1,10 +1,12 @@
-import qs.modules.common
+import qs
 import qs.services
+import qs.modules.common
 import qs.modules.common.functions
 import "./notification_utils.js" as NotificationUtils
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Services.Notifications
 
 /**
  * A group of notifications from the same app.
@@ -153,6 +155,8 @@ MouseArea { // Notification group area
                 image: root?.multipleNotifications ? "" : notificationGroup?.notifications[0]?.image ?? ""
                 appIcon: notificationGroup?.appIcon
                 summary: notificationGroup?.notifications[root.notificationCount - 1]?.summary
+                urgency: root.notifications.some(n => n.urgency === NotificationUrgency.Critical.toString()) ? 
+                    NotificationUrgency.Critical : NotificationUrgency.Normal
             }
 
             ColumnLayout { // Content
@@ -211,6 +215,11 @@ MouseArea { // Notification group area
                         expanded: root.expanded
                         fontSize: topRow.fontSize
                         onClicked: { root.toggleExpanded() }
+                        altAction: () => { root.toggleExpanded() }
+
+                        StyledToolTip {
+                            text: Translation.tr("Tip: right-clicking a group\nalso expands it")
+                        }
                     }
                 }
 

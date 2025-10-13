@@ -6,6 +6,7 @@ import QtQuick.Layouts
 RowLayout {
     id: root
     property string text: ""
+    property string icon
     property alias value: spinBoxWidget.value
     property alias stepSize: spinBoxWidget.stepSize
     property alias from: spinBoxWidget.from
@@ -14,12 +15,19 @@ RowLayout {
     Layout.leftMargin: 8
     Layout.rightMargin: 8
 
-    StyledText {
-        id: labelWidget
-        Layout.fillWidth: true
-        text: root.text
-        font.pixelSize: Appearance.font.pixelSize.small
-        color: Appearance.colors.colOnSecondaryContainer
+    RowLayout {
+        spacing: 10
+        OptionalMaterialSymbol {
+            icon: root.icon
+            opacity: root.enabled ? 1 : 0.4
+        }
+        StyledText {
+            id: labelWidget
+            Layout.fillWidth: true
+            text: root.text
+            color: Appearance.colors.colOnSecondaryContainer
+            opacity: root.enabled ? 1 : 0.4
+        }
     }
 
     StyledSpinBox {

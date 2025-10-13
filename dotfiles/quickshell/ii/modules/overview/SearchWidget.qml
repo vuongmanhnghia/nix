@@ -20,6 +20,78 @@ Item { // Wrapper
     implicitHeight: searchWidgetContent.implicitHeight + Appearance.sizes.elevationMargin * 2
 
     property string mathResult: ""
+    property bool clipboardWorkSafetyActive: {
+        const enabled = Config.options.workSafety.enable.clipboard;
+        const sensitiveNetwork = (StringUtils.stringListContainsSubstring(Network.networkName.toLowerCase(), Config.options.workSafety.triggerCondition.networkNameKeywords))
+        return enabled && sensitiveNetwork;
+    }
+
+    property var searchActions: [
+        {
+            action: "accentcolor",
+            execute: args => {
+                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--noswitch", "--color", ...(args != '' ? [`${args}`] : [])]);
+            }
+        },
+        {
+            action: "dark",
+            execute: () => {
+                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--mode", "dark", "--noswitch"]);
+            }
+        },
+        {
+            action: "konachanwallpaper",
+            execute: () => {
+                Quickshell.execDetached([Quickshell.shellPath("scripts/colors/random/random_konachan_wall.sh")]);
+            }
+        },
+        {
+            action: "light",
+            execute: () => {
+                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--mode", "light", "--noswitch"]);
+            }
+        },
+        {
+            action: "superpaste",
+            execute: args => {
+                if (!/^(\d+)/.test(args.trim())) { // Invalid if doesn't start with numbers
+                    Quickshell.execDetached([
+                        "notify-send", 
+                        Translation.tr("Superpaste"), 
+                        Translation.tr("Usage: <tt>%1superpaste NUM_OF_ENTRIES[i]</tt>\nSupply <tt>i</tt> when you want images\nExamples:\n<tt>%1superpaste 4i</tt> for the last 4 images\n<tt>%1superpaste 7</tt> for the last 7 entries").arg(Config.options.search.prefix.action),
+                        "-a", "Shell"
+                    ]);
+                    return;
+                }
+                const syntaxMatch = /^(?:(\d+)(i)?)/.exec(args.trim());
+                const count = syntaxMatch[1] ? parseInt(syntaxMatch[1]) : 1;
+                const isImage = !!syntaxMatch[2];
+                Cliphist.superpaste(count, isImage);
+            }
+        },
+        {
+            action: "todo",
+            execute: args => {
+                Todo.addTask(args);
+            }
+        },
+        {
+            action: "wallpaper",
+            execute: () => {
+                GlobalStates.wallpaperSelectorOpen = true;
+            }
+        },
+        {
+            action: "wipeclipboard",
+            execute: () => {
+                Cliphist.wipe();
+            }
+        },
+    ]
+
+    function focusFirstItem() {
+        appResults.currentIndex = 0;
+    }
 
     function disableExpandAnimation() {
         searchWidthBehavior.enabled = false;
@@ -36,47 +108,10 @@ Item { // Wrapper
         root.searchingText = text;
     }
 
-    property var searchActions: [
-        {
-            action: "dark",
-            execute: () => {
-                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--mode", "dark", "--noswitch"]);
-            }
-        },
-        {
-            action: "light",
-            execute: () => {
-                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--mode", "light", "--noswitch"]);
-            }
-        },
-        {
-            action: "wall",
-            execute: () => {
-                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath]);
-            }
-        },
-        {
-            action: "konachanwall",
-            execute: () => {
-                Quickshell.execDetached([Quickshell.shellPath("scripts/colors/random_konachan_wall.sh")]);
-            }
-        },
-        {
-            action: "accentcolor",
-            execute: args => {
-                Quickshell.execDetached([Directories.wallpaperSwitchScriptPath, "--noswitch", "--color", ...(args != '' ? [`${args}`] : [])]);
-            }
-        },
-        {
-            action: "todo",
-            execute: args => {
-                Todo.addTask(args);
-            }
-        },
-    ]
-
-    function focusFirstItem() {
-        appResults.currentIndex = 0;
+    function containsUnsafeLink(entry) {
+        if (entry == undefined) return false;
+        const unsafeKeywords = Config.options.workSafety.triggerCondition.linkKeywords;
+        return StringUtils.stringListContainsSubstring(entry.toLowerCase(), unsafeKeywords);
     }
 
     Timer {
@@ -292,11 +327,16 @@ Item { // Wrapper
                         ///////////// Special cases ///////////////
                         if (root.searchingText.startsWith(Config.options.search.prefix.clipboard)) {
                             // Clipboard
-                            const searchString = root.searchingText.slice(Config.options.search.prefix.clipboard.length);
-                            return Cliphist.fuzzyQuery(searchString).map(entry => {
+                            const searchString = StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.clipboard);
+                            return Cliphist.fuzzyQuery(searchString).map((entry, index, array) => {
+                                const mightBlurImage = Cliphist.entryIsImage(entry) && root.clipboardWorkSafetyActive;
+                                let shouldBlurImage = mightBlurImage;
+                                if (mightBlurImage) {
+                                    shouldBlurImage = shouldBlurImage && (containsUnsafeLink(array[index - 1]) || containsUnsafeLink(array[index + 1]));
+                                }
                                 return {
                                     cliphistRawString: entry,
-                                    name: entry.replace(/^\s*\S+\s+/, ""),
+                                    name: StringUtils.cleanCliphistEntry(entry),
                                     clickActionName: "",
                                     type: `#${entry.match(/^\s*(\S+)/)?.[1] || ""}`,
                                     execute: () => {
@@ -304,19 +344,28 @@ Item { // Wrapper
                                     },
                                     actions: [
                                         {
+                                            name: "Copy",
+                                            materialIcon: "content_copy",
+                                            execute: () => {
+                                                Cliphist.copy(entry);
+                                            }
+                                        },
+                                        {
                                             name: "Delete",
-                                            icon: "delete",
+                                            materialIcon: "delete",
                                             execute: () => {
                                                 Cliphist.deleteEntry(entry);
                                             }
                                         }
-                                    ]
+                                    ],
+                                    blurImage: shouldBlurImage,
+                                    blurImageText: Translation.tr("Work safety")
                                 };
                             }).filter(Boolean);
                         }
                         else if (root.searchingText.startsWith(Config.options.search.prefix.emojis)) {
                             // Clipboard
-                            const searchString = root.searchingText.slice(Config.options.search.prefix.emojis.length);
+                            const searchString = StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.emojis);
                             return Emojis.fuzzyQuery(searchString).map(entry => {
                                 return {
                                     cliphistRawString: entry,
@@ -343,14 +392,20 @@ Item { // Wrapper
                                 Quickshell.clipboardText = root.mathResult;
                             }
                         };
+                        const appResultObjects = AppSearch.fuzzyQuery(StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.app)).map(entry => {
+                            entry.clickActionName = Translation.tr("Launch");
+                            entry.type = Translation.tr("App");
+                            return entry;
+                        })
                         const commandResultObject = {
-                            name: searchingText.replace("file://", ""),
+                            name: StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.shellCommand).replace("file://", ""),
                             clickActionName: Translation.tr("Run"),
                             type: Translation.tr("Run command"),
                             fontType: "monospace",
                             materialSymbol: 'terminal',
                             execute: () => {
                                 let cleanedCommand = root.searchingText.replace("file://", "");
+                                cleanedCommand = StringUtils.cleanPrefix(cleanedCommand, Config.options.search.prefix.shellCommand);
                                 if (cleanedCommand.startsWith(Config.options.search.prefix.shellCommand)) {
                                     cleanedCommand = cleanedCommand.slice(Config.options.search.prefix.shellCommand.length);
                                 }
@@ -358,15 +413,12 @@ Item { // Wrapper
                             }
                         };
                         const webSearchResultObject = {
-                            name: root.searchingText,
+                            name: StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.webSearch),
                             clickActionName: Translation.tr("Search"),
                             type: Translation.tr("Search the web"),
                             materialSymbol: 'travel_explore',
                             execute: () => {
-                                let query = root.searchingText;
-                                if (query.startsWith(Config.options.search.prefix.webSearch)) {
-                                    query = query.slice(Config.options.search.prefix.webSearch.length);
-                                }
+                                let query = StringUtils.cleanPrefix(root.searchingText, Config.options.search.prefix.webSearch);
                                 let url = Config.options.search.engineBaseUrl + query;
                                 for (let site of Config.options.search.excludedSites) {
                                     url += ` -site:${site}`;
@@ -405,11 +457,7 @@ Item { // Wrapper
                         }
 
                         //////////////// Apps //////////////////
-                        result = result.concat(AppSearch.fuzzyQuery(root.searchingText).map(entry => {
-                            entry.clickActionName = Translation.tr("Launch");
-                            entry.type = Translation.tr("App");
-                            return entry;
-                        }));
+                        result = result.concat(appResultObjects);
 
                         ////////// Launcher actions ////////////
                         result = result.concat(launcherActionObjects);
@@ -431,7 +479,15 @@ Item { // Wrapper
                     anchors.left: parent?.left
                     anchors.right: parent?.right
                     entry: modelData
-                    query: root.searchingText.startsWith(Config.options.search.prefix.clipboard) ? root.searchingText.slice(Config.options.search.prefix.clipboard.length) : root.searchingText
+                    query: StringUtils.cleanOnePrefix(root.searchingText, [
+                        Config.options.search.prefix.action,
+                        Config.options.search.prefix.app,
+                        Config.options.search.prefix.clipboard,
+                        Config.options.search.prefix.emojis,
+                        Config.options.search.prefix.math,
+                        Config.options.search.prefix.shellCommand,
+                        Config.options.search.prefix.webSearch
+                    ])
                 }
             }
         }

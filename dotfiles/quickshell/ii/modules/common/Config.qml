@@ -40,11 +40,30 @@ Singleton {
         obj[keys[keys.length - 1]] = convertedValue;
     }
 
+    Timer {
+        id: fileReloadTimer
+        interval: 50
+        repeat: false
+        onTriggered: {
+            configFileView.reload()
+        }
+    }
+
+    Timer {
+        id: fileWriteTimer
+        interval: 50
+        repeat: false
+        onTriggered: {
+            configFileView.writeAdapter()
+        }
+    }
+
     FileView {
+        id: configFileView
         path: root.filePath
         watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
+        onFileChanged: fileReloadTimer.restart()
+        onAdapterUpdated: fileWriteTimer.restart()
         onLoaded: root.ready = true
         onLoadFailed: error => {
             if (error == FileViewError.FileNotFound) {
@@ -82,7 +101,7 @@ Singleton {
                 property bool extraBackgroundTint: true
                 property int fakeScreenRounding: 2 // 0: None | 1: Always | 2: When not fullscreen
                 property JsonObject transparency: JsonObject {
-                    property bool enable: true
+                    property bool enable: false
                     property bool automatic: true
                     property real backgroundTransparency: 0.11
                     property real contentTransparency: 0.57
@@ -91,6 +110,12 @@ Singleton {
                     property bool enableAppsAndShell: true
                     property bool enableQtApps: true
                     property bool enableTerminal: true
+                    property JsonObject terminalGenerationProps: JsonObject {
+                        property real harmony: 0.6
+                        property real harmonizeThreshold: 100
+                        property real termFgBoost: 0.35
+                        property bool forceDarkMode: false
+                    }
                 }
                 property JsonObject palette: JsonObject {
                     property string type: "auto" // Allowed: auto, scheme-content, scheme-expressive, scheme-fidelity, scheme-fruit-salad, scheme-monochrome, scheme-neutral, scheme-rainbow, scheme-tonal-spot
@@ -101,39 +126,61 @@ Singleton {
                 // Values in %
                 property JsonObject protection: JsonObject {
                     // Prevent sudden bangs
-                    property bool enable: true
+                    property bool enable: false
                     property real maxAllowedIncrease: 10
-                    property real maxAllowed: 90 // Realistically should already provide some protection when it's 99...
+                    property real maxAllowed: 99
                 }
             }
 
             property JsonObject apps: JsonObject {
                 property string bluetooth: "kcmshell6 kcm_bluetooth"
-                property string network: "plasmawindowed org.kde.plasma.networkmanagement"
+                property string network: "kitty -1 fish -c nmtui"
                 property string networkEthernet: "kcmshell6 kcm_networkmanagement"
                 property string taskManager: "plasma-systemmonitor --page-name Processes"
                 property string terminal: "kitty -1" // This is only for shell actions
             }
 
             property JsonObject background: JsonObject {
-                property bool fixedClockPosition: false
-                property real clockX: -500
-                property real clockY: -500
+                property JsonObject clock: JsonObject {
+                    property bool fixedPosition: false
+                    property real x: -500
+                    property real y: -500
+                    property bool show: true
+                    property string style: "cookie" // Options: "cookie", "digital"
+                    property real scale: 1
+                    property JsonObject cookie: JsonObject {
+                        property bool aiStyling: false
+                        property int sides: 14
+                        property string dialNumberStyle: "full"   // Options: "dots" , "numbers", "full" , "none"
+                        property string hourHandStyle: "fill"     // Options: "classic", "fill", "hollow", "hide"
+                        property string minuteHandStyle: "medium" // Options "classic", "thin", "medium", "bold", "hide"
+                        property string secondHandStyle: "dot"    // Options: "dot", "line", "classic", "hide"
+                        property string dateStyle: "bubble"       // Options: "border", "rect", "bubble" , "hide"
+                        property bool timeIndicators: true
+                        property bool hourMarks: false
+                        property bool dateInClock: true
+                        property bool constantlyRotate: false
+                    }
+                    
+                }
                 property string wallpaperPath: ""
                 property string thumbnailPath: ""
+                property string quote: ""
+                property bool showQuote: false
+                property bool hideWhenFullscreen: true
                 property JsonObject parallax: JsonObject {
                     property bool vertical: false
+                    property bool autoVertical: false
                     property bool enableWorkspace: true
                     property real workspaceZoom: 1.07 // Relative to your screen, not wallpaper size
                     property bool enableSidebar: true
                 }
-                property string mantra: ""
-                property bool hideWhenFullscreen: true
             }
 
             property JsonObject bar: JsonObject {
                 property JsonObject autoHide: JsonObject {
                     property bool enable: false
+                    property int hoverRegionWidth: 2
                     property bool pushWindows: false
                     property JsonObject showWhenPressingSuper: JsonObject {
                         property bool enable: true
@@ -149,7 +196,10 @@ Singleton {
                 property bool vertical: false
                 property JsonObject resources: JsonObject {
                     property bool alwaysShowSwap: true
-                    property bool alwaysShowCpu: false
+                    property bool alwaysShowCpu: true
+                    property int memoryWarningThreshold: 95
+                    property int swapWarningThreshold: 85
+                    property int cpuWarningThreshold: 90
                 }
                 property list<string> screenList: [] // List of names, like "eDP-1", find out with 'hyprctl monitors' command
                 property JsonObject utilButtons: JsonObject {
@@ -162,8 +212,9 @@ Singleton {
                 }
                 property JsonObject tray: JsonObject {
                     property bool monochromeIcons: true
-                    property bool invertPinnedItems: false // Makes the below a whitelist for the tray and blacklist for the pinned area
-                    property list<string> pinnedItems: [ "Fcitx" ]
+                    property bool showItemId: false
+                    property bool invertPinnedItems: true // Makes the below a whitelist for the tray and blacklist for the pinned area
+                    property list<string> pinnedItems: [ ]
                 }
                 property JsonObject workspaces: JsonObject {
                     property bool monochromeIcons: true
@@ -171,6 +222,8 @@ Singleton {
                     property bool showAppIcons: true
                     property bool alwaysShowNumbers: false
                     property int showNumberDelay: 300 // milliseconds
+                    property list<string> numberMap: ["1", "2"] // Characters to show instead of numbers on workspace indicator
+                    property bool useNerdFont: false
                 }
                 property JsonObject weather: JsonObject {
                     property bool enable: false
@@ -178,6 +231,11 @@ Singleton {
                     property string city: "" // When 'enableGPS' is false
                     property bool useUSCS: false // Instead of metric (SI) units
                     property int fetchInterval: 10 // minutes
+                }
+                property JsonObject indicators: JsonObject {
+                    property JsonObject notifications: JsonObject {
+                        property bool showUnreadCount: false
+                    }
                 }
             }
 
@@ -191,6 +249,11 @@ Singleton {
             property JsonObject conflictKiller: JsonObject {
                 property bool autoKillNotificationDaemons: false
                 property bool autoKillTrays: false
+            }
+
+            property JsonObject crosshair: JsonObject {
+                // Valorant crosshair format. Use https://www.vcrdb.net/builder
+                property string code: "0;P;d;1;0l;10;0o;2;1b;0"
             }
 
             property JsonObject dock: JsonObject {
@@ -212,9 +275,13 @@ Singleton {
                     property int mouseScrollFactor: 120
                     property int touchpadScrollFactor: 450
                 }
+                property JsonObject deadPixelWorkaround: JsonObject { // Hyprland leaves out 1 pixel on the right for interactions
+                    property bool enable: false
+                }
             }
 
             property JsonObject language: JsonObject {
+                property string ui: "auto" // UI language. "auto" for system locale, or specific language code like "zh_CN", "en_US"
                 property JsonObject translator: JsonObject {
                     property string engine: "auto" // Run `trans -list-engines` for available engines. auto should use google
                     property string targetLanguage: "auto" // Run `trans -list-all` for available languages
@@ -231,6 +298,22 @@ Singleton {
                 }
             }
 
+            property JsonObject lock: JsonObject {
+                property bool useHyprlock: false
+                property bool launchOnStartup: false
+                property JsonObject blur: JsonObject {
+                    property bool enable: false
+                    property real radius: 100
+                    property real extraZoom: 1.1
+                }
+                property bool centerClock: true
+                property bool showLockedText: true
+                property JsonObject security: JsonObject {
+                    property bool unlockKeyring: true
+                    property bool requirePasswordToPower: false
+                }
+            }
+
             property JsonObject media: JsonObject {
                 // Attempt to remove dupes (the aggregator playerctl one and browsers' native ones when there's plasma browser integration)
                 property bool filterDuplicatePlayers: true
@@ -238,6 +321,10 @@ Singleton {
 
             property JsonObject networking: JsonObject {
                 property string userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+            }
+
+            property JsonObject notifications: JsonObject {
+                property int timeout: 7000
             }
 
             property JsonObject osd: JsonObject {
@@ -268,6 +355,7 @@ Singleton {
                 property JsonObject prefix: JsonObject {
                     property bool showDefaultActionsWithoutPrefix: true
                     property string action: "/"
+                    property string app: ">"
                     property string clipboard: ";"
                     property string emojis: ":"
                     property string math: "="
@@ -279,7 +367,11 @@ Singleton {
             property JsonObject sidebar: JsonObject {
                 property bool keepRightSidebarLoaded: true
                 property JsonObject translator: JsonObject {
+                    property bool enable: false
                     property int delay: 300 // Delay before sending request. Reduces (potential) rate limits and lag.
+                }
+                property JsonObject ai: JsonObject {
+                    property bool textFadeIn: true
                 }
                 property JsonObject booru: JsonObject {
                     property bool allowNsfw: false
@@ -288,6 +380,15 @@ Singleton {
                     property JsonObject zerochan: JsonObject {
                         property string username: "[unset]"
                     }
+                }
+                property JsonObject cornerOpen: JsonObject {
+                    property bool enable: true
+                    property bool bottom: false
+                    property bool valueScroll: true
+                    property bool clickless: false
+                    property real cornerRegionWidth: 60
+                    property real cornerRegionHeight: 2
+                    property bool visualize: false
                 }
             }
 
@@ -303,8 +404,13 @@ Singleton {
                     property int focus: 1500
                     property int longBreak: 900
                 }
+                property bool secondPrecision: false
             }
-
+            
+            property JsonObject wallpaperSelector: JsonObject {
+                property bool useSystemFileDialog: false
+            }
+            
             property JsonObject windows: JsonObject {
                 property bool showTitlebar: true // Client-side decoration for shell apps
                 property bool centerTitle: true
@@ -316,6 +422,18 @@ Singleton {
 
             property JsonObject screenshotTool: JsonObject {
                 property bool showContentRegions: true
+            }
+
+            property JsonObject workSafety: JsonObject {
+                property JsonObject enable: JsonObject {
+                    property bool wallpaper: true
+                    property bool clipboard: true
+                }
+                property JsonObject triggerCondition: JsonObject {
+                    property list<string> networkNameKeywords: ["airport", "cafe", "college", "company", "eduroam", "free", "guest", "public", "school", "university"]
+                    property list<string> fileKeywords: ["anime", "ecchi", "hentai", "yande.re", "konachan", "breast", "nipples", "pussy", "nsfw", "spoiler", "girl"]
+                    property list<string> linkKeywords: ["hentai", "porn", "sukebei", "hitomi.la", "rule34", "gelbooru", "fanbox", "dlsite"]
+                }
             }
         }
     }

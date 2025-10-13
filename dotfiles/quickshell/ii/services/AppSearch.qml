@@ -13,35 +13,13 @@ Singleton {
     property bool sloppySearch: Config.options?.search.sloppy ?? false
     property real scoreThreshold: 0.2
     property var substitutions: ({
-        // Editors & IDEs
         "code-url-handler": "visual-studio-code",
         "Code": "visual-studio-code",
-        "code": "visual-studio-code",
-        
-        // Browsers
-        "brave-browser": "brave-desktop",
-        "zen": "zen-browser",
-        
-        // Communication
-        "discord": "discord",
-        "Discord": "discord",
-        
-        // Productivity
-        "obsidian": "obsidian",
-        "Obsidian": "obsidian",
-        
-        // Terminals
-        "footclient": "foot",
-        "kitty": "kitty",
-        
-        // System
         "gnome-tweaks": "org.gnome.tweaks",
         "pavucontrol-qt": "pavucontrol",
-        "keyboard-us": "keyboard-us-symbolic",
-        
-        // Office
         "wps": "wps-office2019-kprometheus",
-        "wpsoffice": "wps-office2019-kprometheus"
+        "wpsoffice": "wps-office2019-kprometheus",
+        "footclient": "foot",
     })
     property var regexSubstitutions: [
         {
@@ -110,6 +88,10 @@ Singleton {
 
     function guessIcon(str) {
         if (!str || str.length == 0) return "image-missing";
+
+        // Quickshell's desktop entry lookup
+        const entry = DesktopEntries.heuristicLookup(str);
+        if (entry) return entry.icon;
 
         // Normal substitutions
         if (substitutions[str]) return substitutions[str];

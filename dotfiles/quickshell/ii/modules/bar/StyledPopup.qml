@@ -1,4 +1,5 @@
 import qs.modules.common
+import qs.modules.common.widgets
 import qs.modules.common.functions
 import QtQuick
 import QtQuick.Effects
@@ -23,8 +24,12 @@ LazyLoader {
         anchors.top: Config.options.bar.vertical || (!Config.options.bar.vertical && !Config.options.bar.bottom)
         anchors.bottom: !Config.options.bar.vertical && Config.options.bar.bottom
 
-        implicitWidth: popupBackground.implicitWidth + Appearance.sizes.hyprlandGapsOut * 2 + root.popupBackgroundMargin
-        implicitHeight: popupBackground.implicitHeight + Appearance.sizes.hyprlandGapsOut * 2 + root.popupBackgroundMargin
+        implicitWidth: popupBackground.implicitWidth + Appearance.sizes.elevationMargin * 2 + root.popupBackgroundMargin
+        implicitHeight: popupBackground.implicitHeight + Appearance.sizes.elevationMargin * 2 + root.popupBackgroundMargin
+
+        mask: Region {
+            item: popupBackground
+        }
 
         exclusionMode: ExclusionMode.Ignore
         exclusiveZone: 0
@@ -49,15 +54,8 @@ LazyLoader {
         WlrLayershell.namespace: "quickshell:popup"
         WlrLayershell.layer: WlrLayer.Overlay
 
-        RectangularShadow {
-            property var target: popupBackground
-            anchors.fill: target
-            radius: target.radius
-            blur: 0.9 * Appearance.sizes.hyprlandGapsOut
-            offset: Qt.vector2d(0.0, 1.0)
-            spread: 0.7
-            color: Appearance.colors.colShadow
-            cached: true
+        StyledRectangularShadow {
+            target: popupBackground
         }
 
         Rectangle {
@@ -65,10 +63,10 @@ LazyLoader {
             readonly property real margin: 10
             anchors {
                 fill: parent
-                leftMargin: Appearance.sizes.hyprlandGapsOut + root.popupBackgroundMargin * (!popupWindow.anchors.left)
-                rightMargin: Appearance.sizes.hyprlandGapsOut + root.popupBackgroundMargin * (!popupWindow.anchors.right)
-                topMargin: Appearance.sizes.hyprlandGapsOut + root.popupBackgroundMargin * (!popupWindow.anchors.top)
-                bottomMargin: Appearance.sizes.hyprlandGapsOut + root.popupBackgroundMargin * (!popupWindow.anchors.bottom)
+                leftMargin: Appearance.sizes.elevationMargin + root.popupBackgroundMargin * (!popupWindow.anchors.left)
+                rightMargin: Appearance.sizes.elevationMargin + root.popupBackgroundMargin * (!popupWindow.anchors.right)
+                topMargin: Appearance.sizes.elevationMargin + root.popupBackgroundMargin * (!popupWindow.anchors.top)
+                bottomMargin: Appearance.sizes.elevationMargin + root.popupBackgroundMargin * (!popupWindow.anchors.bottom)
             }
             implicitWidth: root.contentItem.implicitWidth + margin * 2
             implicitHeight: root.contentItem.implicitHeight + margin * 2

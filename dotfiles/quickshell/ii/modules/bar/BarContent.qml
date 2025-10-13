@@ -97,7 +97,7 @@ Item { // Bar content region
         }
     }
 
-    RowLayout { // Middle section
+    Row { // Middle section
         id: middleSection
         anchors {
             top: parent.top
@@ -108,8 +108,8 @@ Item { // Bar content region
 
         BarGroup {
             id: leftCenterGroup
-            Layout.preferredWidth: root.centerSideModuleWidth
-            Layout.fillHeight: false
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: root.centerSideModuleWidth
 
             Resources {
                 alwaysShowAllResources: root.useShortenedForm === 2
@@ -128,6 +128,7 @@ Item { // Bar content region
 
         BarGroup {
             id: middleCenterGroup
+            anchors.verticalCenter: parent.verticalCenter
             padding: workspacesWidget.widgetPadding
 
             Workspaces {
@@ -153,9 +154,9 @@ Item { // Bar content region
 
         MouseArea {
             id: rightCenterGroup
-            implicitWidth: rightCenterGroupContent.implicitWidth
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: root.centerSideModuleWidth
             implicitHeight: rightCenterGroupContent.implicitHeight
-            Layout.preferredWidth: root.centerSideModuleWidth
 
             onPressed: {
                 GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen;
@@ -289,14 +290,22 @@ Item { // Bar content region
                             color: rightSidebarButton.colText
                         }
                     }
-                    Loader {
-                        active: HyprlandXkb.layoutCodes.length > 1
-                        visible: active
+                    HyprlandXkbIndicator {
+                        Layout.alignment: Qt.AlignVCenter
                         Layout.rightMargin: indicatorsRowLayout.realSpacing
-                        sourceComponent: StyledText {
-                            text: HyprlandXkb.currentLayoutCode
-                            font.pixelSize: Appearance.font.pixelSize.small
-                            color: rightSidebarButton.colText
+                        color: rightSidebarButton.colText
+                    }
+                    Revealer {
+                        reveal: Notifications.silent || Notifications.unread > 0
+                        Layout.fillHeight: true
+                        Layout.rightMargin: reveal ? indicatorsRowLayout.realSpacing : 0
+                        implicitHeight: reveal ? notificationUnreadCount.implicitHeight : 0
+                        implicitWidth: reveal ? notificationUnreadCount.implicitWidth : 0
+                        Behavior on Layout.rightMargin {
+                            animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
+                        }
+                        NotificationUnreadCount {
+                            id: notificationUnreadCount
                         }
                     }
                     MaterialSymbol {
@@ -306,7 +315,8 @@ Item { // Bar content region
                         color: rightSidebarButton.colText
                     }
                     MaterialSymbol {
-                        text: Bluetooth.bluetoothConnected ? "bluetooth_connected" : Bluetooth.bluetoothEnabled ? "bluetooth" : "bluetooth_disabled"
+                        visible: BluetoothStatus.available
+                        text: BluetoothStatus.connected ? "bluetooth_connected" : BluetoothStatus.enabled ? "bluetooth" : "bluetooth_disabled"
                         iconSize: Appearance.font.pixelSize.larger
                         color: rightSidebarButton.colText
                     }

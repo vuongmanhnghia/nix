@@ -125,13 +125,12 @@ Rectangle {
             sourceComponent: Item {
                 implicitHeight: root.imageHeight * root.scale
                 implicitWidth: imagePreview.implicitWidth
-                Image {
+                StyledImage {
                     id: imagePreview
                     anchors.fill: parent
                     source: Qt.resolvedUrl(root.filePath)
                     fillMode: Image.PreserveAspectFit
                     antialiasing: true
-                    asynchronous: true
                     width: root.imageWidth * root.scale
                     height: root.imageHeight * root.scale
                     sourceSize.width: root.imageWidth * root.scale
@@ -144,6 +143,14 @@ Rectangle {
                             height: imagePreview.height
                             radius: Appearance.rounding.normal
                         }
+                    }
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "transparent"
+                        border.width: 1
+                        border.color: Appearance.colors.colOutlineVariant
+                        radius: Appearance.rounding.normal
                     }
                 }
             }

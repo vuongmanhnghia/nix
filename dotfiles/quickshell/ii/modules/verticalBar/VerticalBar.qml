@@ -13,8 +13,6 @@ import qs.modules.common.functions
 
 Scope {
     id: bar
-
-    readonly property int osdHideMouseMoveThreshold: 20
     property bool showBarBackground: Config.options.bar.showBackground
 
     Variants {
@@ -84,8 +82,8 @@ Scope {
                         id: hoverMaskRegion
                         anchors {
                             fill: barContent
-                            leftMargin: -1
-                            rightMargin: -1
+                            leftMargin: -Config.options.bar.autoHide.hoverRegionWidth
+                            rightMargin: -Config.options.bar.autoHide.hoverRegionWidth
                         }
                     }
 

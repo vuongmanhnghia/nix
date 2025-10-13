@@ -7,345 +7,421 @@ import qs.modules.common.widgets
 
 ContentPage {
     forceWidth: true
-    ContentSection {
-        title: Translation.tr("Policies")
-
-        ConfigRow {
-            ColumnLayout {
-                // Weeb policy
-                ContentSubsectionLabel {
-                    text: Translation.tr("Weeb")
-                }
-                ConfigSelectionArray {
-                    currentValue: Config.options.policies.weeb
-                    configOptionName: "policies.weeb"
-                    onSelected: newValue => {
-                        Config.options.policies.weeb = newValue;
-                    }
-                    options: [
-                        {
-                            displayName: Translation.tr("No"),
-                            value: 0
-                        },
-                        {
-                            displayName: Translation.tr("Yes"),
-                            value: 1
-                        },
-                        {
-                            displayName: Translation.tr("Closet"),
-                            value: 2
-                        }
-                    ]
-                }
-            }
-
-            ColumnLayout {
-                // AI policy
-                ContentSubsectionLabel {
-                    text: Translation.tr("AI")
-                }
-                ConfigSelectionArray {
-                    currentValue: Config.options.policies.ai
-                    configOptionName: "policies.ai"
-                    onSelected: newValue => {
-                        Config.options.policies.ai = newValue;
-                    }
-                    options: [
-                        {
-                            displayName: Translation.tr("No"),
-                            value: 0
-                        },
-                        {
-                            displayName: Translation.tr("Yes"),
-                            value: 1
-                        },
-                        {
-                            displayName: Translation.tr("Local only"),
-                            value: 2
-                        }
-                    ]
-                }
-            }
-        }
-    }
 
     ContentSection {
-        title: Translation.tr("Bar")
+        icon: "wallpaper"
+        title: Translation.tr("Background")
 
-        ConfigRow {
-            ContentSubsection {
-                title: "Corner style"
-
-                ConfigSelectionArray {
-                    currentValue: Config.options.bar.cornerStyle
-                    configOptionName: "bar.cornerStyle"
-                    onSelected: newValue => {
-                        Config.options.bar.cornerStyle = newValue; // Update local copy
-                    }
-                    options: [
-                        {
-                            displayName: Translation.tr("Hug"),
-                            value: 0
-                        },
-                        {
-                            displayName: Translation.tr("Float"),
-                            value: 1
-                        },
-                        {
-                            displayName: Translation.tr("Plain rectangle"),
-                            value: 2
-                        }
-                    ]
-                }
-            }
-
-            ContentSubsection {
-                title: "Bar layout"
-                ConfigSelectionArray {
-                    currentValue: Config.options.bar.vertical
-                    configOptionName: "bar.vertical"
-                    onSelected: newValue => {
-                        Config.options.bar.vertical = newValue;
-                    }
-                    options: [
-                        {
-                            displayName: Translation.tr("Horizontal"),
-                            value: false
-                        },
-                        {
-                            displayName: Translation.tr("Vertical"),
-                            value: true
-                        },
-                    ]
-                }
+        ConfigSwitch {
+            buttonIcon: "nest_clock_farsight_analog"
+            text: Translation.tr("Show clock")
+            checked: Config.options.background.clock.show
+            onCheckedChanged: {
+                Config.options.background.clock.show = checked;
             }
         }
-
-        ContentSubsection {
-            title: Translation.tr("Overall appearance")
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr("Automatically hide")
-                    checked: Config.options.bar.autoHide.enable
-                    onCheckedChanged: {
-                        Config.options.bar.autoHide.enable = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr("Place at the bottom/right")
-                    checked: Config.options.bar.bottom
-                    onCheckedChanged: {
-                        Config.options.bar.bottom = checked;
-                    }
-                }
-            }
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr('Borderless')
-                    checked: Config.options.bar.borderless
-                    onCheckedChanged: {
-                        Config.options.bar.borderless = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr('Show background')
-                    checked: Config.options.bar.showBackground
-                    onCheckedChanged: {
-                        Config.options.bar.showBackground = checked;
-                    }
-                    StyledToolTip {
-                        content: Translation.tr("Note: turning off can hurt readability")
-                    }
-                }
-            }
-        }
-
-        ContentSubsection {
-            title: Translation.tr("Buttons")
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr("Screen snip")
-                    checked: Config.options.bar.utilButtons.showScreenSnip
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showScreenSnip = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr("Color picker")
-                    checked: Config.options.bar.utilButtons.showColorPicker
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showColorPicker = checked;
-                    }
-                }
-            }
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr("Mic toggle")
-                    checked: Config.options.bar.utilButtons.showMicToggle
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showMicToggle = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr("Keyboard toggle")
-                    checked: Config.options.bar.utilButtons.showKeyboardToggle
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showKeyboardToggle = checked;
-                    }
-                }
-            }
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr("Dark/Light toggle")
-                    checked: Config.options.bar.utilButtons.showDarkModeToggle
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showDarkModeToggle = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr("Performance Profile toggle")
-                    checked: Config.options.bar.utilButtons.showPerformanceProfileToggle
-                    onCheckedChanged: {
-                        Config.options.bar.utilButtons.showPerformanceProfileToggle = checked;
-                    }
-                }
-            }
-        }
-
-        ContentSubsection {
-            title: Translation.tr("Workspaces")
-            tooltip: Translation.tr("Tip: Hide icons and always show numbers for\nthe classic illogical-impulse experience")
-
-            ConfigRow {
-                uniform: true
-                ConfigSwitch {
-                    text: Translation.tr('Show app icons')
-                    checked: Config.options.bar.workspaces.showAppIcons
-                    onCheckedChanged: {
-                        Config.options.bar.workspaces.showAppIcons = checked;
-                    }
-                }
-                ConfigSwitch {
-                    text: Translation.tr('Tint app icons')
-                    checked: Config.options.bar.workspaces.monochromeIcons
-                    onCheckedChanged: {
-                        Config.options.bar.workspaces.monochromeIcons = checked;
-                    }
-                }
-            }
-            ConfigSwitch {
-                text: Translation.tr('Always show numbers')
-                checked: Config.options.bar.workspaces.alwaysShowNumbers
-                onCheckedChanged: {
-                    Config.options.bar.workspaces.alwaysShowNumbers = checked;
-                }
-            }
-            ConfigSpinBox {
-                text: Translation.tr("Workspaces shown")
-                value: Config.options.bar.workspaces.shown
-                from: 1
-                to: 30
-                stepSize: 1
-                onValueChanged: {
-                    Config.options.bar.workspaces.shown = value;
-                }
-            }
-            ConfigSpinBox {
-                text: Translation.tr("Number show delay when pressing Super (ms)")
-                value: Config.options.bar.workspaces.showNumberDelay
-                from: 0
-                to: 1000
-                stepSize: 50
-                onValueChanged: {
-                    Config.options.bar.workspaces.showNumberDelay = value;
-                }
-            }
-        }
-
-        ContentSubsection {
-            title: Translation.tr("Tray")
             
-            ConfigSwitch {
-                text: Translation.tr('Tint icons')
-                checked: Config.options.bar.tray.monochromeIcons
-                onCheckedChanged: {
-                    Config.options.bar.tray.monochromeIcons = checked;
-                }
+
+        ConfigSpinBox {
+            icon: "loupe"
+            text: Translation.tr("Scale (%)")
+            value: Config.options.background.clock.scale * 100
+            from: 1
+            to: 200
+            stepSize: 2
+            onValueChanged: {
+                Config.options.background.clock.scale = value / 100;
             }
         }
 
         ContentSubsection {
-            title: Translation.tr("Weather")
-            ConfigSwitch {
-                text: Translation.tr("Enable")
-                checked: Config.options.bar.weather.enable
-                onCheckedChanged: {
-                    Config.options.bar.weather.enable = checked;
+            title: Translation.tr("Clock style")
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.style
+                onSelected: newValue => {
+                    Config.options.background.clock.style = newValue;
                 }
+                options: [
+                    {
+                        displayName: Translation.tr("Simple digital"),
+                        icon: "timer_10",
+                        value: "digital"
+                    },
+                    {
+                        displayName: Translation.tr("Material cookie"),
+                        icon: "cookie",
+                        value: "cookie"
+                    }
+                ]
             }
         }
-    }
 
-    ContentSection {
-        title: Translation.tr("Battery")
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Cookie clock settings")
 
-        ConfigRow {
-            uniform: true
-            ConfigSpinBox {
-                text: Translation.tr("Low warning")
-                value: Config.options.battery.low
-                from: 0
-                to: 100
-                stepSize: 5
-                onValueChanged: {
-                    Config.options.battery.low = value;
-                }
-            }
-            ConfigSpinBox {
-                text: Translation.tr("Critical warning")
-                value: Config.options.battery.critical
-                from: 0
-                to: 100
-                stepSize: 5
-                onValueChanged: {
-                    Config.options.battery.critical = value;
-                }
-            }
-        }
-        ConfigRow {
-            uniform: true
             ConfigSwitch {
-                text: Translation.tr("Automatic suspend")
-                checked: Config.options.battery.automaticSuspend
+                buttonIcon: "wand_stars"
+                text: Translation.tr("Auto styling with Gemini")
+                checked: Config.options.background.clock.cookie.aiStyling
                 onCheckedChanged: {
-                    Config.options.battery.automaticSuspend = checked;
+                    Config.options.background.clock.cookie.aiStyling = checked;
                 }
                 StyledToolTip {
-                    content: Translation.tr("Automatically suspends the system when battery is low")
+                    text: Translation.tr("Uses Gemini to categorize the wallpaper then picks a preset based on it.\nYou'll need to set Gemini API key on the left sidebar first.\nImages are downscaled for performance, but just to be safe,\ndo not select wallpapers with sensitive information.")
+                }
+            }
+
+            ConfigSpinBox {
+                icon: "add_triangle"
+                text: Translation.tr("Sides")
+                value: Config.options.background.clock.cookie.sides
+                from: 0
+                to: 40
+                stepSize: 1
+                onValueChanged: {
+                    Config.options.background.clock.cookie.sides = value;
+                }
+            }
+
+            ConfigSwitch {
+                buttonIcon: "autoplay"
+                text: Translation.tr("Constantly rotate")
+                checked: Config.options.background.clock.cookie.constantlyRotate
+                onCheckedChanged: {
+                    Config.options.background.clock.cookie.constantlyRotate = checked;
+                }
+                StyledToolTip {
+                    text: "Makes the clock always rotate. This is extremely expensive\n(expect 50% usage on Intel UHD Graphics) and thus impractical."
+                }
+            }
+
+            ConfigRow {
+
+                ConfigSwitch {
+                    enabled: Config.options.background.clock.style === "cookie" && Config.options.background.clock.cookie.dialNumberStyle === "dots" || Config.options.background.clock.cookie.dialNumberStyle === "full"
+                    buttonIcon: "brightness_7"
+                    text: Translation.tr("Hour marks")
+                    checked: Config.options.background.clock.cookie.hourMarks
+                    onEnabledChanged: {
+                        checked = Config.options.background.clock.cookie.hourMarks;
+                    }
+                    onCheckedChanged: {
+                        Config.options.background.clock.cookie.hourMarks = checked;
+                    }
+                    StyledToolTip {
+                        text: "Can only be turned on using the 'Dots' or 'Full' dial style for aesthetic reasons"
+                    }
+                }
+
+                ConfigSwitch {
+                    enabled: Config.options.background.clock.style === "cookie" && Config.options.background.clock.cookie.dialNumberStyle !== "numbers"
+                    buttonIcon: "timer_10"
+                    text: Translation.tr("Digits in the middle")
+                    checked: Config.options.background.clock.cookie.timeIndicators
+                    onEnabledChanged: {
+                        checked = Config.options.background.clock.cookie.timeIndicators;
+                    }
+                    onCheckedChanged: {
+                        Config.options.background.clock.cookie.timeIndicators = checked;
+                    }
+                    StyledToolTip {
+                        text: "Can't be turned on when using 'Numbers' dial style for aesthetic reasons"
+                    }
+                }
+            }
+        }
+        
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Dial style")
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.cookie.dialNumberStyle
+                onSelected: newValue => {
+                    Config.options.background.clock.cookie.dialNumberStyle = newValue;
+                    if (newValue !== "dots" && newValue !== "full") {
+                        Config.options.background.clock.cookie.hourMarks = false;
+                    }
+                    if (newValue === "numbers") {
+                        Config.options.background.clock.cookie.timeIndicators = false;
+                    }
+                }
+                options: [
+                    {
+                        displayName: "",
+                        icon: "block",
+                        value: "none"
+                    },
+                    {
+                        displayName: Translation.tr("Dots"),
+                        icon: "graph_6",
+                        value: "dots"
+                    },
+                    {
+                        displayName: Translation.tr("Full"),
+                        icon: "history_toggle_off",
+                        value: "full"
+                    },
+                    {
+                        displayName: Translation.tr("Numbers"),
+                        icon: "counter_1",
+                        value: "numbers"
+                    }
+                ]
+            }
+        }
+
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Hour hand")
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.cookie.hourHandStyle
+                onSelected: newValue => {
+                    Config.options.background.clock.cookie.hourHandStyle = newValue;
+                }
+                options: [
+                    {
+                        displayName: "",
+                        icon: "block",
+                        value: "hide"
+                    },
+                    {
+                        displayName: Translation.tr("Classic"),
+                        icon: "radio",
+                        value: "classic"
+                    },
+                    {
+                        displayName: Translation.tr("Hollow"),
+                        icon: "circle",
+                        value: "hollow"
+                    },
+                    {
+                        displayName: Translation.tr("Fill"),
+                        icon: "eraser_size_5",
+                        value: "fill"
+                    },
+                ]
+            }
+        }
+
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Minute hand")
+
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.cookie.minuteHandStyle
+                onSelected: newValue => {
+                    Config.options.background.clock.cookie.minuteHandStyle = newValue;
+                }
+                options: [
+                    {
+                        displayName: "",
+                        icon: "block",
+                        value: "hide"
+                    },
+                    {
+                        displayName: Translation.tr("Classic"),
+                        icon: "radio",
+                        value: "classic"
+                    },
+                    {
+                        displayName: Translation.tr("Thin"),
+                        icon: "line_end",
+                        value: "thin"
+                    },
+                    {
+                        displayName: Translation.tr("Medium"),
+                        icon: "eraser_size_2",
+                        value: "medium"
+                    },
+                    {
+                        displayName: Translation.tr("Bold"),
+                        icon: "eraser_size_4",
+                        value: "bold"
+                    },
+                ]
+            }
+        }
+
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Second hand")
+
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.cookie.secondHandStyle
+                onSelected: newValue => {
+                    Config.options.background.clock.cookie.secondHandStyle = newValue;
+                }
+                options: [
+                    {
+                        displayName: "",
+                        icon: "block",
+                        value: "hide"
+                    },
+                    {
+                        displayName: Translation.tr("Classic"),
+                        icon: "radio",
+                        value: "classic"
+                    },
+                    {
+                        displayName: Translation.tr("Line"),
+                        icon: "line_end",
+                        value: "line"
+                    },
+                    {
+                        displayName: Translation.tr("Dot"),
+                        icon: "adjust",
+                        value: "dot"
+                    },
+                ]
+            }
+        }
+
+        ContentSubsection {
+            visible: Config.options.background.clock.style === "cookie"
+            title: Translation.tr("Date style")
+
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clock.cookie.dateStyle
+                onSelected: newValue => {
+                    Config.options.background.clock.cookie.dateStyle = newValue;
+                }
+                options: [
+                    {
+                        displayName: "",
+                        icon: "block",
+                        value: "hide"
+                    },
+                    {
+                        displayName: Translation.tr("Bubble"),
+                        icon: "bubble_chart",
+                        value: "bubble"
+                    },
+                    {
+                        displayName: Translation.tr("Border"),
+                        icon: "rotate_right",
+                        value: "border"
+                    },
+                    {
+                        displayName: Translation.tr("Rect"),
+                        icon: "rectangle",
+                        value: "rect"
+                    }
+                ]
+            }
+        }
+
+        ContentSubsection {
+            title: Translation.tr("Quote settings")
+            ConfigSwitch {
+                buttonIcon: "format_quote"
+                text: Translation.tr("Show quote")
+                checked: Config.options.background.showQuote
+                onCheckedChanged: {
+                    Config.options.background.showQuote = checked;
+                }
+            }
+            MaterialTextArea {
+                Layout.fillWidth: true
+                placeholderText: Translation.tr("Quote")
+                text: Config.options.background.quote
+                wrapMode: TextEdit.Wrap
+                onTextChanged: {
+                    Config.options.background.quote = text;
+                }
+            }
+        }
+
+        ContentSubsection {
+            title: Translation.tr("Wallpaper parallax")
+
+            ConfigSwitch {
+                buttonIcon: "unfold_more_double"
+                text: Translation.tr("Vertical")
+                checked: Config.options.background.parallax.vertical
+                onCheckedChanged: {
+                    Config.options.background.parallax.vertical = checked;
+                }
+            }
+
+            ConfigRow {
+                uniform: true
+                ConfigSwitch {
+                    buttonIcon: "counter_1"
+                    text: Translation.tr("Depends on workspace")
+                    checked: Config.options.background.parallax.enableWorkspace
+                    onCheckedChanged: {
+                        Config.options.background.parallax.enableWorkspace = checked;
+                    }
+                }
+                ConfigSwitch {
+                    buttonIcon: "side_navigation"
+                    text: Translation.tr("Depends on sidebars")
+                    checked: Config.options.background.parallax.enableSidebar
+                    onCheckedChanged: {
+                        Config.options.background.parallax.enableSidebar = checked;
+                    }
                 }
             }
             ConfigSpinBox {
-                text: Translation.tr("Suspend at")
-                value: Config.options.battery.suspend
-                from: 0
-                to: 100
-                stepSize: 5
+                icon: "loupe"
+                text: Translation.tr("Preferred wallpaper zoom (%)")
+                value: Config.options.background.parallax.workspaceZoom * 100
+                from: 100
+                to: 150
+                stepSize: 1
                 onValueChanged: {
-                    Config.options.battery.suspend = value;
+                    Config.options.background.parallax.workspaceZoom = value / 100;
                 }
             }
         }
     }
 
     ContentSection {
+        icon: "point_scan"
+        title: Translation.tr("Crosshair overlay")
+
+        MaterialTextArea {
+            Layout.fillWidth: true
+            placeholderText: Translation.tr("Crosshair code (in Valorant's format)")
+            text: Config.options.crosshair.code
+            wrapMode: TextEdit.Wrap
+            onTextChanged: {
+                Config.options.crosshair.code = text;
+            }
+        }
+
+        RowLayout {
+            StyledText {
+                Layout.leftMargin: 10
+                color: Appearance.colors.colSubtext
+                font.pixelSize: Appearance.font.pixelSize.smallie
+                text: Translation.tr("Press Super+G to toggle appearance")
+            }
+            Item {
+                Layout.fillWidth: true
+            }
+            RippleButtonWithIcon {
+                id: editorButton
+                buttonRadius: Appearance.rounding.full
+                materialIcon: "open_in_new"
+                mainText: Translation.tr("Open editor")
+                onClicked: {
+                    Qt.openUrlExternally(`https://www.vcrdb.net/builder?c=${Config.options.crosshair.code}`);
+                }
+                StyledToolTip {
+                    text: "www.vcrdb.net"
+                }
+            }
+        }
+    }
+
+    ContentSection {
+        icon: "call_to_action"
         title: Translation.tr("Dock")
 
         ConfigSwitch {
+            buttonIcon: "check"
             text: Translation.tr("Enable")
             checked: Config.options.dock.enable
             onCheckedChanged: {
@@ -356,6 +432,7 @@ ContentPage {
         ConfigRow {
             uniform: true
             ConfigSwitch {
+                buttonIcon: "highlight_mouse_cursor"
                 text: Translation.tr("Hover to reveal")
                 checked: Config.options.dock.hoverToReveal
                 onCheckedChanged: {
@@ -363,6 +440,7 @@ ContentPage {
                 }
             }
             ConfigSwitch {
+                buttonIcon: "keep"
                 text: Translation.tr("Pinned on startup")
                 checked: Config.options.dock.pinnedOnStartup
                 onCheckedChanged: {
@@ -371,6 +449,7 @@ ContentPage {
             }
         }
         ConfigSwitch {
+            buttonIcon: "colors"
             text: Translation.tr("Tint app icons")
             checked: Config.options.dock.monochromeIcons
             onCheckedChanged: {
@@ -380,22 +459,241 @@ ContentPage {
     }
 
     ContentSection {
-        title: Translation.tr("Sidebars")
+        icon: "lock"
+        title: Translation.tr("Lock screen")
+
         ConfigSwitch {
+            buttonIcon: "water_drop"
+            text: Translation.tr('Use Hyprlock (instead of Quickshell)')
+            checked: Config.options.lock.useHyprlock
+            onCheckedChanged: {
+                Config.options.lock.useHyprlock = checked;
+            }
+            StyledToolTip {
+                text: Translation.tr("If you want to somehow use fingerprint unlock...")
+            }
+        }
+
+        ConfigSwitch {
+            buttonIcon: "account_circle"
+            text: Translation.tr('Launch on startup')
+            checked: Config.options.lock.launchOnStartup
+            onCheckedChanged: {
+                Config.options.lock.launchOnStartup = checked;
+            }
+        }
+
+        ContentSubsection {
+            title: Translation.tr("Security")
+
+            ConfigSwitch {
+                buttonIcon: "settings_power"
+                text: Translation.tr('Require password to power off/restart')
+                checked: Config.options.lock.security.requirePasswordToPower
+                onCheckedChanged: {
+                    Config.options.lock.security.requirePasswordToPower = checked;
+                }
+                StyledToolTip {
+                    text: Translation.tr("Remember that on most devices one can always hold the power button to force shutdown\nThis only makes it a tiny bit harder for accidents to happen")
+                }
+            }
+
+            ConfigSwitch {
+                buttonIcon: "key_vertical"
+                text: Translation.tr('Also unlock keyring')
+                checked: Config.options.lock.security.unlockKeyring
+                onCheckedChanged: {
+                    Config.options.lock.security.unlockKeyring = checked;
+                }
+                StyledToolTip {
+                    text: Translation.tr("This is usually safe and needed for your browser and AI sidebar anyway\nMostly useful for those who use lock on startup instead of a display manager that does it (GDM, SDDM, etc.)")
+                }
+            }
+        }
+
+        ContentSubsection {
+            title: Translation.tr("Style: general")
+
+            ConfigSwitch {
+                buttonIcon: "center_focus_weak"
+                text: Translation.tr('Center clock')
+                checked: Config.options.lock.centerClock
+                onCheckedChanged: {
+                    Config.options.lock.centerClock = checked;
+                }
+            }
+
+            ConfigSwitch {
+                buttonIcon: "info"
+                text: Translation.tr('Show "Locked" text')
+                checked: Config.options.lock.showLockedText
+                onCheckedChanged: {
+                    Config.options.lock.showLockedText = checked;
+                }
+            }
+        }
+        ContentSubsection {
+            title: Translation.tr("Style: Blurred")
+
+            ConfigSwitch {
+                buttonIcon: "blur_on"
+                text: Translation.tr('Enable blur')
+                checked: Config.options.lock.blur.enable
+                onCheckedChanged: {
+                    Config.options.lock.blur.enable = checked;
+                }
+            }
+
+            ConfigSpinBox {
+                icon: "loupe"
+                text: Translation.tr("Extra wallpaper zoom (%)")
+                value: Config.options.lock.blur.extraZoom * 100
+                from: 1
+                to: 150
+                stepSize: 2
+                onValueChanged: {
+                    Config.options.lock.blur.extraZoom = value / 100;
+                }
+            }
+        }
+    }
+
+    ContentSection {
+        icon: "notifications"
+        title: Translation.tr("Notifications")
+
+        ConfigSpinBox {
+            icon: "av_timer"
+            text: Translation.tr("Timeout duration (if not defined by notification) (ms)")
+            value: Config.options.notifications.timeout
+            from: 1000
+            to: 60000
+            stepSize: 1000
+            onValueChanged: {
+                Config.options.notifications.timeout = value;
+            }
+        }
+    }
+
+    ContentSection {
+        icon: "side_navigation"
+        title: Translation.tr("Sidebars")
+
+        ConfigSwitch {
+            buttonIcon: "memory"
             text: Translation.tr('Keep right sidebar loaded')
             checked: Config.options.sidebar.keepRightSidebarLoaded
             onCheckedChanged: {
                 Config.options.sidebar.keepRightSidebarLoaded = checked;
             }
             StyledToolTip {
-                content: Translation.tr("When enabled keeps the content of the right sidebar loaded to reduce the delay when opening,\nat the cost of around 15MB of consistent RAM usage. Delay significance depends on your system's performance.\nUsing a custom kernel like linux-cachyos might help")
+                text: Translation.tr("When enabled keeps the content of the right sidebar loaded to reduce the delay when opening,\nat the cost of around 15MB of consistent RAM usage. Delay significance depends on your system's performance.\nUsing a custom kernel like linux-cachyos might help")
+            }
+        }
+
+        ConfigSwitch {
+            buttonIcon: "translate"
+            text: Translation.tr('Enable translator')
+            checked: Config.options.sidebar.translator.enable
+            onCheckedChanged: {
+                Config.options.sidebar.translator.enable = checked;
+            }
+        }
+
+        ContentSubsection {
+            title: Translation.tr("Corner open")
+            tooltip: Translation.tr("Allows you to open sidebars by clicking or hovering screen corners regardless of bar position")
+            ConfigRow {
+                uniform: true
+                ConfigSwitch {
+                    buttonIcon: "check"
+                    text: Translation.tr("Enable")
+                    checked: Config.options.sidebar.cornerOpen.enable
+                    onCheckedChanged: {
+                        Config.options.sidebar.cornerOpen.enable = checked;
+                    }
+                }
+                ConfigSwitch {
+                    buttonIcon: "highlight_mouse_cursor"
+                    text: Translation.tr("Hover to trigger")
+                    checked: Config.options.sidebar.cornerOpen.clickless
+                    onCheckedChanged: {
+                        Config.options.sidebar.cornerOpen.clickless = checked;
+                    }
+
+                    StyledToolTip {
+                        text: Translation.tr("When this is off you'll have to click")
+                    }
+                }
+            }
+            ConfigRow {
+                uniform: true
+                ConfigSwitch {
+                    buttonIcon: "vertical_align_bottom"
+                    text: Translation.tr("Place at bottom")
+                    checked: Config.options.sidebar.cornerOpen.bottom
+                    onCheckedChanged: {
+                        Config.options.sidebar.cornerOpen.bottom = checked;
+                    }
+
+                    StyledToolTip {
+                        text: Translation.tr("Place the corners to trigger at the bottom")
+                    }
+                }
+                ConfigSwitch {
+                    buttonIcon: "unfold_more_double"
+                    text: Translation.tr("Value scroll")
+                    checked: Config.options.sidebar.cornerOpen.valueScroll
+                    onCheckedChanged: {
+                        Config.options.sidebar.cornerOpen.valueScroll = checked;
+                    }
+
+                    StyledToolTip {
+                        text: Translation.tr("Brightness and volume")
+                    }
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "visibility"
+                text: Translation.tr("Visualize region")
+                checked: Config.options.sidebar.cornerOpen.visualize
+                onCheckedChanged: {
+                    Config.options.sidebar.cornerOpen.visualize = checked;
+                }
+            }
+            ConfigRow {
+                ConfigSpinBox {
+                    icon: "arrow_range"
+                    text: Translation.tr("Region width")
+                    value: Config.options.sidebar.cornerOpen.cornerRegionWidth
+                    from: 1
+                    to: 300
+                    stepSize: 1
+                    onValueChanged: {
+                        Config.options.sidebar.cornerOpen.cornerRegionWidth = value;
+                    }
+                }
+                ConfigSpinBox {
+                    icon: "height"
+                    text: Translation.tr("Region height")
+                    value: Config.options.sidebar.cornerOpen.cornerRegionHeight
+                    from: 1
+                    to: 300
+                    stepSize: 1
+                    onValueChanged: {
+                        Config.options.sidebar.cornerOpen.cornerRegionHeight = value;
+                    }
+                }
             }
         }
     }
 
     ContentSection {
+        icon: "voting_chip"
         title: Translation.tr("On-screen display")
+
         ConfigSpinBox {
+            icon: "av_timer"
             text: Translation.tr("Timeout (ms)")
             value: Config.options.osd.timeout
             from: 100
@@ -408,8 +706,11 @@ ContentPage {
     }
 
     ContentSection {
+        icon: "overview_key"
         title: Translation.tr("Overview")
+
         ConfigSwitch {
+            buttonIcon: "check"
             text: Translation.tr("Enable")
             checked: Config.options.overview.enable
             onCheckedChanged: {
@@ -417,6 +718,7 @@ ContentPage {
             }
         }
         ConfigSpinBox {
+            icon: "loupe"
             text: Translation.tr("Scale (%)")
             value: Config.options.overview.scale * 100
             from: 1
@@ -429,6 +731,7 @@ ContentPage {
         ConfigRow {
             uniform: true
             ConfigSpinBox {
+                icon: "splitscreen_bottom"
                 text: Translation.tr("Rows")
                 value: Config.options.overview.rows
                 from: 1
@@ -439,6 +742,7 @@ ContentPage {
                 }
             }
             ConfigSpinBox {
+                icon: "splitscreen_right"
                 text: Translation.tr("Columns")
                 value: Config.options.overview.columns
                 from: 1
@@ -452,17 +756,19 @@ ContentPage {
     }
 
     ContentSection {
+        icon: "screenshot_frame_2"
         title: Translation.tr("Screenshot tool")
 
         ConfigSwitch {
+            buttonIcon: "nearby"
             text: Translation.tr('Show regions of potential interest')
             checked: Config.options.screenshotTool.showContentRegions
             onCheckedChanged: {
                 Config.options.screenshotTool.showContentRegions = checked;
             }
             StyledToolTip {
-                content: Translation.tr("Such regions could be images or parts of the screen that have some containment.\nMight not always be accurate.\nThis is done with an image processing algorithm run locally and no AI is used.")
+                text: Translation.tr("Such regions could be images or parts of the screen that have some containment.\nMight not always be accurate.\nThis is done with an image processing algorithm run locally and no AI is used.")
             }
-        }        
+        }
     }
 }
