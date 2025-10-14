@@ -32,12 +32,12 @@
         "$mainMod, V, Clipboard history >> clipboard, global, quickshell:overviewClipboardToggle" # Clipboard history >> clipboard
         "$mainMod, Period, Emoji >> clipboard, global, quickshell:overviewEmojiToggle" # Emoji >> clipboard
         # "$mainMod, Tab, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
-        "ALT, SPACE, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
+        "$mainMod, Tab, Toggle overview, global, quickshell:overviewToggle" # [hidden] Toggle overview/launcher (alt)
         # "$mainMod, A, Toggle left sidebar, global, quickshell:sidebarLeftToggle" # Toggle left sidebar
         # "$mainMod, N, Toggle right sidebar, global, quickshell:sidebarRightToggle" # Toggle right sidebar
         "$mainMod, Slash, Toggle cheatsheet, global, quickshell:cheatsheetToggle" # Toggle cheatsheet
         # "$mainMod, K, Toggle on-screen keyboard, global, quickshell:oskToggle" # Toggle on-screen keyboard
-        "$mainMod SHIFT, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
+        # "$mainMod SHIFT, M, Toggle media controls, global, quickshell:mediaControlsToggle" # Toggle media controls
         "$mainMod CTRL ALT, Delete, Toggle session menu, global, quickshell:sessionToggle" # Toggle session menu
         "$mainMod SHIFT, H, Toggle bar, global, quickshell:barToggle" # Toggle bar
         "$mainMod CTRL, T, Change wallpaper, exec, ~/.config/quickshell/$qsConfig/scripts/colors/switchwall.sh" # Change wallpaper
@@ -61,8 +61,8 @@
       ];
 
       bindld = [
-        "$mainMod SHIFT,M, Toggle mute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
-        "$mainMod Alt,M, Toggle mic, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
+        "$mainMod SHIFT, M, Toggle mute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
+        "$mainMod, M, Toggle mic, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
         ",Print, Screenshot >> clipboard ,exec,grim - | wl-copy" # Screenshot >> clipboard
         "Ctrl,Print, Screenshot >> clipboard & save, exec, mkdir -p \$(xdg-user-dir PICTURES)/Screenshots && grim \$(xdg-user-dir PICTURES)/Screenshots/Screenshot_\$(date ' %Y-%m-%d_%H.%M.%S').png" # Screenshot >> clipboard & file
       ];
@@ -229,12 +229,6 @@
         "$mainMod SHIFT, S, togglespecialworkspace" # [hidden]
         "ALT, Tab, cyclenext" # [hidden] sus keybind
         "ALT, Tab, bringactivetotop" # [hidden] bring it to the top
-
-        # #!
-        # # Testing
-        # "$mainMod ALT, f11, exec, bash -c 'RANDOM_IMAGE=$(find ~/Pictures -type f | grep -v -i "nipple" | grep -v -i "pussy" | shuf -n 1); ACTION=$(notify-send "Test notification with body image" "This notification should contain your user account <b>image</b> and <a href=\"https://discord.com/app\">Discord</a> <b>icon</b>. Oh and here is a random image in your Pictures folder: <img src=\"$RANDOM_IMAGE\" alt=\"Testing image\"/>" -a "Hyprland keybind" -p -h "string:image-path:/var/lib/AccountsService/icons/$USER" -t 6000 -i "discord" -A "openImage=Open profile image" -A "action2=Open the random image" -A "action3=Useless button"); [[ $ACTION == *openImage ]] && xdg-open "/var/lib/AccountsService/icons/$USER"; [[ $ACTION == *action2 ]] && xdg-open \"$RANDOM_IMAGE\"' # [hidden]
-        # "$mainMod ALT, f12, exec, bash -c 'RANDOM_IMAGE=$(find ~/Pictures -type f | grep -v -i "nipple" | grep -v -i "pussy" | shuf -n 1); ACTION=$(notify-send "Test notification" "This notification should contain a random image in your <b>Pictures</b> folder and <a href=\"https://discord.com/app\">Discord</a> <b>icon</b>.\n<i>Flick right to dismiss!</i>" -a "Discord (fake)" -p -h "string:image-path:$RANDOM_IMAGE" -t 6000 -i "discord" -A "openImage=Open profile image" -A "action2=Useless button" -A "action3=Cry more"); [[ $ACTION == *openImage ]] && xdg-open "/var/lib/AccountsService/icons/$USER"; [[ $ACTION == *action2 ]] && xdg-open \"$RANDOM_IMAGE\"' # [hidden]
-        # "$mainMod ALT, Equal, exec, notify-send "Urgent notification" "Ah hell no" -u critical -a 'Hyprland keybind' # [hidden]
 
         ##! Session
         "$mainMod, Backspace, exec, loginctl lock-session" # Lock

@@ -112,6 +112,12 @@
       # Manual session management bindings
       bind S command-prompt -p "Save session to:" "run-shell 'tmux list-sessions > %1'"
       bind R source-file ~/.config/home-manager/tmux.conf \; display-message "Config reloaded!"
+      
+      # Override default 'w' to show only sessions (1 level), not windows
+      unbind w
+      bind w choose-tree -Zs
+      # Use 'W' to show both sessions and windows (2 levels) if needed
+      bind W choose-tree -Zw
     '';
     
     # === PLUGINS ===
