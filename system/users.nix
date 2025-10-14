@@ -21,6 +21,7 @@
         "disk"           # Disk management access
         "adbusers"       # D-Bus access
         "kvm"            # KVM access
+        "vboxusers"      # VirtualBox access
       ];
       shell = pkgs.zsh;  # Default shell (zsh)
     };

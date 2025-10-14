@@ -68,7 +68,11 @@
   ];
   
   # Blacklist open-source Nouveau driver to prevent conflicts
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.blacklistedKernelModules = [ 
+    "nouveau"
+    # "kvm-intel" # KVM Intel drivek
+    # "kvm-amd" # KVM AMD driver
+  ];
   
   # === KERNEL BOOT PARAMETERS ===
   boot.kernelParams = [
