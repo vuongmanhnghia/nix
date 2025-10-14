@@ -17,14 +17,11 @@
 ---@field semantic_tokens Preferences.Options.SemanticTokens
 ---@field others Preferences.Options.Others
 
--- FIXME: It's quite bruh here, how about tab instead of space (noexpandtab)
---
+---Indentation preferences for different filetypes
 ---@class (exact) Preferences.Options.Indent
----@field default number
----Values are filetypes
----@field space table<number, string[]>
----Values are filetypes
----@field tab table<number, string[]>
+---@field default number Default tab size
+---@field space table<number, string[]> Filetypes that use spaces (key: tab size, value: filetypes)
+---@field tab table<number, string[]> Filetypes that use tabs (key: tab width, value: filetypes)
 
 ---@class (exact) Preferences.Options.Wrap
 ---@field default boolean

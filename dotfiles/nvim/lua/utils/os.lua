@@ -1,6 +1,6 @@
 local sysname = vim.uv.os_uname().sysname
--- TODO: Check what does mac, and other bsd ? show?
-local os = sysname:match("Windows") and "Windows" or sysname:match("Linux") and "Linux" or sysname -- Windows, Linux, Darwin, NetBSD,...
+-- Detect OS: Windows, Linux, Darwin (macOS), or other BSD variants
+local os = sysname:match("Windows") and "Windows" or sysname:match("Linux") and "Linux" or sysname
 local is_windows = os == "Windows"
 local M = {}
 

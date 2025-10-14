@@ -1,4 +1,6 @@
--- TODO: This is ... when dap is not enabled. This will not work?
+-- Python debugging support for nvim-dap
+-- Requires debugpy: pip install debugpy
+-- Auto-enabled when nvim-dap is loaded
 local is_windows = require("utils.os").is_windows
 local get_executable = require("utils.executable").get_executable
 

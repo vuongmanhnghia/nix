@@ -88,10 +88,17 @@ map("n", "<leader>w", function()
   end
 end, { desc = "General | Safe Close Window", silent = true })
 
+-- Resize windows (Alt + hjkl - won't conflict with Vim defaults)
+map("n", "<A-k>", "<cmd>resize +2<CR>", { desc = "Resize | Increase height", silent = true })
+map("n", "<A-j>", "<cmd>resize -2<CR>", { desc = "Resize | Decrease height", silent = true })
+map("n", "<A-l>", "<cmd>vertical resize -2<CR>", { desc = "Resize | Increase width", silent = true })
+map("n", "<A-h>", "<cmd>vertical resize +2<CR>", { desc = "Resize | Decrease width", silent = true })
+
+-- Alternative: Arrow keys for resize
 map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "General | Add size at the top", silent = true })
 map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "General | Add size at the bottom", silent = true })
-map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "General | Add size at the left", silent = true })
-map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "General | Add size at the right", silent = true })
+map("n", "<C-Right>", "<cmd>vertical resize -2<CR>", { desc = "General | Add size at the left", silent = true })
+map("n", "<C-Left>", "<cmd>vertical resize +2<CR>", { desc = "General | Add size at the right", silent = true })
 
 -- map("n", "<Left>", "<cmd>tabprevious<CR>", { desc = "General | Go to previous tab", silent = true })
 -- map("n", "<Right>", "<cmd>tabnext<CR>", { desc = "General | Go to next tab", silent = true })

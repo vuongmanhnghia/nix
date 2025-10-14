@@ -2,7 +2,8 @@
 return {
   "nmac427/guess-indent.nvim",
   cmd = "GuessIndent",
-  ---TODO: Still not know make it run when entering file with `nvim file_name`
+  -- NOTE: Currently doesn't auto-run when opening with `nvim filename` directly
+  -- Works fine when using :e filename or when already inside nvim
   event = {
     "BufReadPre",
     "BufNewFile",

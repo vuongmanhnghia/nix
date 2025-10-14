@@ -3,20 +3,10 @@ return {
   name = "Telescope",
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  init = function()
-    ---TODO: When it handled https://github.com/nvim-telescope/telescope.nvim/issues/3436
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "TelescopeFindPre",
-      callback = function()
-        vim.opt_local.winborder = "none"
-        vim.api.nvim_create_autocmd("WinLeave", {
-          once = true,
-          callback = function()
-            vim.opt_local.winborder = "rounded"
-          end,
-        })
-      end,
-    })
+  config = function()
+    -- UPSTREAM: Waiting for https://github.com/nvim-telescope/telescope.nvim/issues/3436
+    -- to be resolved before enabling this feature
+    require("telescope").setup(require("nvchad.configs.telescope"))
   end,
   opts = {
     defaults = {

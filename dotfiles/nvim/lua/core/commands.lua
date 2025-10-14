@@ -17,36 +17,37 @@ command("JoinEmptyLines", function(args)
   vim.cmd("nohlsearch")
 end, { desc = "Join empty lines", bang = true, nargs = "?" })
 
--- FIXME: The number registers aren't cleared?
+-- Clear registers command
+-- Note: Number registers (0-9) are read-only and managed by Vim automatically
+-- They cannot be cleared manually, only overwritten by yank/delete operations
 command("ClearRegister", function(args)
   if #args.fargs == 0 then
-    local registers = {
-      '"',
-      "-",
-      "/",
-      "*",
-      "+",
-      "=",
-      "_",
-      unpack(vim.fn.range(0, 9)), -- Registers 0-9
-      unpack(vim.fn.map(vim.fn.range(97, 122), function(_, v)
-        return string.char(v)
-      end)), -- a-z
-    }
+    -- Build list of clearable registers
+    local registers = { '"', "-", "/", "*", "+", "=", "_" }
+    
+    -- Add named registers a-z
+    for i = 97, 122 do
+      table.insert(registers, string.char(i))
+    end
+    
     -- Clear each register
-    for _, reg in pairs(registers) do
+    for _, reg in ipairs(registers) do
       vim.fn.setreg(reg, "")
     end
 
-    vim.notify("All registers have been cleared")
+    vim.notify("All clearable registers have been cleared (note: number registers 0-9 are read-only)", vim.log.levels.INFO)
+    vim.notify("All clearable registers have been cleared (note: number registers 0-9 are read-only)", vim.log.levels.INFO)
     return
   end
-  for _, reg in pairs(args.fargs) do
-    if vim.fn.getreg(reg) ~= nil then
+  
+  -- Clear specific registers
+  for _, reg in ipairs(args.fargs) do
+    local content = vim.fn.getreg(reg)
+    if content ~= "" then
       vim.fn.setreg(reg, "")
-      print("Cleared register: " .. reg)
+      vim.notify("Cleared register: " .. reg, vim.log.levels.INFO)
     else
-      print("Invalid register: " .. reg)
+      vim.notify("Register '" .. reg .. "' is empty or read-only", vim.log.levels.WARN)
     end
   end
 end, { desc = "Clear register data", nargs = "*" })

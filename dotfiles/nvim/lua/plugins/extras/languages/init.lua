@@ -19,6 +19,10 @@ return {
     enabled = true,
   },
   {
+    import = "plugins.extras.languages.go",
+    enabled = true,
+  },
+  {
     import = "plugins.extras.languages.hcl",
     enabled = true,
   },
@@ -36,10 +40,6 @@ return {
   },
   {
     import = "plugins.extras.languages.python",
-    enabled = true,
-  },
-  {
-    import = "plugins.extras.languages.sql",
     enabled = true,
   },
   {

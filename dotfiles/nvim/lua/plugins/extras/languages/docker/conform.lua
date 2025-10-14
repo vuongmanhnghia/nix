@@ -6,7 +6,8 @@ return {
   opts = {
     formatters_by_ft = {
       dockerfile = {
-        -- "hadolint", -- TODO: When conform support it
+        -- NOTE: hadolint linter support pending in conform.nvim
+        -- Track: https://github.com/stevearc/conform.nvim/issues
       },
     },
   },

@@ -26,7 +26,7 @@ autocmd("LspAttach", {
 
     ---@module 'snacks'
 
-    -- TODO: Maybe override from other, not declare keymap from here.
+    -- NOTE: LSP keymaps are defined in autocmd to ensure they're only active when LSP attaches
     map("n", "gD", Snacks.picker.lsp_declarations, { desc = "LSP | Go to Declarations", buffer = bufnr })
     map("n", "gd", Snacks.picker.lsp_definitions, { desc = "LSP | Go to Definition", buffer = bufnr })
     map("n", "gr<C-s>", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "LSP | Dynamic Workspace Symbols", buffer = bufnr })

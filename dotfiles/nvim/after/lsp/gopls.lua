@@ -39,6 +39,25 @@ return {
     gopls = {
       hints = inlayhint_opts,
       semanticTokens = true,
+      -- Code actions and imports
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      staticcheck = true,
+      gofumpt = true, -- Use gofumpt formatting style
+      -- Enable organize imports on save (handled by goimports in conform)
+      codelenses = {
+        gc_details = true,
+        generate = true,
+        regenerate_cgo = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
     },
   },
 }

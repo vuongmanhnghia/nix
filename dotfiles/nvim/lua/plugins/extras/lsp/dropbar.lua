@@ -5,7 +5,7 @@ return {
   ---@module 'dropbar'
   ---@type dropbar_configs_t
   opts = {
-    -- TODO: Maybe filter for java kotlin
+    -- NOTE: Consider adding source filters for Java/Kotlin if performance issues occur
     sources = {
       path = {
         -- max_depth = 16,

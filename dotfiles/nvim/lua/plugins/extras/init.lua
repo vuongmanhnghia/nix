@@ -10,6 +10,20 @@ return {
     enabled = true,
   },
   
+  -- Coding (Conform, Linting)
+  {
+    name = "Coding",
+    import = "plugins.extras.coding",
+    enabled = true,
+  },
+  
+  -- LSP (Trouble, etc.)
+  {
+    name = "LSP",
+    import = "plugins.extras.lsp",
+    enabled = true,
+  },
+  
   -- Git
   {
     name = "Git",

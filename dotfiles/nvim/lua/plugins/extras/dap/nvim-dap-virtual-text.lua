@@ -1,4 +1,5 @@
--- FIXME: What the deps hell
+---Show virtual text for DAP (Debug Adapter Protocol)
+---Requires nvim-treesitter for expression evaluation
 
 ---@type LazySpec
 return {

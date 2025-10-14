@@ -448,7 +448,7 @@ return {
       dependencies = "folke/snacks.nvim",
     },
     {
-      --TODO: Change to folke noice nvim later
+      -- NOTE: May migrate to folke/noice.nvim integration in the future
       "noice.nvim",
       optional = true,
       dependencies = "folke/snacks.nvim",

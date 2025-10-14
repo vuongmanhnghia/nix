@@ -44,7 +44,7 @@ function M.delayed_start(fn, ms, default_value)
   end
 end
 
--- TODO: Maybe move this to another utils
+---Open spell suggestion picker if cursor is on a word
 function M.open_spell_sugestion()
   local col = vim.fn.col(".")
   local line = vim.fn.getline(".")
