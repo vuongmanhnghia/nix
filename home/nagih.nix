@@ -43,6 +43,14 @@
     # === VRCHAT ===
     # unstable.alcom                    # Alcom - A modern, feature-rich note-taking app
     # unstable.alvr                     # ALVR - Android VR Headset Emulator
+
+    # === MINECARFT ===
+    (prismlauncher.override {
+      # Cung cấp các phiên bản Java mà Minecraft thường yêu cầu
+      jdks = [
+        jdk
+      ];
+    })
   ];
 
   home.shellAliases = {
