@@ -2,6 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
+    libinput                  # Tablet
+    opentabletdriver          # Tablet
     # === CODE EDITORS AND IDEs ===
     neovim                    # Modern Vim-based text editor with LSP support   
     # === LUA DEVELOPMENT ===
@@ -38,4 +40,6 @@
     qbittorrent     # Torrent client
     speedtest-cli   # Internet speed test command line interface
   ];
+
+  services.udev.packages = [ pkgs.opentabletdriver ]; # Tablet
 }

@@ -22,6 +22,7 @@
         "adbusers"       # D-Bus access
         "kvm"            # KVM access
         "vboxusers"      # VirtualBox access
+        "plugdev"        # Hotplug (Tablet)
       ];
       shell = pkgs.zsh;  # Default shell (zsh)
     };

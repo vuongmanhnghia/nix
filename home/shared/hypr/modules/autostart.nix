@@ -43,21 +43,8 @@
 
         # Network management
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
-        
-        # # =============================== OLD
-        # # Bluetooth applet
-        # "${pkgs.blueman}/bin/blueman-applet"
-        
-        # # Polkit agent
-        # "systemctl --user start hyprpolkitagent"
 
-        # # Screen sharing setup
-        # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        # "dbus-update-activation-environment --systemd XMODIFIERS GTK_IM_MODULE QT_IM_MODULE SDL_IM_MODULE"
-        
-        # # Clipboard management
-        # "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
-        # "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
+        "otd-daemon" # Tablet
       ];
     };
   };
