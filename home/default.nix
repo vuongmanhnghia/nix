@@ -29,7 +29,8 @@
     ./shared/kvantum.nix         # Kvantum Qt theming
     ./shared/kde-dialog.nix      # KDialog configuration
     ./shared/easyeffects.nix     # EasyEffects audio processing
-    ./shared/dolphin.nix         # Dolphin file manager configuration
+    # ./shared/dolphin.nix         # Dolphin file manager configuration (disabled - using Nemo)
+    ./shared/nemo.nix            # Nemo file manager configuration
     ./shared/tmux.nix            # Tmux configuration
   ];
 
