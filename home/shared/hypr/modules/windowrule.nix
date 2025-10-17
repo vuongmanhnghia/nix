@@ -14,6 +14,10 @@
   wayland.windowManager.hyprland = {
     settings = {
       windowrulev2 = [
+        # Minecraft
+        "fullscreen, class:^(Minecraft.*)$"
+        "size 1920 1080, class:^(Minecraft.*)$"
+        "center, class:^(Minecraft.*)$"
         # Disable blur for xwayland context menus
         "noblur,class:^()$,title:^()$"
         # "noblu, xwayland:1"

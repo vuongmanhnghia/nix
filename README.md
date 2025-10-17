@@ -252,6 +252,44 @@ cp your-wallpaper.jpg ~/Workspaces/Config/nixos/wallpapers/
 # Supported formats: .jpg, .jpeg, .png, .gif
 ```
 
+## 🎛️ QuickShell & Audio Enhancements
+
+### EasyEffects Integration
+
+This configuration includes **hardware volume monitoring** for accurate display when using EasyEffects audio processing:
+
+#### Modified QuickShell Files:
+
+**Services:**
+- `dotfiles/quickshell/ii/services/HardwareAudio.qml` - Hardware volume monitoring service
+- `dotfiles/quickshell/ii/services/Audio.qml` - Enhanced audio service with hardware volume
+- `dotfiles/quickshell/ii/services/qmldir` - Service registry
+
+**UI Components:**
+- `dotfiles/quickshell/ii/modules/onScreenDisplay/indicators/VolumeIndicator.qml` - OSD volume display
+- `dotfiles/quickshell/ii/modules/onScreenDisplay/OnScreenDisplay.qml` - Volume change detection
+- `dotfiles/quickshell/ii/modules/bar/BarContent.qml` - Panel volume/mute indicators
+- `dotfiles/quickshell/ii/modules/verticalBar/VerticalBarContent.qml` - Vertical bar indicators
+- `dotfiles/quickshell/ii/modules/sidebarRight/volumeMixer/VolumeMixer.qml` - Input device selector fix
+
+**Scripts:**
+- `home/shared/hypr/scripts/volume.sh` - Unified volume control (speakers + mic)
+- `home/shared/hypr/scripts/get-hardware-volume.sh` - Hardware volume monitoring
+
+**Configuration:**
+- `home/shared/easyeffects.nix` - EasyEffects service configuration
+- `home/shared/hypr/modules/keybinding.nix` - Audio keybindings
+- `desktop/audio.nix` - System audio with plugins
+
+#### Features:
+✅ Hardware volume display (bypasses EasyEffects virtual sink lock)  
+✅ Microphone mute support with hardware control  
+✅ QuickShell panel shows accurate volume percentage  
+✅ Input device selector now displays all microphones  
+✅ OSD notifications sync with actual hardware state
+
+See `QUICKSHELL_HARDWARE_VOLUME.md` for technical details.
+
 ## Usage
 
 ### **Quick Commands**

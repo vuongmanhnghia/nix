@@ -44,7 +44,7 @@
         # Network management
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
 
-        "otd-daemon" # Tablet
+        # "otd-daemon" # Tablet
       ];
     };
   };

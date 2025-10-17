@@ -211,13 +211,19 @@ Item {
                                 Layout.fillWidth: true
 
                                 description: modelData.description
-                                checked: modelData.id === Pipewire.defaultAudioSink?.id
+                                // Check against correct default device based on input/output
+                                checked: modelData.id === (root.deviceSelectorInput 
+                                    ? Pipewire.defaultAudioSource?.id 
+                                    : Pipewire.defaultAudioSink?.id)
 
                                 Connections {
                                     target: root
                                     function onShowDeviceSelectorChanged() {
                                         if(!root.showDeviceSelector) return;
-                                        radioButton.checked = (modelData.id === Pipewire.defaultAudioSink?.id)
+                                        // Check against correct default device based on input/output
+                                        radioButton.checked = (modelData.id === (root.deviceSelectorInput 
+                                            ? Pipewire.defaultAudioSource?.id 
+                                            : Pipewire.defaultAudioSink?.id))
                                     }
                                 }
 

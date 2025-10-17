@@ -265,7 +265,8 @@ Item { // Bar content region
                     spacing: 0
 
                     Revealer {
-                        reveal: Audio.sink?.audio?.muted ?? false
+                        // Show mute icon based on hardware state when available
+                        reveal: HardwareAudio.ready ? HardwareAudio.hardwareMuted : (Audio.sink?.audio?.muted ?? false)
                         Layout.fillHeight: true
                         Layout.rightMargin: reveal ? indicatorsRowLayout.realSpacing : 0
                         Behavior on Layout.rightMargin {
@@ -278,7 +279,8 @@ Item { // Bar content region
                         }
                     }
                     Revealer {
-                        reveal: Audio.source?.audio?.muted ?? false
+                        // Show mic mute icon based on hardware state when available
+                        reveal: HardwareAudio.ready ? HardwareAudio.hardwareSourceMuted : (Audio.source?.audio?.muted ?? false)
                         Layout.fillHeight: true
                         Layout.rightMargin: reveal ? indicatorsRowLayout.realSpacing : 0
                         Behavior on Layout.rightMargin {

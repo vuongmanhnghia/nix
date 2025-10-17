@@ -1,4 +1,5 @@
 import qs.modules.common
+import qs
 import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
@@ -7,6 +8,7 @@ pragma ComponentBehavior: Bound
 
 /**
  * A nice wrapper for default Pipewire audio sink and source.
+ * Modified to read volume from hardware devices when EasyEffects is active.
  */
 Singleton {
     id: root
@@ -15,6 +17,15 @@ Singleton {
     property PwNode sink: Pipewire.defaultAudioSink
     property PwNode source: Pipewire.defaultAudioSource
     readonly property real hardMaxValue: 2.00 // People keep joking about setting volume to 5172% so...
+    
+    // Hardware volume properties (actual audio output/input)
+    readonly property real hardwareVolume: HardwareAudio.hardwareVolume
+    readonly property bool hardwareMuted: HardwareAudio.hardwareMuted
+    readonly property real hardwareSourceVolume: HardwareAudio.hardwareSourceVolume
+    readonly property bool hardwareSourceMuted: HardwareAudio.hardwareSourceMuted
+    
+    // Use hardware volume when available, fallback to virtual sink
+    readonly property real value: HardwareAudio.ready ? HardwareAudio.hardwareVolume : (sink?.audio.volume ?? 0)
 
     signal sinkProtectionTriggered(string reason);
 

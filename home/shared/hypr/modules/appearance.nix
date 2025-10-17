@@ -17,7 +17,7 @@
         gaps_out = 3;
         gaps_workspaces = 50;
 
-        border_size = 1;
+        border_size = 3;
         
         "col.active_border" = "$outline";
         "col.inactive_border" = "$outline_variant";

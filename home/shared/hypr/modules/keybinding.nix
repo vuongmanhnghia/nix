@@ -56,21 +56,23 @@
       bindle = [
         "$mainMod, XF86MonBrightnessUp, exec, qs -c $qsConfig ipc call brightness increment || brightnessctl s 5% " # [hidden]
         "$mainMod, XF86MonBrightnessDown, exec, qs -c $qsConfig ipc call brightness decrement || brightnessctl s 5%-" # [hidden]
-        "$mainMod, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2% " # [hidden]
-        "$mainMod, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-" # [hidden]
+        "$mainMod, XF86AudioRaiseVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc" # [hidden]
+        "$mainMod, XF86AudioLowerVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --dec" # [hidden]
+        ",XF86AudioRaiseVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc" # Volume up
+        ",XF86AudioLowerVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --dec" # Volume down
       ];
 
       bindld = [
-        "$mainMod SHIFT, M, Toggle mute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
-        "$mainMod, M, Toggle mic, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
         ",Print, Screenshot >> clipboard ,exec,grim - | wl-copy" # Screenshot >> clipboard
         "Ctrl,Print, Screenshot >> clipboard & save, exec, mkdir -p \$(xdg-user-dir PICTURES)/Screenshots && grim \$(xdg-user-dir PICTURES)/Screenshots/Screenshot_\$(date ' %Y-%m-%d_%H.%M.%S').png" # Screenshot >> clipboard & file
       ];
 
       bindl = [
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # [hidden]
-        "Alt ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # [hidden]
+        "$mainMod SHIFT, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # Toggle mute speakers
+        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # Toggle mute mic
+        ",XF86AudioMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # [hidden]
+        "Alt ,XF86AudioMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
+        ",XF86AudioMicMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
         "$mainMod SHIFT, N, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # Next track
         ",XF86AudioNext, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # [hidden]
         ",XF86AudioPrev, exec, playerctl previous" # [hidden]
@@ -114,7 +116,7 @@
         "Ctrl $mainMod, R, exec, killall ags agsv1 gjs ydotool qs quickshell; qs -c $qsConfig &" # Restart widgets
 
         # === VOLUME ===
-        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic"
+        # Note: Mic mute ($mainMod, M) is in bindl section
         "$mainMod SHIFT, up, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-inc"
         "$mainMod SHIFT, down, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-dec"
         
