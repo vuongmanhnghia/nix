@@ -20,7 +20,7 @@
   # Configure Nemo preferences using dconf
   dconf.settings = {
     "org/nemo/preferences" = {
-      show-hidden-files = true;
+      show-hidden-files = false;
       show-image-thumbnails = "always";
       thumbnail-limit = 10485760; # 10MB
       quick-renames-with-pause-in-between = true;

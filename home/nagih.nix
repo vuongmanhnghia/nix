@@ -30,6 +30,7 @@
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
+    unstable.android-studio           # Android Studio IDE for Android development
     unstable.telegram-desktop         # Telegram desktop
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
