@@ -32,6 +32,7 @@
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
     unstable.android-studio           # Android Studio IDE for Android development
     unstable.telegram-desktop         # Telegram desktop
+    # unstable.warp-terminal
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
     unstable.obsidian                 # Note-taking and knowledge management application
