@@ -17,11 +17,6 @@
     userEmail = "vuongmanhnghia@gmail.com"; # Git commit author email
   };
 
-  # xdg.desktopEntries.cursor = {
-  #   name = "Cursor";
-  #   noDisplay = true;
-  # };
-
   # === USER-SPECIFIC APPLICATIONS ===
   home.packages = with pkgs; [
     # === PERSONAL PRODUCTIVITY APPLICATIONS ===
@@ -29,10 +24,13 @@
     unstable.discord                  # Discord chat and communication platform
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
+    unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
     unstable.android-studio           # Android Studio IDE for Android development
     unstable.telegram-desktop         # Telegram desktop
+
     # unstable.warp-terminal
+    unstable.termius                 # Termius - SSH client
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
     unstable.obsidian                 # Note-taking and knowledge management application

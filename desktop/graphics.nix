@@ -41,7 +41,7 @@
   services.upower.enable = true;
   services.thermald.enable = true;
   
-  # GỘP HAI PHẦN auto-cpufreq THÀNH MỘT:
+  services.power-profiles-daemon.enable = false; # Disable to avoid conflicts with auto-cpufreq
   services.auto-cpufreq = {
     enable = true;
     settings = {

@@ -12,7 +12,6 @@
 
     # === TERMINAL MULTIPLEXER AND UTILITIES ===
     tmux                      # Terminal multiplexer for managing multiple terminal sessions
-    termius                   # SSH client
     
     # === SYNTAX HIGHLIGHTING AND CODE TOOLS ===
     highlight                 # Universal syntax highlighter
@@ -23,9 +22,11 @@
     # === WEB DEVELOPMENT AND API TOOLS ===
     burpsuite                 # Web application security testing tool 
     postman                   # API development tool
+    bruno                     # API client for testing RESTful APIs 
 
     pm2                       # Process manager for Node.js
     nodePackages.vercel       # Vercel CLI
+    dbeaver-bin               # Database management tool
 
     # === TOOLS ===
     hugo                       # Static site generator

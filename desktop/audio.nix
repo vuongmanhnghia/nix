@@ -96,6 +96,10 @@
     alsa-utils   # ALSA command-line utilities
     lsp-plugins  # LSP (Linux Studio Plugins) for EasyEffects
     calf         # Calf Studio Gear plugins for audio processing
+
+    reaper       # Digital Audio Workstation (DAW)
+    yabridge     # Run Windows VST plugins on Linux
+    qjackctl     # JACK Audio Connection Kit GUI
   ];
 
   # === EASY EFFECTS CONFIGURATION ===

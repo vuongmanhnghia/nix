@@ -11,6 +11,7 @@
         "wheel"          # Enable sudo
         "networkmanager" # Manage network connections
         "audio"          # Access audio devices
+        "realtime"       # Real-time scheduling
         "video"          # Access video devices  
         "input"          # Access input devices
         "storage"        # Access storage devices

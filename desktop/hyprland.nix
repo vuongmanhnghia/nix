@@ -97,26 +97,14 @@
     wdisplays
   ];
 
-  # Display manager
-  services.xserver = {
-    enable = true;
-    desktopManager.gnome.enable = false;
-    displayManager.gdm.enable = false;
-  };
-  
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
+  # Services
+  security.polkit.enable = true;
+  services.gvfs.enable = true;
 
-  # Environment variables (configured in dotfiles/hypr/conf/environment.conf)
+    # Environment variables (configured in dotfiles/hypr/conf/environment.conf)
   environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     NIXOS_OZONE_WL = "1";
   };
-
-  # Services
-  security.polkit.enable = true;
-  services.gvfs.enable = true;
 } 
