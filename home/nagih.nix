@@ -28,8 +28,12 @@
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
     unstable.android-studio           # Android Studio IDE for Android development
     unstable.telegram-desktop         # Telegram desktop
+    unstable.slack                    # Slack - Team communication and collaboration tool
 
-    # unstable.warp-terminal
+    unstable.warp-terminal
+    unstable.opencode                
+    unstable.claude-code
+    unstable.gemini-cli
     unstable.termius                 # Termius - SSH client
     
     # === PRODUCTIVITY AND CONTENT CREATION ===

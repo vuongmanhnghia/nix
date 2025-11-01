@@ -51,8 +51,18 @@ cat > $monitors_path << EOF
 {
   wayland.windowManager.hyprland = {
     settings = {
-      monitor = [
-        "$port_name, $resolution@$frequency, 0x0, 1"
+      monitor = [ # monitor = <tên>,<độ phân giải>@<tần số quét>,<vị trí>,<tỷ lệ>
+        "$port_name, $resolution@$frequency, 0x0, 1, bitdepth, 10"
+        "HDMI-A-1, 1920x1080@100, 2560x360, 1, bitdepth, 10"
+
+        # Màn hình laptop, tự động chọn độ phân giải và tần số quét tốt nhất
+        # "eDP-1,preferred,auto,1" 
+
+        # Màn hình ngoài, 2560x1440@144Hz, đặt bên phải eDP-1, không scale
+        #"DP-1,2560x1440@144,auto,1,bitdepth,10"
+
+        # Có thể thêm dòng này để đặt màn hình chính
+        # "workspace=DP-1,1" # Mở workspace 1 trên màn hình DP-1
       ];
     };
   };
@@ -82,8 +92,15 @@ cat > $environment_path << EOF
   wayland.windowManager.hyprland = {
     settings = {
       env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
+        # "QS_CONFIG,ii"
+        # "HYPRLAND_INSTANCE_SIGNATURE,wayland-1"
+        
+        "GDK_SCALE,1"
+        "ELM_SCALE,1"
+        "QT_SCALE_FACTOR,1"
+
+        "XCURSOR_SIZE,32"
+        "HYPRCURSOR_SIZE,32"
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "QT_QPA_PLATFORMTHEME,qt6ct"
 
@@ -165,6 +182,48 @@ EOF
 fi
 
 echo "Environment configured successfully!"
+echo "-----------------------------------"
+
+
+
+workspaces_path="./home/shared/hypr/modules/workspaces.nix"
+if [ -f "$workspaces_path" ]; then
+    rm $workspaces_path
+fi
+cat > $workspaces_path << EOF
+# ██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗  █████╗  ██████╗███████╗███████╗
+# ██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
+# ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ███████╗██████╔╝███████║██║     █████╗  ███████╗
+# ██║███╗██║██║   ██║██╔══██╗██╔═██╗ ╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝  ╚════██║
+# ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗███████║██║     ██║  ██║╚██████╗███████╗███████║
+#  ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═════╝╚══════╝╚══════╝
+#------------------------------------------------------------------------------------
+
+
+{ config, lib, pkgs, ... }:
+
+{
+  wayland.windowManager.hyprland = {
+    settings = {
+      workspace = [
+        "1, monitor:$port_name"
+        "2, monitor:$port_name"
+        "3, monitor:$port_name"
+        "4, monitor:$port_name"
+        "5, monitor:$port_name"
+        "6, monitor:$port_name"
+        "7, monitor:$port_name"
+        "8, monitor:$port_name"
+        "9, monitor:$port_name"
+        "10, monitor:$port_name"
+      ];
+    };
+  };
+}
+
+EOF
+
+echo "Workspaces configured successfully!"
 echo "-----------------------------------"
 
 
