@@ -42,7 +42,7 @@
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
 
     unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
-    unstable.rpi-imager               # Raspberry Pi Imager
+    rpi-imager                        # Raspberry Pi Imager
 
     # === VRCHAT ===
     # unstable.alcom                    # Alcom - A modern, feature-rich note-taking app
@@ -54,6 +54,20 @@
       jdks = [
         jdk
       ];
+    })
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      unstable = prev.unstable // {
+        warp-terminal = prev.unstable.warp-terminal.overrideAttrs (oldAttrs: {
+          version = "0.2025.10.29.08.12.stable.03";
+          src = final.fetchurl {  # Dùng final.fetchurl thay vì pkgs.fetchurl
+            url = "https://releases.warp.dev/stable/v0.2025.10.29.08.12.stable_03/warp-terminal_0.2025.10.29.08.12.stable.03_amd64.deb";
+            sha256 = "sha256-rwFEDqr+wwjP/jfKdoWQpZyVTBIaFynysU36SLzKe1g=";
+          };
+        });
+      };
     })
   ];
 

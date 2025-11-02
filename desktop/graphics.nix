@@ -90,5 +90,7 @@
     vulkan-tools # Vulkan utilities (vulkaninfo, vkcube)
     intel-gpu-tools # Intel GPU tools for debugging
     powertop # Power management tool
+
+    p11-kit
   ];
 }
