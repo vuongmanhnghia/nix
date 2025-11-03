@@ -78,8 +78,6 @@
     swappy
     wf-recorder
 
-    foot
-    fish
     starship
     eza
 

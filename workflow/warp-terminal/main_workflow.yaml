@@ -1,0 +1,30 @@
+name: Main Workflow
+active_window_index: 0
+windows:
+  - tabs:
+      - title: Home & Nixos
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih
+              is_focused: true
+            - cwd: /home/nagih/Workspaces/Config/nixos
+        
+      - title: EthnoSoul Legacy
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih/Workspaces/projects/EthnoSoul-Legacy/server
+              is_focused: true
+            - cwd: /home/nagih/Workspaces/projects/EthnoSoul-Legacy/server
+            
+      - title: Music Bot
+        layout:
+          cwd: /home/nagih/Workspaces/noob/bot/discord-music-bot
+          is_focused: true
+      - title: Pi
+        layout:
+          cwd: /home/nagih
+          is_focused: true
+          commands:
+            - exec: ssh nagih@192.168.0.102

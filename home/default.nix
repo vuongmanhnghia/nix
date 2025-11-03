@@ -4,6 +4,7 @@
   # === SHARED HOME MANAGER CONFIGURATIONS ===
   # Import common configurations used by all users
   imports = [
+    ./shared/workflow.nix        # Workflow configuration
     ./shared/hypr/default.nix    # Hyprland configuration
     ./shared/matugen/default.nix # Matugen configuration
     ./shared/quickshell          # QuickShell configuration
@@ -16,7 +17,6 @@
     ./shared/ripgrep.nix         # Ripgrep configuration
     ./shared/wlogout/default.nix # Wlogout configuration
     ./shared/cursor.nix          # Cursor theme configuration
-    ./shared/foot.nix            # Foot terminal configuration
     ./shared/fuzzel.nix          # Fuzzel configuration
     ./shared/qt5ct.nix           # Qt5ct configuration
     ./shared/qt6ct.nix           # Qt6ct configuration
@@ -29,7 +29,6 @@
     ./shared/kvantum.nix         # Kvantum Qt theming
     ./shared/kde-dialog.nix      # KDialog configuration
     ./shared/easyeffects.nix     # EasyEffects audio processing
-    # ./shared/dolphin.nix         # Dolphin file manager configuration (disabled - using Nemo)
     ./shared/nemo.nix            # Nemo file manager configuration
     ./shared/tmux.nix            # Tmux configuration
   ];
@@ -72,13 +71,6 @@
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
     NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.npm-cache";
     NODE_PATH = "${config.home.homeDirectory}/.npm-global/lib/node_modules";
-  };
-
-  home.file = {
-    ".config/fish" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/.config/fish";
-      recursive = true;
-    };
   };
 
   home.sessionPath = [

@@ -22,7 +22,7 @@
         animate_manual_resizes = false;
         animate_mouse_windowdragging = false;
         enable_swallow = false;
-        swallow_regex = "foot|kitty|allacritty|Alacritty";
+        swallow_regex = "kitty|foot|allacritty|Alacritty";
         new_window_takes_over_fullscreen = 2;
         allow_session_lock_restore = true;
         # session_lock_xray = true;
