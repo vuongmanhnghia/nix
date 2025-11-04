@@ -13,8 +13,8 @@
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [ # monitor = <tên>,<độ phân giải>@<tần số quét>,<vị trí>,<tỷ lệ>
-        "DP-1, 2560x1440@180, 0x0, 1, bitdepth, 10"
-        "HDMI-A-1, 1920x1080@100, 2560x360, 1, bitdepth, 10"
+        "DP-1, 2560x1440@180, 0x0, 1, bitdepth, 8"
+        "HDMI-A-1, 1920x1080@100, 2560x360, 1, bitdepth, 8"
 
         # Màn hình laptop, tự động chọn độ phân giải và tần số quét tốt nhất
         # "eDP-1,preferred,auto,1" 

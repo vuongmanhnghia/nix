@@ -21,7 +21,10 @@
   home.packages = with pkgs; [
     # === PERSONAL PRODUCTIVITY APPLICATIONS ===
     unstable.brave                    # Brave web browser
-    unstable.discord                  # Discord chat and communication platform
+    (unstable.discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
     unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode

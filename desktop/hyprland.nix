@@ -63,7 +63,6 @@
     loupe
     celluloid
     gnome-text-editor
-    obs-studio
     ffmpeg
     
     # Audio and notifications

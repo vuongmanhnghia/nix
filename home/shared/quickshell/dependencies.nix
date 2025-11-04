@@ -49,7 +49,6 @@
     # === AUDIO SYSTEM ===
     pipewire                   # Modern audio server
     pavucontrol               # PulseAudio volume control
-    easyeffects               # Audio effects processing
     
     # === SYSTEM MONITORING ===
     upower                    # Battery and power management

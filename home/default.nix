@@ -28,7 +28,6 @@
     ./shared/kde-theme.nix       # KDE theming configuration
     ./shared/kvantum.nix         # Kvantum Qt theming
     ./shared/kde-dialog.nix      # KDialog configuration
-    ./shared/easyeffects.nix     # EasyEffects audio processing
     ./shared/nemo.nix            # Nemo file manager configuration
     ./shared/tmux.nix            # Tmux configuration
   ];
