@@ -27,66 +27,6 @@
         default.clock.max-quantum = 32;    # Maximum buffer size
       };
     };
-
-    # extraConfig.pipewire."99-echo-cancel" = {
-    #   "context.modules" = [
-    #     {
-    #       name = "libpipewire-module-echo-cancel";
-    #       args = {
-    #         # library.name = "aec/libspa-aec-webrtc" # Có thể bỏ qua để dùng mặc định
-    #         # node.latency = "1024/48000"
-    #         # monitor.mode = false
-    #         sink.master = "alsa_output.usb-Jieli_Technology_USB-Sounbar-V18-00.analog-stereo";
-    #         source.master = "alsa_input.usb-Maono_DGM20_USB_Microphone_20230101-00.analog-stereo";
-
-    #         node.description = "Microphone (khử tiếng vang)";
-    #         capture.props = {
-    #           node.name = "echo_cancelled_source";
-    #         };
-    #         playback.props = {
-    #           node.name = "echo_cancelled_sink";
-    #         };
-    #         source.props = {
-    #           "node.name" = "echo-cancel-source";
-    #         };
-    #         sink.props = {
-    #           "node.name" = "echo-cancel-sink";
-    #         };
-    #       };
-    #     }
-    #   ];
-    # };
-
-    # extraConfig.pipewire."98-rnnoise" = {
-    #   "context.modules" = [
-    #     {
-    #       name = "libpipewire-module-filter-chain";
-    #       args = {
-    #         node.description = "Noise Canceling source";
-    #         media.name = "Noise Canceling source";
-    #         filter.graph = {
-    #           nodes = [
-    #             {
-    #               type = "ladspa";
-    #               name = "rnnoise";
-    #               plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
-    #               label = "noise_suppressor_stereo";
-    #               control = {
-    #                 "VAD Threshold (%)" = 50.0;
-    #               };
-    #             }
-    #           ];
-    #         };
-    #         capture.props = {
-    #           "node.name" = "rnnoise_capture";
-    #         };
-    #         playback.props = {
-    #           "node.name" = "rnnoise_playback";
-    #         };
-    #       };
-    #     }
-    #   ];
-    # };
   };
 
   # === AUDIO UTILITIES ===

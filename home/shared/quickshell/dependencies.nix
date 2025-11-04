@@ -48,7 +48,6 @@
     
     # === AUDIO SYSTEM ===
     pipewire                   # Modern audio server
-    wireplumber               # PipeWire session manager
     pavucontrol               # PulseAudio volume control
     easyeffects               # Audio effects processing
     

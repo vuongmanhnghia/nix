@@ -1,16 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  # chat2dbDesktopItem = pkgs.makeDesktopItem {
-  #   name = "chat2db";
-  #   desktopName = "Chat2DB";
-  #   exec = "chat2db";
-  #   icon = "chat2db";
-  #   terminal = false;
-  #   categories = [ "Development" "Database" ];
-  #   startupWMClass = "chat2db";
-  # };
-
   beekeeperStudioDesktopItem = pkgs.makeDesktopItem {
     name = "beekeeper-studio";
     desktopName = "Beekeeper Studio";
@@ -20,10 +10,19 @@ let
     categories = [ "Development" "Database" ];
     startupWMClass = "beekeeper-studio";
   };
+
+  # warpTerminalLatestDesktopItem = pkgs.makeDesktopItem {
+  #   name = "warp-terminal-latest";
+  #   desktopName = "Warp Terminal Latest";
+  #   exec = "warp-terminal-latest";
+  #   icon = "warp-terminal";
+  #   categories = [ "Development" "Terminal" ];
+  #   startupWMClass = "warp-terminal-latest";
+  # };
 in
 {
   environment.systemPackages = with pkgs; [
-    # chat2dbDesktopItem
     beekeeperStudioDesktopItem
+    # warpTerminalLatestDesktopItem
   ];
 }

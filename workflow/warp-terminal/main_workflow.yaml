@@ -22,9 +22,15 @@ windows:
         layout:
           cwd: /home/nagih/Workspaces/noob/bot/discord-music-bot
           is_focused: true
-      - title: Pi
+      - title: SSH Server
         layout:
-          cwd: /home/nagih
-          is_focused: true
-          commands:
-            - exec: ssh nagih@192.168.0.102
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih
+              is_focused: true
+              commands:
+                - exec: ssh nagih@raspberrypi
+            - cwd: /home/nagih
+              is_focused: true
+              commands:
+                - exec: ssh nagih@server.tailb2e821.ts.net
