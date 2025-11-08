@@ -18,10 +18,14 @@ windows:
               is_focused: true
             - cwd: /home/nagih/Workspaces/projects/EthnoSoul-Legacy/server
             
-      - title: Music Bot
+      - title: Janus
         layout:
-          cwd: /home/nagih/Workspaces/noob/bot/discord-music-bot
-          is_focused: true
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih/Workspaces/projects/Janus
+              is_focused: true
+            - cwd: /home/nagih/Workspaces/projects/Janus
+              is_focused: true
       - title: SSH Server
         layout:
           split_direction: horizontal

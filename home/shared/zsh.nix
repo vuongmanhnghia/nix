@@ -126,6 +126,7 @@
       noob = "cd ~/Workspaces/noob";
       ptit = "cd ~/Workspaces/ptit";
       vir = "cd ~/Workspaces/virtual";
+      janus = "cd ~/Workspaces/projects/Janus";
       
       # === DOCUMENTATION ===
       docs = "cd ~/Documents";

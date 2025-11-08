@@ -53,28 +53,16 @@ Scope {
     }
 
     Connections {
-        // Listen to hardware volume changes when available
-        target: HardwareAudio.ready ? HardwareAudio : (Audio.sink?.audio ?? null)
-        function onHardwareVolumeChanged() {
-            if (!HardwareAudio.ready)
-                return;
-            root.currentIndicator = "volume";
-            root.triggerOsd();
-        }
-        function onHardwareMutedChanged() {
-            if (!HardwareAudio.ready)
-                return;
-            root.currentIndicator = "volume";
-            root.triggerOsd();
-        }
+        // Listen to volume changes
+        target: Audio.sink?.audio ?? null
         function onVolumeChanged() {
-            if (!Audio.ready || HardwareAudio.ready)
+            if (!Audio.ready)
                 return;
             root.currentIndicator = "volume";
             root.triggerOsd();
         }
         function onMutedChanged() {
-            if (!Audio.ready || HardwareAudio.ready)
+            if (!Audio.ready)
                 return;
             root.currentIndicator = "volume";
             root.triggerOsd();
