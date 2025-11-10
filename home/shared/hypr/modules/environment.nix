@@ -14,9 +14,6 @@
   wayland.windowManager.hyprland = {
     settings = {
       env = [
-        # "QS_CONFIG,ii"
-        # "HYPRLAND_INSTANCE_SIGNATURE,wayland-1"
-        
         "GDK_SCALE,1"
         "ELM_SCALE,1"
         "QT_SCALE_FACTOR,1"
