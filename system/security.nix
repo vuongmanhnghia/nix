@@ -18,11 +18,4 @@
       PermitRootLogin = "no";           # Disable direct root login for security
     };
   };
-  
-  # === FIREWALL CONFIGURATION ===
-  networking.firewall = {
-    enable = true;                    # Enable firewall protection
-    allowedTCPPorts = [ 22 ];         # Allow SSH access (port 22)
-    allowedUDPPorts = [ ];            # No UDP ports open by default
-  };
 } 

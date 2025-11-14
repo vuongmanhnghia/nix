@@ -21,6 +21,8 @@
         22   # SSH - remote access
         80   # HTTP - web server
         443  # HTTPS - secure web server
+
+        8080 # Alternative HTTP port
       ];
       allowedUDPPorts = [ ]; # No UDP ports opened by default
       # Allow Tailscale traffic

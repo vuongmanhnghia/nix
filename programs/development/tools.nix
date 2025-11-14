@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    rustdesk
     # libinput                  # Tablet
     # opentabletdriver          # Tablet
     # === CODE EDITORS AND IDEs ===
@@ -12,6 +13,7 @@
 
     # === TERMINAL MULTIPLEXER AND UTILITIES ===
     tmux                      # Terminal multiplexer for managing multiple terminal sessions
+    ngrok                     # Secure tunnels to localhost  
     
     # === SYNTAX HIGHLIGHTING AND CODE TOOLS ===
     highlight                 # Universal syntax highlighter
@@ -40,6 +42,7 @@
     amazon-q-cli    # Amazon Q CLI
     qbittorrent     # Torrent client
     speedtest-cli   # Internet speed test command line interface
+    termius         # SSH client
   ];
 
   # services.udev.packages = [ pkgs.opentabletdriver ]; # Tablet
