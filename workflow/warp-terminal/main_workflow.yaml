@@ -37,4 +37,4 @@ windows:
             - cwd: /home/nagih
               is_focused: true
               commands:
-                - exec: ssh root@nagih.tailb2e821.ts.net
+                - exec: ssh server.tailb2e821.ts.net
