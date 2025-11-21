@@ -8,6 +8,13 @@
     
     # Require password for sudo commands (security best practice)
     sudo.wheelNeedsPassword = true;
+
+    allowUserNamespaces = true;
+  };
+
+  boot.kernel.sysctl = {
+    "user.max_user_namespaces" = 15000;
+    "kernel.unprivileged_userns_clone" = 1;
   };
   
   # === SSH SECURITY HARDENING ===

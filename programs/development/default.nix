@@ -11,6 +11,7 @@
     ./networks.nix
     ./system.nix
     ./virtual.nix
+    ./omnissa-horizon.nix
   ];
 
   environment.systemPackages = with pkgs; [

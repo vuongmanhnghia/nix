@@ -18,6 +18,7 @@
         "optical"        # Access optical drives
         "scanner"        # Access scanners
         "libvirtd"       # Virtualization
+        "libvirt"        # Virtualization
         "docker"         # Docker 
         "disk"           # Disk management access
         "adbusers"       # D-Bus access
