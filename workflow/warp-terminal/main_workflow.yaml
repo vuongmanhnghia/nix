@@ -23,10 +23,10 @@ windows:
         layout:
           split_direction: horizontal
           panes:
-            - cwd: /home/nagih
-              is_focused: true
-              commands:
-                - exec: ssh nagih@raspberrypi
+            # - cwd: /home/nagih
+            #   is_focused: true
+            #   commands:
+            #     - exec: ssh nagih@raspberrypi
             - cwd: /home/nagih
               is_focused: true
               commands:

@@ -2,10 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    docker-compose    # Multi-container Docker orchestration
-
-    vagrant           # Development environment manager
-
+    docker-compose   # Multi-container Docker orchestration
+    vagrant          # Development environment manager
     qemu             # Generic and open source machine emulator and virtualizer
     libvirt          # API for managing platform virtualization
     virt-manager     # Desktop user interface for managing virtual machines

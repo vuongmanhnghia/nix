@@ -41,7 +41,7 @@
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
 
     unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
-    rpi-imager                        # Raspberry Pi Imager
+    # rpi-imager                        # Raspberry Pi Imager
 
     # === VRCHAT ===
     # unstable.alcom                    # Alcom - A modern, feature-rich note-taking app

@@ -10,5 +10,6 @@
     # tailscale       # Network connectivity for developers
     stun            # NAT traversal tool
     linssid         # Wireless network scanner
+    wireshark       # Network protocol analyzer
   ];
 }

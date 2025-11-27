@@ -25,7 +25,6 @@
     burpsuite                 # Web application security testing tool 
     postman                   # API development tool
     bruno                     # API client for testing RESTful APIs 
-
     pm2                       # Process manager for Node.js
     nodePackages.vercel       # Vercel CLI
     dbeaver-bin               # Database management tool
