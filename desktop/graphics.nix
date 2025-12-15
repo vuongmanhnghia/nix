@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 {
-  # === PROPRIETARY SOFTWARE SUPPORT ===
-  nixpkgs.config.allowUnfree = true; # Required for NVIDIA proprietary drivers
-  
   # === GRAPHICS HARDWARE SUPPORT ===
   hardware.graphics = {
     enable = true; # Enable graphics drivers

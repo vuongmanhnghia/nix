@@ -2,13 +2,13 @@
   description = "My NixOS configuration";
 
   inputs = {
-    # NixOS packages source - using stable 25.05 release
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS packages source - using stable 25.11 release
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     
     # Home Manager for user environment management
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -16,12 +16,9 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
-    # Hyprland - latest stable
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, quickshell, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, ... }:
   let
     system = "x86_64-linux";
 
@@ -33,7 +30,7 @@
     # Create a special args set với tất cả inputs
     specialArgs = {
       inherit quickshell unstable;
-      inputs = { inherit nixpkgs nixpkgs-unstable home-manager hyprland quickshell; };
+      inputs = { inherit nixpkgs nixpkgs-unstable home-manager quickshell; };
     };
   in
   {
@@ -49,9 +46,6 @@
           })
           
           ./configuration.nix
-          
-          # Hyprland module
-          hyprland.nixosModules.default
 
           # Home Manager integration
           home-manager.nixosModules.home-manager

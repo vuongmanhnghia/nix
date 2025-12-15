@@ -11,7 +11,6 @@
     # AUDIO
     cava
     lxqt.pavucontrol-qt
-    wireplumber
     libdbusmenu-gtk3
     playerctl
 
@@ -37,17 +36,17 @@
     kdePackages.systemsettings
     
     # === QT6 FRAMEWORK ===
-    qt6.full                    # Complete Qt6 suite
+    # qt6.full                    # Complete Qt6 suite
     qt6.qtwayland              # Wayland support for Qt6
     qt6.qtdeclarative          # QML runtime and compiler
     qt6.qtsvg                  # SVG support
     qt6.qtimageformats         # Additional image format support
     qt6.qtmultimedia           # Multimedia support for media controls
     qt6.qtnetworkauth          # Network authentication (for AI services)
+    qt6.qtpositioning          # Location and positioning services
     qt6.qttools                # Qt development tools (includes qmllint)
     
     # === AUDIO SYSTEM ===
-    pipewire                   # Modern audio server
     pavucontrol               # PulseAudio volume control
     
     # === SYSTEM MONITORING ===
@@ -76,7 +75,7 @@
     dunst                   # Notification daemon
     
     # === HYPRLAND INTEGRATION ===
-    hyprland                # Wayland compositor
+    # Note: hyprland is provided by system (desktop/hyprland.nix) with GCC 15 fix
     hyprpicker              # Color picker
     hyprshot                # Screenshot utility
     hypridle                # Idle management
@@ -116,7 +115,7 @@
     # === FONTS & THEMING ===
     material-symbols       # Material Design icons
     noto-fonts            # Google Noto fonts
-    noto-fonts-emoji      # Emoji support
+    noto-fonts-color-emoji      # Emoji support
     rubik                 # Rubik font for Hyprlock
     
     # === WIDGETS & TOOLS ===

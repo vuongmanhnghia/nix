@@ -4,16 +4,20 @@
   # Display manager
   services.xserver = {
     enable = true;
-    displayManager = {
-      gdm.enable = false; # GDM không tương thích tốt với Hyprland
+  };
+
+
+  services.displayManager = {
+    gdm = {
+      enable = false; # GDM không tương thích tốt với Hyprland
+    };
+    sddm = {
+      enable = true;
+      wayland.enable = true;
     };
   };
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-
-  programs.hyprland.enable = true;
+  # Hyprland is configured in hyprland.nix
+  services.desktopManager.plasma6.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
 }

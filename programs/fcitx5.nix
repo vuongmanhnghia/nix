@@ -9,12 +9,12 @@
       waylandFrontend = true;
       # FIX: Simplify addon list, fcitx5-with-addons có thể conflict
       addons = with pkgs; [
-        fcitx5-unikey
-        fcitx5-gtk
-        fcitx5-configtool
-        # Conditional Qt packages based on desktop
-        (lib.mkIf (config.services.desktopManager.plasma5.enable or false) libsForQt5.fcitx5-qt)
-        (lib.mkIf (config.services.desktopManager.plasma6.enable or false) qt6Packages.fcitx5-qt)
+        qt6Packages.fcitx5-unikey
+        # fcitx5-gtk
+        # fcitx5-configtool
+        # # Conditional Qt packages based on desktop
+        # (lib.mkIf (config.services.desktopManager.plasma5.enable or false) libsForQt5.fcitx5-qt)
+        # (lib.mkIf (config.services.desktopManager.plasma6.enable or false) qt6Packages.fcitx5-qt)
       ];
     };
   };

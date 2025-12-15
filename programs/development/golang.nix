@@ -28,7 +28,6 @@
     
     # Development utilities
     air                         # Live reload for Go apps
-    goconvey                    # BDD testing framework
   ];
 
   # === GO ENVIRONMENT VARIABLES ===

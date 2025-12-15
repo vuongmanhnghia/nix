@@ -8,9 +8,10 @@
   ];
 
   # Symlink QuickShell configuration from NixOS config
+  # Use relative path from flake root
   home.file.".config/quickshell" = {
-    source = "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/quickshell";
-    executable = true;
+    source = ../../../dotfiles/quickshell;
+    recursive = true;
   };
 
   # === ENVIRONMENT VARIABLES ===
@@ -26,8 +27,8 @@
     QS_CONFIG = "ii";
     QS_NO_RELOAD_POPUP = "1";
     
-    # Python path for scripts
-    PYTHONPATH = "${pkgs.python3Packages.pywayland}/lib/python3.11/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.11/site-packages:${pkgs.python3Packages.pillow}/lib/python3.11/site-packages:${pkgs.python3Packages.numpy}/lib/python3.11/site-packages:${pkgs.python3Packages.requests}/lib/python3.11/site-packages";
+    # Python path for scripts - use python3.12 for NixOS 24.11
+    PYTHONPATH = "${pkgs.python3Packages.pywayland}/lib/python3.12/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.12/site-packages:${pkgs.python3Packages.pillow}/lib/python3.12/site-packages:${pkgs.python3Packages.numpy}/lib/python3.12/site-packages:${pkgs.python3Packages.requests}/lib/python3.12/site-packages";
     
     # Virtual environment path
     ILLOGICAL_IMPULSE_VIRTUAL_ENV = "${config.home.homeDirectory}/.local/state/quickshell/.venv";

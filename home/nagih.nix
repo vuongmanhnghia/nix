@@ -9,12 +9,16 @@
   # === USER INFORMATION ===
   home.username = "nagih";            # Username for this configuration
   home.homeDirectory = "/home/nagih"; # User's home directory path
-  home.stateVersion = "25.05";        # Home Manager version (should match NixOS)
+  home.stateVersion = "25.11";        # Home Manager version (should match NixOS)
 
   # === USER-SPECIFIC GIT CONFIGURATION ===
   programs.git = {
-    userName = "Nagih";                    # Git commit author name
-    userEmail = "vuongmanhnghia@gmail.com"; # Git commit author email
+    settings = {
+      user = {
+        name = "Nagih";               # Git commit author name
+        email = "vuongmanhnghia@gmail.com"; # Git commit author email
+      };
+    };
   };
 
   # === USER-SPECIFIC APPLICATIONS ===
@@ -26,7 +30,6 @@
     unstable.vscode                   # Visual Studio Code - Source code editor
     unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
     unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
-    unstable.android-studio           # Android Studio IDE for Android development
     unstable.telegram-desktop         # Telegram desktop
     unstable.slack                    # Slack - Team communication and collaboration tool
 
@@ -53,20 +56,6 @@
       jdks = [
         jdk
       ];
-    })
-  ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      unstable = prev.unstable // {
-        warp-terminal = prev.unstable.warp-terminal.overrideAttrs (oldAttrs: {
-          version = "0.2025.10.29.08.12.stable_03";
-          src = pkgs.fetchurl {  # Dùng final.fetchurl thay vì pkgs.fetchurl
-            url = "https://releases.warp.dev/stable/v0.2025.10.29.08.12.stable_03/Warp-x86_64.AppImage";
-            sha256 = "sha256-rwFEDqr+wwjP/jfKdoWQpZyVTBIaFynysU36SLzKe1g=";
-          };
-        });
-      };
     })
   ];
 

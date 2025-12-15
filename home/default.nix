@@ -55,16 +55,18 @@
     btop       # Modern system monitor with better interface than htop
     htop       # Interactive process viewer and system monitor
     nvtopPackages.nvidia      # NVIDIA GPU monitor
-    android-tools
     
     # === WAYLAND CLIPBOARD UTILITIES ===
     wl-clipboard  # Wayland clipboard utilities (wl-copy, wl-paste)
 
-    stdenv.cc.cc.lib
+    # Use GCC 15 lib for GLIBCXX_3.4.34 (required by Hyprland 0.52.1)
+    # GCC 15 is backward compatible with GCC 14
+    gcc15.cc.lib
   ];
 
   home.sessionVariables = {
-    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib:\${LD_LIBRARY_PATH}";
+    # GCC 15 lib path for GLIBCXX_3.4.34 support
+    LD_LIBRARY_PATH = "${pkgs.gcc15.cc.lib}/lib:$LD_LIBRARY_PATH";
     
     # === NPM CONFIGURATION ===
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
@@ -83,6 +85,7 @@
   # === SSH CONFIGURATION ===
   programs.ssh = {
     enable = true;  # Enable SSH client
+    enableDefaultConfig = false;
     
     # SSH agent configuration for key management
     extraConfig = ''
@@ -91,8 +94,17 @@
       Host *
         AddKeysToAgent yes  # Automatically add SSH keys to agent
     '';
+
+    matchBlocks."*" = {
+      forwardAgent = false;
+      serverAliveInterval = 60;
+      serverAliveCountMax = 3;
+      compression = true;
+      user = "git";
+      identitiesOnly = true;
+    };
   };
 
   # === HOME MANAGER VERSION ===
-  home.stateVersion = "25.05";  # Should match your NixOS release version
+  home.stateVersion = "25.11";  # Should match your NixOS release version
 }

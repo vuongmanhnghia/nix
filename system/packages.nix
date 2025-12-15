@@ -35,7 +35,7 @@
     doxygen     # Documentation generator for multiple programming languages
     
     # Performance profiling and optimization
-    linuxPackages.perf  # Linux performance analysis tools
+    perf  # Linux performance analysis tools
     
     # Binary utilities and system tools
     binutils  # Collection of binary tools (objdump, nm, strip, etc.)

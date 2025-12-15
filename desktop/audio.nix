@@ -1,59 +1,40 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
-  # === AUDIO SYSTEM CONFIGURATION ===
-
-    # PipeWire with all modules
+  # === MINIMAL AUDIO CONFIGURATION - NixOS 25.11 Default ===
+  
+  # PipeWire với WirePlumber từ unstable (bỏ qua state-routes bug)
   services.pipewire = {
     enable = true;
-    
-    # Enable compatibility layers
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-    
-    pulse.enable = true;  # PulseAudio compatibility - QUAN TRỌNG!
-    jack.enable = true;   # JACK compatibility
-    
-    # Wireplumber session manager
+    audio.enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
     wireplumber.enable = true;
-
-    extraConfig.pipewire."92-low-latency" = {
-      context.properties = {
-        default.clock.rate = 48000;        # Sample rate (48kHz standard)
-        default.clock.quantum = 32;        # Buffer size (32 samples = ~0.67ms latency)
-        default.clock.min-quantum = 32;    # Minimum buffer size
-        default.clock.max-quantum = 32;    # Maximum buffer size
-      };
-    };
+    
+    # Config WirePlumber để tắt state-routes script (chứa bug)
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/99-disable-routes.conf" ''
+        wireplumber.profiles = {
+          main = {
+            # Disable state-routes.lua - có bug
+            state-routes.lua = disabled
+          }
+        }
+      '')
+    ];
   };
 
-  # Ensure services start properly
-  systemd.user.services = {
-    pipewire.wantedBy = [ "default.target" ];
-    pipewire-pulse.wantedBy = [ "default.target" ];
-    wireplumber.wantedBy = [ "default.target" ];
-  };
-  
-  # services.pulseaudio.enable = false;
-  
-  # Enable RealtimeKit for low-latency audio processing
+
+  # RealtimeKit for low-latency audio
   security.rtkit.enable = true;
 
-  # === AUDIO UTILITIES ===
+  # SOF Firmware for modern Intel/AMD audio
+  hardware.firmware = [ pkgs.sof-firmware ];
+
+  # Basic audio utilities
   environment.systemPackages = with pkgs; [
     pavucontrol  # PulseAudio Volume Control GUI
-    alsa-utils   # ALSA command-line utilities
-    lsp-plugins  # LSP (Linux Studio Plugins) for EasyEffects
-    calf         # Calf Studio Gear plugins for audio processing
-
-    reaper       # Digital Audio Workstation (DAW)
-    yabridge     # Run Windows VST plugins on Linux
-    qjackctl     # JACK Audio Connection Kit GUI
+    alsa-utils   # ALSA utilities
+    sof-firmware
   ];
-
-  # === EASY EFFECTS CONFIGURATION ===
-  # Enable EasyEffects to work properly with PipeWire
-  programs.dconf.enable = true; # Required for EasyEffects to save presets
 } 
