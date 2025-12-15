@@ -8,6 +8,9 @@
     libvirt          # API for managing platform virtualization
     virt-manager     # Desktop user interface for managing virtual machines
     libguestfs       # Tools for accessing and modifying virtual machine disk images
+    ansible          # Automation tool for configuration management and application deployment
+    terraform        # Infrastructure as Code tool for building, changing, and versioning infrastructure
+    awscli2          # Official Amazon AWS command-line interface version 2
   ];  
   
   virtualisation = {
