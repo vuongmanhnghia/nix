@@ -26,19 +26,9 @@
 
     # === VIRTUALIZATION CONFIGURATION ===
     libvirtd.enable = true;  # API for managing KVM/QEMU and platform virtualization
-    virtualbox.host.enable = false;
   };
 
-  # === NETWORK BRIDGE CONFIGURATION ===
-  # networking.bridges.br0.interfaces = [ "eno1" ];
-  # networking.interfaces.br0.useDHCP = true; # Bridge sẽ nhận IP từ router
-  # networking.interfaces.eno1.useDHCP = false; # Card mạng thật không cần IP nữa
-
-  # systemd.sockets.libvirtd.socketConfig.TimeoutIdleSec = 0;
-
-  # --- CẤU HÌNH MACVTAP CHO WI-FI (CÁCH TƯƠNG THÍCH) ---
-
-  # 1. Khai báo để tạo file cấu hình mạng cho libvirt
+  # Libvirt network configuration for WiFi bridge
   environment.etc."libvirt/qemu/networks/macvtap-bridge.xml".text = ''
     <network>
       <name>macvtap-bridge</name>
@@ -48,8 +38,6 @@
     </network>
   '';
 
-  # 2. Yêu cầu libvirtd tự động khởi động mạng này khi nó chạy
-  #    (Tương đương với lệnh `virsh net-autostart macvtap-bridge`)
   virtualisation.libvirtd.extraConfig = ''
     network_autostart_every_boot = 1
   '';

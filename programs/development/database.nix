@@ -2,14 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # mongodb-compass
-    # mongodb-tools
-    sqlc
-    goose
-    # beekeeper-studio
+    sqlc  # SQL compiler - generates type-safe code from SQL
+    goose # Database migration tool
   ];
-
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "beekeeper-studio-5.1.5"
-  # ];
 }

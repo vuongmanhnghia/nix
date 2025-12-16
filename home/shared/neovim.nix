@@ -64,19 +64,8 @@
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     
-    # Terminal multiplexer (cho tmux navigator plugin)
-    tmux
-    
-    # Fuzzy finder
-    fzf
-    
     # File manager alternative
     ranger
-    
-    # Additional development tools
-    curl
-    wget
-    unzip
     
     # Database tools (nếu cần)
     sqlite
@@ -86,24 +75,6 @@
     ripgrep
     fd
     tree-sitter
-    
-    # Runtime và compilers (tuỳ chọn, có thể comment nếu không cần)
-    # gcc
-    # python3
-    # rustc
-    # cargo
-    
-    # Build tools (tuỳ chọn)
-    # gnumake
-    # cmake
-    
-    # Debugging tools (tuỳ chọn)
-    # delve # Go debugger
-    # lldb
-    
-    # Flutter/Dart (tuỳ chọn)
-    # flutter
-    # dart
   ];
 
   # Cấu hình Git (cần thiết cho nhiều plugin)

@@ -23,9 +23,7 @@
         "disk"           # Disk management access
         "adbusers"       # D-Bus access
         "kvm"            # KVM access
-        "virsh"          # Virtualization management
-        "vboxusers"      # VirtualBox access
-        "plugdev"        # Hotplug (Tablet)
+        "plugdev"        # Hotplug devices
       ];
       shell = pkgs.zsh;  # Default shell (zsh)
     };

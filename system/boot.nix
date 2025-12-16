@@ -9,7 +9,7 @@
         enable = true;
         
         # Limit number of boot entries shown in menu (saves /boot space)
-        configurationLimit = 10;  # Show only 5 most recent configurations
+        configurationLimit = 5;  # Show only 5 most recent configurations
         
         # Allow editing kernel parameters at boot (security consideration)
         editor = false;  # Set to true if you need to edit boot parameters
@@ -45,7 +45,7 @@
     gc = {
       automatic = true;                    # Enable automatic cleanup
       dates = "weekly";                    # Run weekly cleanup
-      options = "--delete-older-than 14d"; # Keep only last 2 weeks of generations
+      options = "--delete-older-than 7d"; # Keep only last week of generations
     };
     settings = {
       experimental-features = [ "nix-command" "flakes" ]; # Enable modern Nix features

@@ -20,10 +20,10 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, ... }:
   let
-    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages."x86_64-linux";
 
     unstable = import nixpkgs-unstable {
-      inherit system;
+      system = "x86_64-linux";
       config.allowUnfree = true;
     };
     
@@ -36,10 +36,10 @@
   {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
         inherit specialArgs;
         
         modules = [
+          { nixpkgs.hostPlatform = "x86_64-linux"; }
           # Pass inputs to configuration.nix
           ({ config, pkgs, ... }: {
             _module.args = specialArgs;
@@ -66,8 +66,8 @@
     };
     
     # Optional: Provide development shell
-    devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
-      buildInputs = with nixpkgs.legacyPackages.${system}; [
+    devShells."x86_64-linux".default = pkgs.mkShell {
+      buildInputs = with pkgs; [
         nixos-rebuild
         home-manager
       ];

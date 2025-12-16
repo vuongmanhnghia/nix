@@ -3,9 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     rustdesk
-    # libinput                  # Tablet
-    # opentabletdriver          # Tablet
-    # === CODE EDITORS AND IDEs ===
+    # === CODE EDITORS ===
     neovim                    # Modern Vim-based text editor with LSP support   
     # === LUA DEVELOPMENT ===
     lua51Packages.lua         # Modern Lua interpreter (latest version)
@@ -33,15 +31,10 @@
     hugo                       # Static site generator
     yt-dlp                     # YouTube downloader
     libopus                    # Audio codec library
-
-    # === DOCUMENTATION GENERATION ===
-    doxygen         # Documentation generator for multiple programming languages
-
     cloudflared     # Cloudflare Tunnel
     amazon-q-cli    # Amazon Q CLI
     qbittorrent     # Torrent client
     speedtest-cli   # Internet speed test command line interface
-    termius         # SSH client
   ];
 
   # services.udev.packages = [ pkgs.opentabletdriver ]; # Tablet

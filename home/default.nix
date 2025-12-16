@@ -45,15 +45,11 @@
     fd         # Fast and user-friendly alternative to find
     eza        # Modern ls replacement with better formatting and colors
     bat        # Syntax-highlighted cat replacement with paging
-    fzf        # Fuzzy finder for files, commands, and history
-    tree       # Display directory structures in tree format
     unzip      # Extract ZIP archives
     zip        # Create ZIP archives
     
     # === SYSTEM MONITORING UTILITIES ===
     neofetch   # System information display tool with ASCII art
-    btop       # Modern system monitor with better interface than htop
-    htop       # Interactive process viewer and system monitor
     nvtopPackages.nvidia      # NVIDIA GPU monitor
     
     # === WAYLAND CLIPBOARD UTILITIES ===

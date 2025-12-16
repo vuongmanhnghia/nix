@@ -2,11 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
-    vlc
-    # gimp
-    libreoffice
-    evince
-    file-roller
-    # mpv
+    mpv                 # Versatile media player
+    libreoffice         # Office suite
+    evince              # PDF viewer
+    file-roller         # Archive manager
   ];
 }

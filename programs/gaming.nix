@@ -13,16 +13,6 @@
 
   # === GAMING SOFTWARE PACKAGES ===
   environment.systemPackages = with pkgs; [
-    # Performance monitoring and overlay tools
-    unstable.mangohud     # Performance overlay for games (FPS, GPU/CPU usage, temperatures)
-    unstable.gamescope    # Micro-compositor for better gaming performance and compatibility
-    
-    # Windows compatibility layer for non-Steam games
-    unstable.wineWowPackages.stable  # Wine for running Windows applications and games
-    unstable.winetricks              # Helper script for installing Windows dependencies in Wine
-    unstable.lutris                  # Game launcher for managing Wine games and emulators
-    
-    # Steam-specific tools
     unstable.steam         # Steam gaming platform
     unstable.protonup-qt   # GUI tool for managing Proton versions (Steam's Wine fork)
     unstable.steam-run     # Utility for running non-Steam applications with Steam's runtime

@@ -18,6 +18,12 @@
   };
 
   # Hyprland is configured in hyprland.nix
-  services.desktopManager.plasma6.enable = false;
-  services.xserver.desktopManager.gnome.enable = false;
+  services.desktopManager = {
+    plasma6 = {
+      enable = false;
+    };
+    gnome = {
+      enable = false;
+    };
+  };
 }

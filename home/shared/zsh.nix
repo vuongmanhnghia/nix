@@ -73,7 +73,7 @@
       du = "dust";                                     # Modern disk usage
       df = "duf";                                      # Modern disk free
       ps = "procs";                                    # Modern process viewer
-      top = "btop";                                    # Modern system monitor
+      top = "htop";                                    # Modern system monitor
       
       # === GIT WORKFLOW (Enhanced) ===
       g = "git";
@@ -275,6 +275,5 @@
     dust                       # Modern du replacement
     duf                        # Modern df replacement
     procs                      # Modern ps replacement
-    mcfly                      # Smart command history search
   ];
 } 

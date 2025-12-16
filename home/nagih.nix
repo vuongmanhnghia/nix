@@ -29,7 +29,7 @@
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
     unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
-    unstable.jetbrains.idea-community # IntelliJ IDEA Community Edition
+    unstable.antigravity              # Antigravity - Distraction-free coding mode for VSCode
     unstable.telegram-desktop         # Telegram desktop
     unstable.slack                    # Slack - Team communication and collaboration tool
 
@@ -37,6 +37,7 @@
     unstable.opencode                
     unstable.claude-code
     unstable.gemini-cli
+
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
     unstable.obsidian                 # Note-taking and knowledge management application
@@ -44,13 +45,8 @@
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
 
     unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
-    # rpi-imager                        # Raspberry Pi Imager
 
-    # === VRCHAT ===
-    # unstable.alcom                    # Alcom - A modern, feature-rich note-taking app
-    # unstable.alvr                     # ALVR - Android VR Headset Emulator
-
-    # === MINECARFT ===
+    # === MINECRAFT ===
     (prismlauncher.override {
       # Cung cấp các phiên bản Java mà Minecraft thường yêu cầu
       jdks = [
