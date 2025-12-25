@@ -16,7 +16,7 @@
       "$qsConfig" = "ii";
       "$terminal" = "warp-terminal"; # kitty
       "$fileManager" = "nemo";
-      "$browser" = "brave";
+      "$browser" = "coccoc-browser";
       "$codeEditor" = "code";
     };
   };

@@ -11,18 +11,19 @@ let
     startupWMClass = "beekeeper-studio";
   };
 
-  # warpTerminalLatestDesktopItem = pkgs.makeDesktopItem {
-  #   name = "warp-terminal-latest";
-  #   desktopName = "Warp Terminal Latest";
-  #   exec = "warp-terminal-latest";
-  #   icon = "warp-terminal";
-  #   categories = [ "Development" "Terminal" ];
-  #   startupWMClass = "warp-terminal-latest";
+  # bongocatDesktopItem = pkgs.makeDesktopItem {
+  #   name = "bongocat";
+  #   desktopName = "Bongo Cat";
+  #   exec = "bongocat";
+  #   icon = "bongocat";
+  #   terminal = false;
+  #   categories = [ "Development" ];
+  #   startupWMClass = "bongocat";
   # };
 in
 {
   environment.systemPackages = with pkgs; [
     beekeeperStudioDesktopItem
-    # warpTerminalLatestDesktopItem
+    # bongocatDesktopItem
   ];
 }

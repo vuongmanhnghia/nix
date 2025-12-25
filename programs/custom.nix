@@ -20,17 +20,20 @@
     })
 
     # (appimageTools.wrapType2 rec {
-    #   pname = "warp-terminal-latest";
-    #   version = "0.2025.09.24.08.11.stable_03";
-    #   src = pkgs.fetchurl {
-    #     url = "https://releases.warp.dev/stable/v0.2025.10.29.08.12.stable_03/Warp-x86_64.AppImage";
-    #     hash = "sha256-akshB2IV2Zya1VO8yuX4w5u/iPiKNTeWuZbeW3/f2jg=";
-    #   }; 
-    #   extraPkgs = pkgs: with pkgs; [
-    #     libGL
-    #     libpulseaudio
-    #     vulkan-loader
-    #   ];
+    #   pname = "bongocat";
+    #   version = "0.8.2";
+      
+    #   src = fetchurl {
+    #     url = "https://github.com/ayangweb/BongoCat/releases/download/v${version}/BongoCat_${version}_amd64.AppImage";
+    #     sha256 = "sha256-1vn3FsUkCx3EQmASZnLnTON0NWavt41Pn2Pi/Eswkcg=";
+    #   };
+      
+    #   meta = with lib; {
+    #     description = "Bongo Cat";
+    #     homepage = "";
+    #     license = licenses.unfree;
+    #     platforms = platforms.linux;
+    #   };
     # })
   ];
 }
