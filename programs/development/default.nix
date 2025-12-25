@@ -29,5 +29,7 @@
     # === ARCHIVE AND COMPRESSION TOOLS ===
     unzip    # Extract ZIP archives
     p7zip    # 7-Zip archive format support    
+
+    (pkgs.callPackage ./coccoc.nix { })
   ];
 }

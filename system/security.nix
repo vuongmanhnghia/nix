@@ -12,6 +12,8 @@
     allowUserNamespaces = true;
   };
 
+  security.chromiumSuidSandbox.enable = true;
+
   boot.kernel.sysctl = {
     "user.max_user_namespaces" = 15000;
     "kernel.unprivileged_userns_clone" = 1;
