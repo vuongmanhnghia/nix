@@ -1,0 +1,4 @@
+# Quickshell 0.2.0 compatibility fixes
+*.backup
+*.tmp
+qmldir

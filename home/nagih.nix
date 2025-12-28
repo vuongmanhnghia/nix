@@ -1,116 +1,135 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, inputs ? {}, ... }:
 
 {
-  imports = [ ./default.nix ];
+  # === IMPORT SHARED CONFIGURATION ===
+  imports = [ 
+    ./default.nix                    # Import shared home configuration for all users
+  ];
 
-  # User info
-  home.username = "nagih";
-  home.homeDirectory = "/home/nagih";
-  home.stateVersion = "25.05";
+  # === USER INFORMATION ===
+  home.username = "nagih";            # Username for this configuration
+  home.homeDirectory = "/home/nagih"; # User's home directory path
+  home.stateVersion = "25.11";        # Home Manager version (should match NixOS)
 
-  # User-specific Git config
+  # === USER-SPECIFIC GIT CONFIGURATION ===
   programs.git = {
-    userName = "Nagih";
-    userEmail = "vuongmanhnghia@gmail.com";
+    settings = {
+      user = {
+        name = "Nagih";               # Git commit author name
+        email = "vuongmanhnghia@gmail.com"; # Git commit author email
+      };
+    };
   };
 
-  # User-specific packages
+  # === USER-SPECIFIC APPLICATIONS ===
   home.packages = with pkgs; [
-    # Development
-    docker-compose
-   
-    # Personal apps
-    google-chrome
-    discord
-    spotify
-    code-cursor
+    # === PERSONAL PRODUCTIVITY APPLICATIONS ===
+    unstable.brave                    # Brave web browser
+    unstable.discord                  # Discord - Voice, video, and text communication platform
+    unstable.spotify                  # Spotify music streaming service
+    unstable.vscode                   # Visual Studio Code - Source code editor
+    unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
+    unstable.antigravity              # Antigravity - Distraction-free coding mode for VSCode
+    unstable.telegram-desktop         # Telegram desktop
+    unstable.slack                    # Slack - Team communication and collaboration tool
+
+    unstable.warp-terminal
+    unstable.opencode                
+    unstable.claude-code
+    unstable.gemini-cli
+
     
-    # Steam management
-    steam
-    steam-run
-    protonup-qt # Tool để quản lý Proton versions
-    winetricks   # Tool hỗ trợ Wine/Proton
-    
-    # Personal tools
-    obsidian
-    obs-studio
+    # === PRODUCTIVITY AND CONTENT CREATION ===
+    unstable.obsidian                 # Note-taking and knowledge management application
+    unstable.zoom-us                  # Zoom video conferencing and collaboration tool
+    unstable.obs-studio               # Open Broadcaster Software for streaming and recording
+
+    unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
+
+    # === MINECRAFT ===
+    (prismlauncher.override {
+      # Cung cấp các phiên bản Java mà Minecraft thường yêu cầu
+      jdks = [
+        jdk
+        jdk17
+      ];
+    })
   ];
+
+  home.shellAliases = {
+    blog = "cd /home/nagih/hugo";
+  };
   
-  # Đồng bộ dữ liệu qua Syncthing
+  # === SYNCTHING FILE SYNCHRONIZATION SERVICE ===
   services.syncthing = {
-    enable = true;
+    enable = true;  # Enable Syncthing file synchronization
     
     settings = {
-      # Cấu hình GUI
+      # === SYNCTHING WEB GUI CONFIGURATION ===
       gui = {
-        address = "127.0.0.1:8384";  # Hoặc "0.0.0.0:8384" để truy cập từ xa
-        user = "Nagih";
-        password = "Vmn.2005"; 
+        address = "127.0.0.1:8384";  # Local web interface address
+        user = "nagih";              # GUI username
       };
       
+      # === DEVICE CONFIGURATION ===
       devices = {
-        "laptop" = { id = "YOUR-DEVICE-ID"; };
-        "desktop" = { id = "ABLZ4HZ-4LT6U5O-KLDDQO7-WTCX3KQ-CJBPT73-666IPZJ-UALV3FO-GEG5DQU"; };
+        "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };
+        "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
       };
       
-      # Cấu hình thư mục đồng bộ
+      # === FOLDER SYNCHRONIZATION CONFIGURATION ===
       folders = {
+        "Pictures" = {
+          id = "pictures";
+          path = "/home/nagih/Pictures";
+          devices = [ "laptop" "desktop" ];
+        };
+        
         "Documents" = {
           id = "documents";
           path = "/home/nagih/Documents";
           devices = [ "laptop" "desktop" ];
-          versioning = {
-            type = "simple";
-            params = {
-              keep = "10";  # Giữ 10 phiên bản cũ
-            };
-          };
         };
         
-        "Photos" = {
-          id = "photos";
-          path = "/home/nagih/Pictures/Sync";
-          devices = [ "desktop" "laptop" ];
-          # Chỉ nhận file, không gửi
-          type = "receiveonly";
-        };
-
         "Workspaces" = {
           id = "workspaces";
-          path = "/home/nagih/Workspaces/Dev/vscode-workspaces";
+          path = "/home/nagih/Workspaces";
           devices = ["desktop" "laptop"];
         };
       };
-      
-      # Các options khác
-      options = {
-        globalAnnounceEnabled = true;
-        localAnnounceEnabled = true;
-        relaysEnabled = true;
-      };
     };
   };
-  
-  # Tạo thư mục cần thiết (nếu chưa tồn tại)
-  home.activation.createSyncthingDirs = config.lib.dag.entryAfter ["writeBoundary"] ''
-    mkdir -p $HOME/Documents
-    mkdir -p $HOME/Pictures/Sync
+
+  # Tạo .npmrc file
+  home.file.".npmrc".text = ''
+    prefix=${config.home.homeDirectory}/.npm-global
+    cache=${config.home.homeDirectory}/.npm-cache
+    init-author-name=Nagih
+    init-author-email=vuongmanhnghia@gmail.com
+    init-license=MIT
+    save-exact=true
+    package-lock=true
   '';
   
-  # Kích hoạt GameMode (tùy chọn, tăng performance)
-  # programs.gamemode.enable = true;
-  
-  # Cấu hình cho node
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    nix-direnv.enable = true;
-  };
+  # === DIRECTORY CREATION ===
+  home.activation.createSyncDirs = config.lib.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p $HOME/Documents
+    mkdir -p $HOME/Workspaces
+    mkdir -p $HOME/Pictures/Screenshots
+  '';
 
-  # Custom aliases for this user
-  programs.bash.shellAliases = {
-    dev = "cd ~/Workspaces/Dev";
-    web = "cd ~/Workspaces/Dev/Web";
-    app = "cd ~/Workspaces/Dev/App";
+  # === USER-SPECIFIC ENVIRONMENT VARIABLES ===
+  home.sessionVariables = {
+    DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
+    DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
+    
+    # === HYPRLAND SPECIFIC ===
+    TERMINAL = "kitty";
+    BROWSER = "brave";
+    EDITOR = "nvim";
+    
+    # === QUICKSHELL SPECIFIC ===
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 }

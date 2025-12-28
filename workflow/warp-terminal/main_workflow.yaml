@@ -1,0 +1,50 @@
+name: Main Workflow
+active_window_index: 0
+windows:
+  - tabs:
+      - title: Home & Nixos
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih
+              is_focused: true
+            - cwd: /home/nagih/Workspaces/Config/nixos
+
+      - title: Noob Server
+        layout:
+          split_direction: horizontal
+          panes:
+            - cwd: /home/nagih
+              is_focused: true
+              commands:
+                - exec: ssh -p 2222 nagih@14.225.218.83
+
+      - title: SSH Server
+        layout:
+          split_direction: horizontal
+          panes:
+            # - cwd: /home/nagih
+            #   is_focused: true
+            #   commands:
+            #     - exec: ssh nagih@raspberrypi
+            - cwd: /home/nagih
+              is_focused: true
+              commands:
+                - exec: ssh server.tailb2e821.ts.net
+                
+      # - title: EthnoSoul Legacy
+      #   layout:
+      #     split_direction: horizontal
+      #     panes:
+      #       - cwd: /home/nagih/Workspaces/projects/EthnoSoul-Legacy/server
+      #         is_focused: true
+      #       - cwd: /home/nagih/Workspaces/projects/EthnoSoul-Legacy/server
+            
+      # - title: Janus
+      #   layout:
+      #     split_direction: horizontal
+      #     panes:
+      #       - cwd: /home/nagih/Workspaces/projects/Janus
+      #         is_focused: true
+      #       - cwd: /home/nagih/Workspaces/projects/Janus
+      #         is_focused: true
