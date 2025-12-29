@@ -43,9 +43,7 @@
     unstable.obsidian                 # Note-taking and knowledge management application
     unstable.zoom-us                  # Zoom video conferencing and collaboration tool
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
-
-    unstable.lorien                   # Lorien - A modern, feature-rich note-taking app
-
+    
     # === MINECRAFT ===
     (prismlauncher.override {
       # Cung cấp các phiên bản Java mà Minecraft thường yêu cầu

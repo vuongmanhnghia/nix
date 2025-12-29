@@ -7,7 +7,6 @@
     netplan         # Network configuration tool
     dig             # DNS lookup tool
     inetutils       # Network utilities (ping, traceroute, etc.)
-    # tailscale       # Network connectivity for developers
     stun            # NAT traversal tool
     linssid         # Wireless network scanner
     wireshark       # Network protocol analyzer

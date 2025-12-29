@@ -7,5 +7,6 @@
     libreoffice         # Office suite
     evince              # PDF viewer
     file-roller         # Archive manager
+    # lorien              # A modern, feature-rich note-taking app
   ];
 }

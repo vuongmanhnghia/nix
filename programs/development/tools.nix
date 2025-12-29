@@ -35,6 +35,8 @@
     amazon-q-cli    # Amazon Q CLI
     qbittorrent     # Torrent client
     speedtest-cli   # Internet speed test command line interface
+
+    rpi-imager                  # Raspberry Pi OS Imager
   ];
 
   # services.udev.packages = [ pkgs.opentabletdriver ]; # Tablet
