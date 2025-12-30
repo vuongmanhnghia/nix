@@ -7,6 +7,7 @@
     libreoffice         # Office suite
     evince              # PDF viewer
     file-roller         # Archive manager
+    teams-for-linux     # Microsoft Teams client
     # lorien              # A modern, feature-rich note-taking app
   ];
 }

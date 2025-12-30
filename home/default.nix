@@ -47,6 +47,7 @@
     bat        # Syntax-highlighted cat replacement with paging
     unzip      # Extract ZIP archives
     zip        # Create ZIP archives
+    unrar      # Extract RAR archives
     
     # === SYSTEM MONITORING UTILITIES ===
     neofetch   # System information display tool with ASCII art
