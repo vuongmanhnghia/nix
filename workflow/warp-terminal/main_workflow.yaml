@@ -20,4 +20,4 @@ windows:
                 - exec: ssh -p 2222 nagih@14.225.218.83
             - cwd: /home/nagih
               commands:
-                - exec: ssh nagih@raspberrypi
+                - exec: ssh -p 2222 nagih@raspberrypi
