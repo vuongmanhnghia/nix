@@ -38,7 +38,7 @@
 
   # Tạo symlink đến dotfiles neovim config
   home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/nvim";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/nvim";
     recursive = true;
   };
 

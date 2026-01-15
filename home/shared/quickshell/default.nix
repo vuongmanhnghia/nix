@@ -67,13 +67,13 @@ EOF
       # Create AI service start script in a writable location
       $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai
       if [ ! -f "${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/start_ai_service.sh" ]; then
-        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/quickshell/ii/scripts/ai/start_ai_service.sh ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/
+        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/quickshell/ii/scripts/ai/start_ai_service.sh ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/
         $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/start_ai_service.sh
       fi
 
       # Create default wallpaper if it doesn't exist
       if [ ! -f "${config.home.homeDirectory}/Pictures/Wallpapers/default.png" ]; then
-        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/quickshell/ii/assets/images/default_wallpaper.png ${config.home.homeDirectory}/Pictures/Wallpapers/default.png
+        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/quickshell/ii/assets/images/default_wallpaper.png ${config.home.homeDirectory}/Pictures/Wallpapers/default.png
       fi
     '';
   };

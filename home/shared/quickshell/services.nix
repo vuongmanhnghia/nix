@@ -81,7 +81,7 @@
       };
       Service = {
         Type = "simple";
-        ExecStart = "${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/python ${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/quickshell/ii/scripts/wayland-idle-inhibitor.py";
+        ExecStart = "${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/python ${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/quickshell/ii/scripts/wayland-idle-inhibitor.py";
         Restart = "on-failure";
         RestartSec = 1;
         Environment = "ILLOGICAL_IMPULSE_VIRTUAL_ENV=${config.home.homeDirectory}/.local/state/quickshell/.venv PYTHONPATH=${pkgs.python3Packages.pywayland}/lib/python3.11/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.11/site-packages:${pkgs.python3Packages.pillow}/lib/python3.11/site-packages:${pkgs.python3Packages.numpy}/lib/python3.11/site-packages:${pkgs.python3Packages.requests}/lib/python3.11/site-packages";

@@ -2,7 +2,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  configPath = "${config.home.homeDirectory}/Workspaces/Config/nixos";
+  configPath = "${config.home.homeDirectory}/Workspaces/config/nixos";
   generatedPath = "${configPath}/generated";
   templatePath = "${configPath}/home/shared/matugen/templates";
 in

@@ -56,7 +56,7 @@
   home.file = {
     # Custom icons trong thư mục riêng
     ".local/share/icons/custom" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/Config/nixos/dotfiles/.local/share/icons";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/.local/share/icons";
       recursive = true;
     };
   };
