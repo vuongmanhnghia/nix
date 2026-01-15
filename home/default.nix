@@ -88,17 +88,27 @@
     extraConfig = ''
       AddKeysToAgent yes  # Automatically add SSH keys to agent
       IdentityFile ~/.ssh/id_ed25519  # Default SSH key file
-      Host *
-        AddKeysToAgent yes  # Automatically add SSH keys to agent
     '';
 
-    matchBlocks."*" = {
-      forwardAgent = false;
-      serverAliveInterval = 60;
-      serverAliveCountMax = 3;
-      compression = true;
-      user = "git";
-      identitiesOnly = true;
+    matchBlocks = {
+      "nixos.nooblearn2code.com" = {
+        user = "nagih";  # ← Quan trọng: đổi từ "git" thành user thật
+        proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+        # Optional: Tắt host key checking vì IP có thể thay đổi qua tunnel
+        extraOptions = {
+          StrictHostKeyChecking = "no";
+          UserKnownHostsFile = "/dev/null";
+        };
+      };
+
+      "*" = {
+        forwardAgent = false;
+        serverAliveInterval = 60;
+        serverAliveCountMax = 3;
+        compression = true;
+        user = "git";
+        identitiesOnly = true;
+      };
     };
   };
 

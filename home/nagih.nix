@@ -28,21 +28,21 @@
     unstable.discord                  # Discord - Voice, video, and text communication platform
     unstable.spotify                  # Spotify music streaming service
     unstable.vscode                   # Visual Studio Code - Source code editor
-    unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
+    # unstable.code-cursor              # Code Cursor - Animated cursor extension for VSCode
     unstable.antigravity              # Antigravity - Distraction-free coding mode for VSCode
     unstable.telegram-desktop         # Telegram desktop
     unstable.slack                    # Slack - Team communication and collaboration tool
 
     unstable.warp-terminal
-    unstable.opencode                
-    unstable.claude-code
-    unstable.gemini-cli
-
+    # unstable.opencode                
+    # unstable.claude-code
+    # unstable.gemini-cli
     
     # === PRODUCTIVITY AND CONTENT CREATION ===
     unstable.obsidian                 # Note-taking and knowledge management application
-    unstable.zoom-us                  # Zoom video conferencing and collaboration tool
     unstable.obs-studio               # Open Broadcaster Software for streaming and recording
+
+    seafile-client                    # Seafile file synchronization client
     
     # === MINECRAFT ===
     (prismlauncher.override {

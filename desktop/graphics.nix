@@ -22,16 +22,12 @@
   services.xserver.videoDrivers = ["nvidia"]; # Use NVIDIA proprietary driver
   
   hardware.nvidia = {
-    # Enable modesetting for Wayland support (required for GNOME Wayland)
-    modesetting.enable = true;
-    # Enable power management features
-    powerManagement.enable = true;
-    # Use latest stable NVIDIA driver for best performance and features
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-    # Enable NVIDIA X Server Settings GUI tool
-    nvidiaSettings = true;
-    # Use proprietary driver (set to true for open-source kernel module)
-    open = false; # Keep false for stability with most GPUs
+    modesetting.enable = true;  # Enable modesetting for Wayland support (required for GNOME Wayland)
+    powerManagement.enable = true; # Enable power management features
+    powerManagement.finegrained = false; # Use fine-grained power management
+    package = config.boot.kernelPackages.nvidiaPackages.latest; # Use latest stable NVIDIA driver for best performance and features
+    nvidiaSettings = true; # Enable NVIDIA X Server Settings GUI tool
+    open = false; # # Use proprietary driver (set to true for open-source kernel module). Keep false for stability with most GPUs
   };
   
   # === POWER MANAGEMENT ===
@@ -39,19 +35,6 @@
   services.thermald.enable = true;
   
   services.power-profiles-daemon.enable = false; # Disable to avoid conflicts with auto-cpufreq
-  services.auto-cpufreq = {
-    enable = true;
-    settings = {
-      battery = {
-        governor = "powersave";
-        turbo = "never";
-      };
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-      };
-    };
-  };
   
   # === KERNEL CONFIGURATION FOR NVIDIA ===
   # Load necessary kernel modules for NVIDIA functionality
@@ -71,15 +54,6 @@
     # "kvm-amd" # KVM AMD driver
   ];
   
-  # === KERNEL BOOT PARAMETERS ===
-  boot.kernelParams = [
-    "nvidia-drm.modeset=1" # Enable NVIDIA DRM modesetting for Wayland
-    # Intel GPU power saving
-    "i915.enable_rc6=1"
-    "i915.enable_fbc=1"
-    "i915.enable_psr=1"
-  ];
-  
   # === ADDITIONAL GRAPHICS TOOLS ===
   environment.systemPackages = with pkgs; [
     nvidia-container-toolkit # NVIDIA container runtime for Docker
@@ -87,7 +61,6 @@
     vulkan-tools # Vulkan utilities (vulkaninfo, vkcube)
     intel-gpu-tools # Intel GPU tools for debugging
     powertop # Power management tool
-
     p11-kit
   ];
 }

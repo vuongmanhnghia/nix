@@ -24,26 +24,28 @@ in
       "${tunnelID}" = {
         credentialsFile = config.age.secrets.cloudflared.path;     
 
-        # Default behavior for unmatched requests
         default = "http_status:404";
         
-        # Ingress Rules (The "Router" for your tunnel)
         ingress = {
-          "portainer.${domain}" = {
+          "labs.${domain}" = {
             service = "https://localhost:9443";
             originRequest = {
-              # Required if Portainer uses self-signed certs
               noTLSVerify = true; 
+              httpHostHeader = "labs.${domain}";
             };
           };
 
-          # "ssh.${domain}" = {
-          #   service = "ssh://localhost:22";
-          # };
+          "nixos.${domain}" = {
+            service = "ssh://localhost:22";
+            originRequest = {
+              noTLSVerify = true; 
+              httpHostHeader = "nixos.${domain}";
+            };
+          };
           
-          # "whoami.${domain}" = {
-          #   service = "http://localhost:8080";
-          # };
+          "edge.${domain}" = {
+            service = "http://localhost:8000";
+          };
         };
       };
     };

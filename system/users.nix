@@ -8,24 +8,28 @@
       description = "Nagih";    # User description for display
       home = "/home/nagih";
       extraGroups = [ 
-        "wheel"          # Enable sudo
-        "networkmanager" # Manage network connections
-        "audio"          # Access audio devices
-        "realtime"       # Real-time scheduling
-        "video"          # Access video devices  
-        "input"          # Access input devices
-        "storage"        # Access storage devices
-        "optical"        # Access optical drives
-        "scanner"        # Access scanners
-        "libvirtd"       # Virtualization
-        "libvirt"        # Virtualization
-        "docker"         # Docker 
-        "disk"           # Disk management access
-        "adbusers"       # D-Bus access
-        "kvm"            # KVM access
-        "plugdev"        # Hotplug devices
+        "wheel"           # Enable sudo
+        "networkmanager"  # Manage network connections
+        "audio"           # Access audio devices
+        "realtime"        # Real-time scheduling
+        "video"           # Access video devices  
+        "input"           # Access input devices
+        "storage"         # Access storage devices
+        "optical"         # Access optical drives
+        "scanner"         # Access scanners
+        "libvirtd"        # Virtualization
+        "docker"          # Docker 
+        "systemd-journal" # Read system logs
+        "disk"            # Disk management access
+        "adbusers"        # D-Bus access
+        "kvm"             # KVM access
+        "plugdev"         # Hotplug devices
       ];
       shell = pkgs.zsh;  # Default shell (zsh)
+
+      # openssh.authorizedKeys.keys = [
+      #   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB5zy0044P9cHpQ9zhu3wdnGzPrYIeVHavdd3sxeopHU vuongmanhnghia@gmail.com"
+      # ];
     };
   };
 

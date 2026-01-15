@@ -18,7 +18,16 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 3000 8080 8081 ];
+      allowedTCPPorts = [ 
+        22
+        80
+        443
+        3000
+        8080
+        8081
+        8000
+        9443
+      ];
       allowedUDPPorts = [ ]; 
       trustedInterfaces = [ "tailscale0" ];
     };
