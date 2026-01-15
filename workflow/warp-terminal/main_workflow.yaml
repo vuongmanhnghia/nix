@@ -8,7 +8,7 @@ windows:
           panes:
             - cwd: /home/nagih
               is_focused: true
-            - cwd: /home/nagih/Workspaces/Config/nixos
+            - cwd: /home/nagih/Workspaces/config/nixos
 
       - title: Nagih Servers
         layout:

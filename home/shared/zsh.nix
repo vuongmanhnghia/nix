@@ -94,13 +94,13 @@
       
       # === SYSTEM MANAGEMENT (Enhanced) ===
       oh = "cd ~/ && echo 'Went back home'";
-      nixc = "cd ~/Workspaces/Config/nixos";
-      nix-rebuild = "sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --impure";
-      nix-test = "sudo nixos-rebuild test --flake ~/Workspaces/Config/nixos --impure";
-      home-rebuild = "home-manager switch --flake ~/Workspaces/Config/nixos";
+      nixc = "cd ~/Workspaces/config/nixos";
+      nix-rebuild = "sudo nixos-rebuild switch --flake ~/Workspaces/config/nixos --impure";
+      nix-test = "sudo nixos-rebuild test --flake ~/Workspaces/config/nixos --impure";
+      home-rebuild = "home-manager switch --flake ~/Workspaces/config/nixos";
       generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       nix-clean = "sudo nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --optimize";
-      nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ~/Workspaces/Config/nixos --impure";
+      nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ~/Workspaces/config/nixos --impure";
 
       # === CODE EDITOR WORKFLOW (Enhanced) ===
       code = "cursor";
@@ -133,7 +133,7 @@
       down = "cd ~/Downloads";
 
       # === CLEANING ===
-      clean-backup = "~/Workspaces/Config/nixos/scripts/clean/hm-backup.sh";
+      clean-backup = "~/Workspaces/config/nixos/scripts/clean/hm-backup.sh";
       
       # === QUICK UTILITIES ===
       cls = "clear";

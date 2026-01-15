@@ -64,11 +64,11 @@
       ];
 
       bindl = [
-        "$mainMod SHIFT, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # Toggle mute speakers
-        "$mainMod, M, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # Toggle mute mic
-        ",XF86AudioMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # [hidden]
-        "Alt ,XF86AudioMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
-        ",XF86AudioMicMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
+        "$mainMod SHIFT, M, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # Toggle mute speakers
+        "$mainMod, M, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # Toggle mute mic
+        ",XF86AudioMute, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle" # [hidden]
+        "Alt ,XF86AudioMute, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
+        ",XF86AudioMicMute, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
         "$mainMod SHIFT, N, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # Next track
         ",XF86AudioNext, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # [hidden]
         ",XF86AudioPrev, exec, playerctl previous" # [hidden]
@@ -88,7 +88,7 @@
       bind = [
         # === QUICK SHELL ===
         "$mainMod, R, exec, pkill quickshell; qs -c $qsConfig &" # [hidden] Restart Quickshell
-        # "ALT, SPACE, exec, ~/Workspaces/Config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
+        # "ALT, SPACE, exec, ~/Workspaces/config/nixos/scripts/fuzzel/fuzzel.sh" # [hidden] Launcher (fallback)
         
         "Ctrl, Super_L, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
         "Ctrl, Super_R, global, quickshell:overviewToggleReleaseInterrupt" # [hidden]
@@ -113,11 +113,11 @@
 
         # === VOLUME ===
         # Note: Mic mute ($mainMod, M) is in bindl section
-        "$mainMod SHIFT, up, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-inc"
-        "$mainMod SHIFT, down, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --mic-dec"
+        "$mainMod SHIFT, up, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --mic-inc"
+        "$mainMod SHIFT, down, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --mic-dec"
         
-        "$mainMod, up, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc"
-        "$mainMod, down, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --dec"
+        "$mainMod, up, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --inc"
+        "$mainMod, down, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --dec"
 
         # === WORKSPACE MANAGEMENT ===
 
@@ -261,12 +261,12 @@
 
 
       bindel = [
-        ", XF86AudioRaiseVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --inc"
-        ", XF86AudioLowerVolume, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --dec"
-        ", XF86AudioMute, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/volume.sh --toggle"
+        ", XF86AudioRaiseVolume, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --inc"
+        ", XF86AudioLowerVolume, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --dec"
+        ", XF86AudioMute, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/volume.sh --toggle"
         ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ", XF86MonBrightnessUp, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/brightness.sh --inc"
-        ", XF86MonBrightnessDown, exec, ~/Workspaces/Config/nixos/home/shared/hypr/scripts/brightness.sh --dec"
+        ", XF86MonBrightnessUp, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/brightness.sh --inc"
+        ", XF86MonBrightnessDown, exec, ~/Workspaces/config/nixos/home/shared/hypr/scripts/brightness.sh --dec"
       ];
     };
   };

@@ -47,6 +47,7 @@
     bat        # Syntax-highlighted cat replacement with paging
     unzip      # Extract ZIP archives
     zip        # Create ZIP archives
+    gzip       # Compress files
     unrar      # Extract RAR archives
     
     # === SYSTEM MONITORING UTILITIES ===
