@@ -6,13 +6,13 @@
 # ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 #------------------------------------------------------------------------------
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 {
   wayland.windowManager.hyprland = {    
     settings = {
       exec-once = [
-        "~/Workspaces/config/nixos/home/shared/hypr/scripts/hyprland/start_geoclue_agent.sh"
+        "${vars.nix_config}/home/shared/hypr/scripts/hyprland/start_geoclue_agent.sh"
         "qs -c $qsConfig &" # QuickShell
 
         # Setup fcitx5

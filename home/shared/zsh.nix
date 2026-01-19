@@ -92,20 +92,6 @@
       gs = "git status --short";
       gst = "git status";
       
-      # === SYSTEM MANAGEMENT (Enhanced) ===
-      oh = "cd ~/ && echo 'Went back home'";
-      nixc = "cd ~/Workspaces/config/nixos";
-      nix-rebuild = "sudo nixos-rebuild switch --flake ~/Workspaces/config/nixos --impure";
-      nix-test = "sudo nixos-rebuild test --flake ~/Workspaces/config/nixos --impure";
-      home-rebuild = "home-manager switch --flake ~/Workspaces/config/nixos";
-      generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
-      nix-clean = "sudo nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --optimize";
-      nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ~/Workspaces/config/nixos --impure";
-
-      # === CODE EDITOR WORKFLOW (Enhanced) ===
-      code = "cursor";
-      idea = "idea-community";
-      
       # === TMUX WORKFLOW (Enhanced) ===
       tm = "tmux";
       tma = "tmux attach-session -t";
@@ -120,23 +106,7 @@
       npm-outdated-global = "npm outdated -g";
       npm-update-global = "npm update -g";
       
-      # === DEVELOPMENT SHORTCUTS ===
-      wsp = "cd ~/Workspaces";
-      prj = "cd ~/Workspaces/projects";
-      noob = "cd ~/Workspaces/noob";
-      ptit = "cd ~/Workspaces/ptit";
-      vir = "cd ~/Workspaces/virtual";
-      janus = "cd ~/Workspaces/projects/Janus";
-      
-      # === DOCUMENTATION ===
-      docs = "cd ~/Documents";
-      down = "cd ~/Downloads";
-
-      # === CLEANING ===
-      clean-backup = "~/Workspaces/config/nixos/scripts/clean/hm-backup.sh";
-      
       # === QUICK UTILITIES ===
-      cls = "clear";
       h = "history";                                  # Fuzzy history search
       hg = "history | grep";                          # Grep history
       weather = "curl wttr.in";                       # Quick weather

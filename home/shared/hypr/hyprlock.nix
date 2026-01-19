@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 {
   programs.hyprlock = {
     enable = true;
     settings = {
-      source = "/home/nagih/.config/hypr/hyprlock/colors.conf";
+      source = "/home/${vars.user.username}/.config/hypr/hyprlock/colors.conf";
 
       general = {
         grace = 1;
@@ -53,7 +53,7 @@
 
         { # Caps Lock Warning
           monitor = "";
-          text = "cmd[update:250] ~/Workspaces/config/nixos/home/shared/hypr/scripts/hyprlock/check-capslock.sh";
+          text = "cmd[update:250] ${vars.nix_config}/home/shared/hypr/scripts/hyprlock/check-capslock.sh";
           color = "$text_color";
           font_size = 13;
           font_family = "$font_family";
@@ -91,7 +91,7 @@
 
         { # Status
           monitor = "";
-          text = "cmd[update:5000] ~/Workspaces/config/nixos/home/shared/hypr/scripts/hyprlock/status.sh";
+          text = "cmd[update:5000] ${vars.nix_config}/home/shared/hypr/scripts/hyprlock/status.sh";
           color = "$text_color";
           font_size = 14;
           font_family = "$font_family";

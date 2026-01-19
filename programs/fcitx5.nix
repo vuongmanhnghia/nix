@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 {
   # === SYSTEM-LEVEL FCITX5 CONFIGURATION ===
@@ -7,14 +7,8 @@
     type = "fcitx5";
     fcitx5 = {
       waylandFrontend = true;
-      # FIX: Simplify addon list, fcitx5-with-addons có thể conflict
       addons = with pkgs; [
         qt6Packages.fcitx5-unikey
-        # fcitx5-gtk
-        # fcitx5-configtool
-        # # Conditional Qt packages based on desktop
-        # (lib.mkIf (config.services.desktopManager.plasma5.enable or false) libsForQt5.fcitx5-qt)
-        # (lib.mkIf (config.services.desktopManager.plasma6.enable or false) qt6Packages.fcitx5-qt)
       ];
     };
   };
@@ -29,14 +23,9 @@
     FCITX_ENABLE_WAYLAND = "1";
   };
 
-  # === DBUS & SYSTEMD - Loại bỏ custom systemd service ===
-  # NixOS tự động handle fcitx5 systemd service khi enable i18n.inputMethod
-
   # === HOME-MANAGER CONFIGURATION ===
-  home-manager.users.nagih = {
-
+  home-manager.users.${vars.user.username} = {
     home.file = {
-      # FCITX5 Main Config
       ".config/fcitx5/config" = {
         force = true;  
         text = ''
@@ -64,7 +53,6 @@
           PreloadInputMethod=True
           AllowInputMethodForPassword=False
           PreeditInApplication=True
-          # QUAN TRỌNG: Đặt default state là Inactive để giữ keyboard-us làm default
           DefaultInputMethodState=Inactive
         '';
       };

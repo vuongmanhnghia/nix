@@ -1,10 +1,10 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, vars, ... }: 
 
 {
   networking = {
-    hostName = "nixos";
+    hostName = vars.hostname;
     
-    nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ]; 
+    nameservers = vars.nameservers;
 
     networkmanager = {
       enable = true;
@@ -18,18 +18,9 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 
-        22
-        80
-        443
-        3000
-        8080
-        8081
-        8000
-        9443
-      ];
-      allowedUDPPorts = [ ]; 
-      trustedInterfaces = [ "tailscale0" ];
+      allowedTCPPorts = vars.firewall.tcp_ports;
+      allowedUDPPorts = vars.firewall.udp_ports;
+      trustedInterfaces = vars.firewall.trusted_interfaces;
     };
   };
 
@@ -37,7 +28,7 @@
     enable = true;
     dnssec = "allow-downgrade";
     domains = [ "~." ];
-    fallbackDns = [ "8.8.8.8" "8.8.4.4" ];
+    fallbackDns = vars.fallback_dns;
     extraConfig = ''
       DNSOverTLS=opportunistic
       MulticastDNS=yes
@@ -48,7 +39,7 @@
     enable = true;
     useRoutingFeatures = "client";
     openFirewall = true;
-    extraUpFlags = [ "--operator=nagih" "--accept-dns=false" ]; 
+    extraUpFlags = [ "--operator=${vars.user.name}" "--accept-dns=false" ]; 
   };
 
   hardware = {

@@ -3,7 +3,6 @@
 {
   # System-level configuration modules
   imports = [
-    ./hardware.nix    # Hardware-specific configuration
     ./boot.nix        # Bootloader and kernel configuration
     ./users.nix       # User accounts and groups
     ./networking.nix  # Network, firewall, and DNS settings

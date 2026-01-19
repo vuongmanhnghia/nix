@@ -7,24 +7,14 @@
 # --------------------------------------------------------------------
 
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 {
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [ # monitor = <tên>,<độ phân giải>@<tần số quét>,<vị trí>,<tỷ lệ>
-        "DP-1, 2560x1440@180, 0x0, 1, bitdepth, 8"
-        # "DP-1, 1920x1080@180, 0x0, 1, bitdepth, 8"
-        "HDMI-A-1, 1920x1080@100, 2560x360, 1, bitdepth, 8"
-
-        # Màn hình laptop, tự động chọn độ phân giải và tần số quét tốt nhất
-        # "eDP-1,preferred,auto,1" 
-
-        # Màn hình ngoài, 2560x1440@144Hz, đặt bên phải eDP-1, không scale
-        #"DP-1,2560x1440@144,auto,1,bitdepth,10"
-
-        # Có thể thêm dòng này để đặt màn hình chính
-        # "workspace=DP-1,1" # Mở workspace 1 trên màn hình DP-1
+        "${vars.port_name}, ${vars.resolution}@${vars.frequency}, 0x0, 1, bitdepth, 8"
+        "HDMI-A-1, 1920x1080@100, 2560x360, 1, bitdepth, 8" # Màn phụ (sửa nếu có)
       ];
     };
   };

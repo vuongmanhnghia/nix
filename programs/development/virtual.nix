@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -43,7 +43,7 @@
   };
 
   # Add user to required groups for virtualization
-  users.users.nagih = {
+  users.users.${vars.user.username} = {
     extraGroups = [ "libvirtd" "docker" "kvm" ];
   };
 

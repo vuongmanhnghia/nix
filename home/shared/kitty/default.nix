@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, vars, ... }:
 
 {
   programs.kitty = {
@@ -51,7 +51,7 @@
 
     extraConfig = ''
       # Import color scheme
-      include /home/nagih/Workspaces/config/nixos/generated/kitty.conf
+      include /home/${vars.user.username}/Workspaces/config/nixos/generated/kitty.conf
 
       # Copy
       map ctrl+c    copy_or_interrupt

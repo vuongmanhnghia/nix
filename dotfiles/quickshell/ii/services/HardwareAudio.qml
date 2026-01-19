@@ -35,7 +35,7 @@ Singleton {
     // Monitor hardware sink (speakers)
     Process {
         id: sinkProcess
-        command: ["bash", "-c", "~/Workspaces/Config/nixos/home/shared/hypr/scripts/get-hardware-volume.sh --sink"]
+        command: ["bash", "-c", "~/Workspaces/config/nixos/home/shared/hypr/scripts/get-hardware-volume.sh --sink"]
         running: false
 
         stdout: SplitParser {
@@ -55,7 +55,7 @@ Singleton {
     // Monitor hardware source (microphone)
     Process {
         id: sourceProcess
-        command: ["bash", "-c", "~/Workspaces/Config/nixos/home/shared/hypr/scripts/get-hardware-volume.sh --source"]
+        command: ["bash", "-c", "~/Workspaces/config/nixos/home/shared/hypr/scripts/get-hardware-volume.sh --source"]
         running: false
 
         stdout: SplitParser {

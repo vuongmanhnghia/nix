@@ -1,8 +1,9 @@
-{ config, pkgs, inputs ? {}, lib, ... }:
+{ config, pkgs, inputs, vars, lib, ... }:
 
 {
   # Import all configuration modules
   imports = [
+    ./hardware-configuration.nix # Hardware configurations
     ./system                     # System-level configurations (boot, users, networking, etc.)
     ./desktop                    # Desktop environment configurations (GNOME, audio, graphics)
     ./programs                   # Application configurations (gaming, development, multimedia)
@@ -40,5 +41,5 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   # System version - should match your NixOS release
-  system.stateVersion = "25.11"; # NixOS 25.11
+  system.stateVersion = vars.nix_version;
 }

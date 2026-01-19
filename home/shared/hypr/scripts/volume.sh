@@ -3,7 +3,6 @@
 # Scripts for volume controls for audio and mic 
 
 iDIR="$HOME/.config/swaync/icons"
-sDIR="~/Workspaces/Config/nixos/home/shared/hypr/scripts"
 
 # Get Volume
 get_volume() {

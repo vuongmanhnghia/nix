@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   # === SHARED HOME MANAGER CONFIGURATIONS ===
@@ -81,38 +81,8 @@
   };
 
   # === SSH CONFIGURATION ===
-  programs.ssh = {
-    enable = true;  # Enable SSH client
-    enableDefaultConfig = false;
-    
-    # SSH agent configuration for key management
-    extraConfig = ''
-      AddKeysToAgent yes  # Automatically add SSH keys to agent
-      IdentityFile ~/.ssh/id_ed25519  # Default SSH key file
-    '';
-
-    matchBlocks = {
-      "nixos.nooblearn2code.com" = {
-        user = "nagih";  # ← Quan trọng: đổi từ "git" thành user thật
-        proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
-        # Optional: Tắt host key checking vì IP có thể thay đổi qua tunnel
-        extraOptions = {
-          StrictHostKeyChecking = "no";
-          UserKnownHostsFile = "/dev/null";
-        };
-      };
-
-      "*" = {
-        forwardAgent = false;
-        serverAliveInterval = 60;
-        serverAliveCountMax = 3;
-        compression = true;
-        user = "git";
-        identitiesOnly = true;
-      };
-    };
-  };
+  
 
   # === HOME MANAGER VERSION ===
-  home.stateVersion = "25.11";  # Should match your NixOS release version
+  home.stateVersion = vars.nix_version;  # Should match your NixOS release version
 }

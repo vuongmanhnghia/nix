@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, ... }:
+{ config, pkgs, unstable, vars, ... }:
 
 {
   # === STEAM GAMING PLATFORM ===
@@ -36,5 +36,5 @@
   '';
 
   # === USER PERMISSIONS ===
-  users.users.nagih.extraGroups = [ "gamemode" ];  # Add user to gamemode group for performance optimizations
+  users.users.${vars.user.username}.extraGroups = [ "gamemode" ];
 } 

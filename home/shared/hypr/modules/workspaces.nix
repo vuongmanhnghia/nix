@@ -7,22 +7,22 @@
 #------------------------------------------------------------------------------------
 
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 {
   wayland.windowManager.hyprland = {
     settings = {
       workspace = [
-        "1, monitor:DP-1"
-        "2, monitor:DP-1"
-        "3, monitor:DP-1"
-        "4, monitor:DP-1"
-        "5, monitor:DP-1"
-        "6, monitor:DP-1"
-        "7, monitor:DP-1"
-        "8, monitor:DP-1"
-        "9, monitor:DP-1"
-        "10, monitor:DP-1"
+        "1, monitor:${vars.port_name}"
+        "2, monitor:${vars.port_name}"
+        "3, monitor:${vars.port_name}"
+        "4, monitor:${vars.port_name}"
+        "5, monitor:${vars.port_name}"
+        "6, monitor:${vars.port_name}"
+        "7, monitor:${vars.port_name}"
+        "8, monitor:${vars.port_name}"
+        "9, monitor:${vars.port_name}"
+        "10, monitor:${vars.port_name}"
       ];
     };
   };

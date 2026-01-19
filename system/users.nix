@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   # === USER ACCOUNT CONFIGURATION ===
   users.users = {
-    nagih = {
-      isNormalUser = true;      # Standard user account (not system user)
-      description = "Nagih";    # User description for display
-      home = "/home/nagih";
+    ${vars.user.username} = {
+      isNormalUser = true;     
+      description = "${vars.user.description}";
+      home = "/home/${vars.user.username}";
       extraGroups = [ 
         "wheel"           # Enable sudo
         "networkmanager"  # Manage network connections
@@ -26,21 +26,9 @@
         "plugdev"         # Hotplug devices
       ];
       shell = pkgs.zsh;  # Default shell (zsh)
-
-      # openssh.authorizedKeys.keys = [
-      #   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB5zy0044P9cHpQ9zhu3wdnGzPrYIeVHavdd3sxeopHU vuongmanhnghia@gmail.com"
-      # ];
     };
   };
 
-  # Enable zsh system-wide if using it
   programs.zsh.enable = true;
-  
-  # Security configuration
-  security.sudo.wheelNeedsPassword = true; # Require password for sudo
-
-  # === SYSTEM GROUPS ===
-  users.groups = {
-    docker = {};  # Docker group for container management permissions
-  };
+  security.sudo.wheelNeedsPassword = true;
 }
