@@ -9,6 +9,5 @@
     file-roller         # Archive manager
     teams-for-linux     # Microsoft Teams client
     drawio              # Diagramming application
-    # lorien              # A modern, feature-rich note-taking app
   ];
 }

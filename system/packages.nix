@@ -12,6 +12,7 @@
     
     # === SYSTEM MONITORING ===
     htop     # Interactive process viewer and system monitor
+    iotop    # Display I/O usage by processes
     
     # === SYSTEM UTILITIES ===
     file      # File type identification utility
