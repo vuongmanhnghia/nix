@@ -135,4 +135,46 @@ rec {
       };
     };
   };
+
+  # CLOUDFLARED TUNNEL
+  tunnel = {
+    id = "5f129b60-0c24-4fd4-9cbd-0b42657d59f7";
+    domain = "nooblearn2code.com";
+    file = "${nix_config}/secrets/cloudflared.age";
+    owner = "root";
+    mode = "440";
+  };
+
+  cloudflared = {
+    enable = true;
+    tunnels = {
+      "${tunnel.id}" = {
+        credentialsFile = config.age.secrets.cloudflared.path;     
+
+        default = "http_status:404";
+        
+        ingress = {
+          "labs.${tunnel.domain}" = {
+            service = "https://localhost:9443";
+            originRequest = {
+              noTLSVerify = true; 
+              httpHostHeader = "labs.${tunnel.domain}";
+            };
+          };
+
+          "nixos.${tunnel.domain}" = {
+            service = "ssh://localhost:22";
+            originRequest = {
+              noTLSVerify = true; 
+              httpHostHeader = "nixos.${tunnel.domain}";
+            };
+          };
+          
+          "edge.${tunnel.domain}" = {
+            service = "http://localhost:8000";
+          };
+        };
+      };
+    };
+  };
 }
