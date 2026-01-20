@@ -99,82 +99,83 @@ rec {
 
   # SYNCTHING
   syncthing = {
-    enable = true;  
+    enable = false;  
     
-    settings = {
-      gui = {
-        address = "127.0.0.1:8384";  
-        user = "${user.username}";              
-      };
+    # settings = {
+    #   gui = {
+    #     address = "127.0.0.1:8384";  
+    #     user = "${user.username}";              
+    #   };
       
-      # === DEVICE CONFIGURATION ===
-      devices = {
-        "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };
-        "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
-      };
+    #   # === DEVICE CONFIGURATION ===
+    #   devices = {
+    #     "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };
+    #     "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
+    #   };
       
-      # === FOLDER SYNCHRONIZATION CONFIGURATION ===
-      folders = {
-        "Pictures" = {
-          id = "pictures";
-          path = "/home/${user.username}/Pictures";
-          devices = [ "laptop" "desktop" ];
-        };
+    #   # === FOLDER SYNCHRONIZATION CONFIGURATION ===
+    #   folders = {
+    #     "Pictures" = {
+    #       id = "pictures";
+    #       path = "/home/${user.username}/Pictures";
+    #       devices = [ "laptop" "desktop" ];
+    #     };
         
-        "Documents" = {
-          id = "documents";
-          path = "/home/${user.username}/Documents";
-          devices = [ "laptop" "desktop" ];
-        };
+    #     "Documents" = {
+    #       id = "documents";
+    #       path = "/home/${user.username}/Documents";
+    #       devices = [ "laptop" "desktop" ];
+    #     };
         
-        "Workspaces" = {
-          id = "workspaces";
-          path = "/home/${user.username}/Workspaces";
-          devices = ["desktop" "laptop"];
-        };
-      };
-    };
+    #     "Workspaces" = {
+    #       id = "workspaces";
+    #       path = "/home/${user.username}/Workspaces";
+    #       devices = ["desktop" "laptop"];
+    #     };
+    #   };
+    # };
   };
 
   # CLOUDFLARED TUNNEL
-  tunnel = {
-    id = "5f129b60-0c24-4fd4-9cbd-0b42657d59f7";
-    domain = "nooblearn2code.com";
-    file = "${nix_config}/secrets/cloudflared.age";
-    owner = "root";
-    mode = "440";
-  };
+  # tunnel = {
+  #   id = "5f129b60-0c24-4fd4-9cbd-0b42657d59f7";
+  #   domain = "nooblearn2code.com";
+  #   file = "${nix_config}/secrets/cloudflared.age";
+  #   owner = "root";
+  #   mode = "440";
+  # };
 
   cloudflared = {
-    enable = true;
-    tunnels = {
-      "${tunnel.id}" = {
-        credentialsFile = config.age.secrets.cloudflared.path;     
+    enable = false;
 
-        default = "http_status:404";
+    # tunnels = {
+    #   "${tunnel.id}" = {
+    #     credentialsFile = config.age.secrets.cloudflared.path;     
+
+    #     default = "http_status:404";
         
-        ingress = {
-          "labs.${tunnel.domain}" = {
-            service = "https://localhost:9443";
-            originRequest = {
-              noTLSVerify = true; 
-              httpHostHeader = "labs.${tunnel.domain}";
-            };
-          };
+    #     ingress = {
+    #       "labs.${tunnel.domain}" = {
+    #         service = "https://localhost:9443";
+    #         originRequest = {
+    #           noTLSVerify = true; 
+    #           httpHostHeader = "labs.${tunnel.domain}";
+    #         };
+    #       };
 
-          "nixos.${tunnel.domain}" = {
-            service = "ssh://localhost:22";
-            originRequest = {
-              noTLSVerify = true; 
-              httpHostHeader = "nixos.${tunnel.domain}";
-            };
-          };
+    #       "nixos.${tunnel.domain}" = {
+    #         service = "ssh://localhost:22";
+    #         originRequest = {
+    #           noTLSVerify = true; 
+    #           httpHostHeader = "nixos.${tunnel.domain}";
+    #         };
+    #       };
           
-          "edge.${tunnel.domain}" = {
-            service = "http://localhost:8000";
-          };
-        };
-      };
-    };
+    #       "edge.${tunnel.domain}" = {
+    #         service = "http://localhost:8000";
+    #       };
+    #     };
+    #   };
+    # };
   };
 }

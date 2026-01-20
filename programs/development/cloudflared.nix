@@ -1,5 +1,5 @@
 { config, pkgs, vars, ... }:
 
 {
-  services.cloudflared = vars.cloudflared
+  services.cloudflared = vars.cloudflared;
 }
