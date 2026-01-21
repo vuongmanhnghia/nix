@@ -37,7 +37,7 @@ rec {
 
   # NETWORKING
   hostname = "nixos";
-  nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ];
+  nameservers = [ "8.8.8.8" "8.8.4.4" ];
   firewall = {
     enable = true;
     tcp_ports = [ 
@@ -48,7 +48,7 @@ rec {
     udp_ports = [ ];
     trusted_interfaces = [ "tailscale0" ];
   };
-  fallback_dns = [ "8.8.8.8" "8.8.4.4" ];
+  fallback_dns = [ "1.1.1.1" "1.0.0.1" ];
   tailscale = {
     enable = true;
   };

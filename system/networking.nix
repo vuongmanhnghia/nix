@@ -9,7 +9,6 @@
     networkmanager = {
       enable = true;
       dns = "systemd-resolved";
-      
       connectionConfig = {
         "ipv4.ignore-auto-dns" = "yes";
         "ipv6.ignore-auto-dns" = "yes";
