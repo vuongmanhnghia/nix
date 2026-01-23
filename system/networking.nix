@@ -38,7 +38,7 @@
     enable = true;
     useRoutingFeatures = "client";
     openFirewall = true;
-    extraUpFlags = [ "--operator=${vars.user.name}" "--accept-dns=false" ]; 
+    # extraUpFlags = [ "--operator=${vars.user.name}" "--accept-dns=false" ]; 
   };
 
   hardware = {
