@@ -28,7 +28,6 @@
 
   # === FILE COPYING ===
   xdg.configFile."wezterm/wezterm.lua".source = ../../dotfiles/wezterm/.wezterm.lua;
-  xdg.configFile."wezterm/bg".source = ../../dotfiles/wezterm/bg;
 
   # === DESKTOP INTEGRATION ===
   xdg.desktopEntries."wezterm-here" = {

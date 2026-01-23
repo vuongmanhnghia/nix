@@ -25,7 +25,6 @@
     unstable.antigravity              
     unstable.telegram-desktop         
     unstable.slack                    
-    unstable.warp-terminal
     unstable.obsidian                 
     unstable.obs-studio               
     seafile-client                    

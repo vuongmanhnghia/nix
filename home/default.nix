@@ -4,7 +4,6 @@
   # === SHARED HOME MANAGER CONFIGURATIONS ===
   # Import common configurations used by all users
   imports = [
-    ./shared/workflow.nix        # Workflow configuration
     ./shared/hypr/default.nix    # Hyprland configuration
     ./shared/matugen/default.nix # Matugen configuration
     ./shared/quickshell          # QuickShell configuration

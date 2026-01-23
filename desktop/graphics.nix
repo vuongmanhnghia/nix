@@ -23,30 +23,11 @@
   
   hardware.nvidia = {
     modesetting.enable = true;  # Enable modesetting for Wayland support (required for GNOME Wayland)
-    powerManagement.enable = false; # Disable power management to troubleshoot GPU detection
-    powerManagement.finegrained = false; # Disable fine-grained power management
+    powerManagement.enable = true; # Enable power management features
+    powerManagement.finegrained = false; # Use fine-grained power management
     package = config.boot.kernelPackages.nvidiaPackages.latest; # Use latest stable NVIDIA driver for best performance and features
     nvidiaSettings = true; # Enable NVIDIA X Server Settings GUI tool
     open = false; # # Use proprietary driver (set to true for open-source kernel module). Keep false for stability with most GPUs
-    
-    # === NVIDIA PRIME CONFIGURATION FOR OPTIMUS LAPTOPS ===
-    prime = {
-      # Sync mode: Both GPUs active, NVIDIA renders and sends to Intel for display
-      # This keeps NVIDIA always on (uses more power but better for nvidia-smi)
-      sync.enable = true;
-      
-      # Alternative: Offload mode (comment sync above, uncomment below for battery saving)
-      # offload = {
-      #   enable = true;
-      #   enableOffloadCmd = true;
-      # };
-      
-      # Bus IDs for your laptop - get these from 'lspci' output
-      # Intel GPU: 00:02.0 -> "PCI:0:2:0"
-      # NVIDIA GPU: 01:00.0 -> "PCI:1:0:0"
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
   };
   
   # === POWER MANAGEMENT ===
