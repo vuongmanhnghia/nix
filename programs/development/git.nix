@@ -5,6 +5,7 @@
   programs.git = {
     enable = true;        # Enable Git system-wide
     config = {
+      credential.helper = "store";  # Store credentials in memory
       init.defaultBranch = "main";  # Use 'main' as default branch name (modern standard)
       pull.rebase = false;          # Use merge strategy for git pull (safer default)
     };

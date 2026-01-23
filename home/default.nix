@@ -30,6 +30,7 @@
     ./shared/kde-dialog.nix      # KDialog configuration
     ./shared/nemo.nix            # Nemo file manager configuration
     ./shared/tmux.nix            # Tmux configuration
+    ./shared/wezterm.nix         # WezTerm configuration
   ];
 
   # === ESSENTIAL PACKAGES FOR ALL USERS ===

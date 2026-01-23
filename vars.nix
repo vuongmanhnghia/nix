@@ -8,9 +8,9 @@ rec {
   os = "linux"; # uname -s (lowercase)
 
   # DISPLAY
-  port_name = "DP-1";               # xrandr | grep " connected" | head -1 | awk '{print $1}'
-  resolution = "2560x1440";         # xrandr | grep " connected" | head -1 | awk '{print $3}' | cut -d '+' -f 1
-  frequency = "180";                # xrandr | grep -oP '\d+\.\d+(?=[*+ ])' | sort -rn | head -n 1
+  port_name = "eDP-1";               # xrandr | grep " connected" | head -1 | awk '{print $1}'
+  resolution = "1920x1080";         # xrandr | grep " connected" | head -1 | awk '{print $3}' | cut -d '+' -f 1
+  frequency = "144.00";                # xrandr | grep -oP '\d+\.\d+(?=[*+ ])' | sort -rn | head -n 1
   
   # ENVIRONMENT
   environments = [

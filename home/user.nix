@@ -86,6 +86,14 @@
         compression = true;
         identitiesOnly = true;
       };
+      
+      "gitlab.nooblearn2code.com" = {
+        hostname = "14.225.218.83";
+        user = "git";
+        port = 222;
+        identityFile = "~/.ssh/id_ed25519";
+        identitiesOnly = true;
+      };
     };
   };
 }

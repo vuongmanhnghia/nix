@@ -10,5 +10,7 @@
     stun            # NAT traversal tool
     linssid         # Wireless network scanner
     wireshark       # Network protocol analyzer
+    kubectl         # Kubernetes command-line tool
+    cilium-cli      # Cilium command-line tool
   ];
 }

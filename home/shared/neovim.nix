@@ -77,12 +77,6 @@
     tree-sitter
   ];
 
-  # Cấu hình Git (cần thiết cho nhiều plugin)
-  programs.git = {
-    enable = true;
-    # Bạn có thể cấu hình thêm thông tin git ở đây nếu chưa có
-  };
-
   # Cấu hình tmux (cho vim-tmux-navigator)
   programs.tmux = {
     enable = true;
