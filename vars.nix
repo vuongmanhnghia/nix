@@ -99,41 +99,42 @@ rec {
 
   # SYNCTHING
   syncthing = {
-    enable = false;  
+    enable = true;
     
-    # settings = {
-    #   gui = {
-    #     address = "127.0.0.1:8384";  
-    #     user = "${user.username}";              
-    #   };
+    settings = {
+      gui = {
+        address = "127.0.0.1:8384";  
+        user = "${user.username}";          
+      };
+
+      devices = {
+        "nixos-desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
+        "syncthing-server" = { id = "C746FCG-KGT3QXD-ITR65Y5-CNWNSAI-YGLNZNL-TUFTRZF-D4R3M5M-3BRTPQN"; };
+      };
       
-    #   # === DEVICE CONFIGURATION ===
-    #   devices = {
-    #     "laptop" = { id = "Q2LOGWQ-TERICTE-TXSUI6Q-5ZRDFEG-BEBWGFE-CVKBXTF-XHBSNCN-U6PHIA3"; };
-    #     "desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
-    #   };
-      
-    #   # === FOLDER SYNCHRONIZATION CONFIGURATION ===
-    #   folders = {
-    #     "Pictures" = {
-    #       id = "pictures";
-    #       path = "/home/${user.username}/Pictures";
-    #       devices = [ "laptop" "desktop" ];
-    #     };
-        
-    #     "Documents" = {
-    #       id = "documents";
-    #       path = "/home/${user.username}/Documents";
-    #       devices = [ "laptop" "desktop" ];
-    #     };
-        
-    #     "Workspaces" = {
-    #       id = "workspaces";
-    #       path = "/home/${user.username}/Workspaces";
-    #       devices = ["desktop" "laptop"];
-    #     };
-    #   };
-    # };
+      folders = {
+        "workspaces" = {
+          id = "workspaces";
+          path = "/home/${user.username}/Workspaces";
+          devices = [ "nixos-desktop" "syncthing-server" ];
+        };
+        "documents" = {
+          id = "documents";
+          path = "/home/${user.username}/Documents";
+          devices = [ "nixos-desktop" "syncthing-server" ];
+        };
+        "pictures" = {
+          id = "pictures";
+          path = "/home/${user.username}/Pictures";
+          devices = [ "nixos-desktop" "syncthing-server" ];
+        };
+        "hugo" = {
+          id = "hugo";
+          path = "/home/${user.username}/hugo";
+          devices = [ "nixos-desktop" "syncthing-server" ];
+        };
+      };
+    };
   };
 
   # CLOUDFLARED TUNNEL

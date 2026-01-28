@@ -27,7 +27,6 @@
     unstable.slack                    
     unstable.obsidian                 
     unstable.obs-studio               
-    seafile-client                    
     (prismlauncher.override {
       jdks = [
         jdk
