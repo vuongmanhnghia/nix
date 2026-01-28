@@ -20,10 +20,21 @@ let
   #   categories = [ "Development" ];
   #   startupWMClass = "bongocat";
   # };
+
+  cisco-packet-tracerDesktopItem = pkgs.makeDesktopItem {
+    name = "cisco-packet-tracer";
+    desktopName = "Cisco Packet Tracer";
+    exec = "cisco-packet-tracer";
+    icon = "cisco-packet-tracer";
+    terminal = false;
+    categories = [ "Development" ];
+    startupWMClass = "cisco-packet-tracer";
+  };
 in
 {
   environment.systemPackages = with pkgs; [
     # beekeeperStudioDesktopItem
     # bongocatDesktopItem
+    cisco-packet-tracerDesktopItem
   ];
 }
