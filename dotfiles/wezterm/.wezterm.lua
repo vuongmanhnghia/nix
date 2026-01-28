@@ -28,7 +28,7 @@ end
 local function update_appearance(window)
     window:set_config_overrides({
         font = wezterm.font("JetBrains Mono Nerd Font", { weight = "Medium", stretch = "Expanded" }),
-        font_size = 16,
+        font_size = 14,
         background = {
             {
                 source = { File = bg_image },
@@ -44,7 +44,7 @@ local function update_appearance(window)
 end
 
 config.font = wezterm.font("JetBrains Mono Nerd Font", { weight = "Medium", stretch = "Expanded" })
-config.font_size = 16
+config.font_size = 14
 config.color_scheme = "Tokyo Night"
 config.window_decorations = "NONE"
 config.enable_tab_bar = false
