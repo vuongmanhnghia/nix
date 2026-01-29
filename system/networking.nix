@@ -38,7 +38,22 @@
     enable = true;
     useRoutingFeatures = "client";
     openFirewall = true;
-    # extraUpFlags = [ "--operator=${vars.user.name}" "--accept-dns=false" ]; 
+    extraUpFlags = [ "--operator=${vars.user.name}" "--accept-dns=false" ]; 
+  };
+
+  systemd.services.tailscaled = {
+    after = [ "network-online.target" "systemd-resolved.service" ];
+    wants = [ "network-online.target" "systemd-resolved.service" ];
+
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "5s";
+      StartLimitIntervalSec = 0;
+    };
+
+    environment = {
+      TS_NO_TPM = "true";
+    };
   };
 
   hardware = {
