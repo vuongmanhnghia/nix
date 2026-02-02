@@ -84,6 +84,11 @@
         compression = true;
         identitiesOnly = true;
       };
+
+      "i-* mi-*" = {
+        userKnownHostsFile = "/dev/null";
+        proxyCommand = "sh -c '${pkgs.awscli2}/bin/aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters \"portNumber=%p\"'";
+      };
       
       "gitlab.nooblearn2code.com" = {
         hostname = "14.225.218.83";
