@@ -109,7 +109,10 @@ rec {
 
       devices = {
         "nixos-desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
-        "syncthing-server" = { id = "C746FCG-KGT3QXD-ITR65Y5-CNWNSAI-YGLNZNL-TUFTRZF-D4R3M5M-3BRTPQN"; };
+        "syncthing-server" = { 
+          id = "6DLXC5P-OYUDW5M-7NYJOSU-3DHKU65-2KECRVD-MEVDAF4-CYTOJWE-7NJXFAF";
+          addresses = [ "tcp://14.225.218.83:22000" ];
+        };
       };
       
       folders = {
