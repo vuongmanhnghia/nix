@@ -4,7 +4,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      source = "/home/nagih/.config/hypr/hyprlock/colors.conf";
+      source = "${hostVars.nix_config}/generated/hyprlock.conf";
 
       general = {
         grace = 1;
@@ -14,7 +14,15 @@
 
       background = [
         {
+          path = "$background_image";
           color = "rgba(181818FF)"; # color will be rendered initially until path is available
+          blur_passes = 2;
+          blur_size = 3;
+          noise = 0.01;
+          contrast = 0.8;
+          brightness = 0.8;
+          vibrancy = 0.1;
+          vibrancy_darkness = 0.0;
         }
       ];
 
@@ -76,7 +84,7 @@
 
         { # User
           monitor = "";
-          text = "    $USER";
+          text = "    ${hostVars.user.name}";
           color = "$text_color";
           outline_thickness = 2;
           dots_size = 0.2; # Scale of input-field height, 0.2 - 0.8

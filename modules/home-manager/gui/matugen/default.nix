@@ -3,7 +3,7 @@
 
 let
   generatedPath = "${hostVars.nix_config}/generated";
-  templatePath = "${hostVars.nix_config}/home/shared/matugen/templates";
+  templatePath = "${hostVars.nix_config}/modules/home-manager/gui/matugen/templates";
 in
 {
   # Install matugen package
