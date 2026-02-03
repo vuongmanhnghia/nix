@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, hostVars, lib, ... }:
+{ hostVars, ... }:
 
 {
   system.stateVersion = hostVars.nix_version;

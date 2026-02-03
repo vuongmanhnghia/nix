@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hostVars, ... }:
 
 {
   programs.tmux = {
@@ -6,24 +6,27 @@
     
     # === SHELL AND TERMINAL CONFIGURATION ===
     shell = "${pkgs.zsh}/bin/zsh";
-    # terminal = "tmux-256color";
     
     # === BASIC SETTINGS ===
-    prefix = "C-a";
     baseIndex = 1;
     escapeTime = 0;
-    mouse = true;
-    extraConfig = builtins.readFile ./config/.tmux.conf;
+
+    extraConfig = ''
+      ${builtins.readFile ./config/.tmux.conf}
+
+      unbind r
+      bind r source-file "${config.home.homeDirectory}/Workspaces/config/nixos/modules/home-manager/features/tmux/config/.tmux.conf" \; display "Config Reloaded!"
+      bind R source-file "${config.home.homeDirectory}/Workspaces/config/nixos/modules/home-manager/features/tmux/config/.tmux.conf" \; display "Config Reloaded!"
+    '';
+
     # === PLUGINS ===
     plugins = with pkgs.tmuxPlugins; [
-      # Session save/restore functionality
-      resurrect
-      # Optional: continuum for automatic saving
-      continuum
-      # Optional: better mouse support
-      sensible
-      cpu
-      weather
+      resurrect     # Session save/restore functionality
+      continuum     # Optional: continuum for automatic saving
+      sensible      # Optional: better mouse support
+      catppuccin    # Optional: catppuccin theme
+      cpu           # Optional: CPU usage monitoring
+      weather       # Optional: weather monitoring
     ];
   };
 }
