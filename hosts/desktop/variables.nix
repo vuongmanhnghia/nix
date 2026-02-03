@@ -1,7 +1,7 @@
 rec {
   # NIX
   nix_version = "25.11";
-  nix_config = "~/Workspaces/config/nixos"; # Path to NixOS config
+  nix_config = "/home/nagih/Workspaces/config/nixos"; # Path to NixOS config
 
   # SYSTEM
   isa = "x86_64"; # uname -m (lowercase)
@@ -49,13 +49,12 @@ rec {
 
     # === SYSTEM MANAGEMENT (Enhanced) ===
     oh = "cd ~/ && echo 'Went back home'";
-    nixc = "cd ${nix_config}";
-    nix-rebuild = "sudo nixos-rebuild switch --flake ${nix_config} --impure";
-    nix-test = "sudo nixos-rebuild test --flake ${nix_config} --impure";
-    home-rebuild = "home-manager switch --flake ${nix_config}";
+    nix-config = "cd ${nix_config}";
+    nix-rebuild = "sudo nixos-rebuild switch --flake '${nix_config}#desktop' --show-trace --impure";
+    nix-test = "sudo nixos-rebuild test --flake '${nix_config}#desktop' --impure";
     generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
     nix-clean = "sudo nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --optimize";
-    nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake ${nix_config} --impure";
+    nix-reset = "sudo systemctl stop nix-daemon && sudo rm -rf /nix/store/* && sudo rm -rf /nix/var/nix/db/* && sudo systemctl start nix-daemon && sudo nixos-rebuild switch --flake '${nix_config}#desktop' --impure";
 
     # === CODE EDITOR WORKFLOW (Enhanced) ===
     code = "cursor";

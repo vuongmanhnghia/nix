@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    qimgv               # Image viewer
     logseq              # Knowledge management and collaboration platform
     mpv                 # Versatile media player
     libreoffice         # Office suite

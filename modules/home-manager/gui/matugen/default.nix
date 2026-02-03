@@ -158,11 +158,4 @@ in
   '';
   
   home.file.".config/scripts/matugen-reload".executable = true;
-
-  # Environment variables for easier template access
-  home.sessionVariables = {
-    MATUGEN_CONFIG_PATH = configPath;
-    MATUGEN_TEMPLATES_PATH = templatePath;
-    MATUGEN_GENERATED_PATH = generatedPath;
-  };
 }

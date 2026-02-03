@@ -4,7 +4,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      source = "/home/${hostVars.user.username}/.config/hypr/hyprlock/colors.conf";
+      source = "/home/nagih/.config/hypr/hyprlock/colors.conf";
 
       general = {
         grace = 1;
