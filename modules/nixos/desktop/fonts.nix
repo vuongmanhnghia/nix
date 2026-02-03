@@ -1,5 +1,5 @@
-# nixos/fonts.nix (giữ nguyên + bổ sung)
 { config, pkgs, ... }:
+
 {
   fonts = {
     enableDefaultPackages = true;

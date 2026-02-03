@@ -10,20 +10,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hypridle.nix
-    ./hyprlock.nix
-    ./modules
-  ];
-
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
   };
 
-  # === SYMLINKS SCRIPTS ===
-  home.file.".config/hypr/hyprland/scripts" = {
-    source = ./scripts/hyprland;
-    executable = true;
-  };
+  imports = [
+    ./modules
+  ];
 }

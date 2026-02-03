@@ -12,7 +12,7 @@
   wayland.windowManager.hyprland = {    
     settings = {
       exec-once = [
-        "${hostVars.nix_config}/home/shared/hypr/scripts/hyprland/start_geoclue_agent.sh"
+        "${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/start_geoclue_agent.sh"
         "qs -c $qsConfig &" # QuickShell
 
         # Setup fcitx5

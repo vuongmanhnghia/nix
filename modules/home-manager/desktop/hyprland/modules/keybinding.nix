@@ -42,15 +42,15 @@
         "$mainMod SHIFT, H, Toggle bar, global, quickshell:barToggle" # Toggle bar
         "$mainMod CTRL, T, Change wallpaper, exec, ~/.config/quickshell/$qsConfig/scripts/colors/switchwall.sh" # Change wallpaper
         "$mainMod, V, Copy clipboard history entry, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || cliphist list | fuzzel --match-mode fzf --dmenu | cliphist decode | wl-copy" # [hidden]
-        "$mainMod, Period, Copy an emoji, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || ~/.config/hypr/hyprland/scripts/fuzzel-emoji.sh copy" # [hidden] Emoji >> clipboard (fallback)
+        "$mainMod, Period, Copy an emoji, exec, qs -c $qsConfig ipc call TEST_ALIVE || pkill fuzzel || ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/fuzzel-emoji.sh copy" # [hidden] Emoji >> clipboard (fallback)
         "$mainMod SHIFT, S, Screen snip, exec, qs -p ~/.config/quickshell/$qsConfig/screenshot.qml || pidof slurp || hyprshot --freeze --clipboard-only --mode region --silent" # Screen snip
         "$mainMod SHIFT, T, Character recognition,exec,grim -g \$(slurp $SLURP_ARGS) tmp.png && tesseract tmp.png - | wl-copy && rm tmp.png" # [hidden]
         "$mainMod SHIFT, C, Color picker, exec, hyprpicker -a" # Pick color (Hex) >> clipboard
-        "$mainMod Alt, R, Record region (no sound), exec, ~/.config/hypr/hyprland/scripts/record.sh" # Record region (no sound)
-        "Ctrl Alt, R, Record screen (no sound), exec, ~/.config/hypr/hyprland/scripts/record.sh --fullscreen" # [hidden] Record screen (no sound)
-        "$mainMod SHIFT Alt, R, Record screen (with sound), exec, ~/.config/hypr/hyprland/scripts/record.sh --fullscreen-sound" # Record screen (with sound)
+        "$mainMod Alt, R, Record region (no sound), exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/record.sh" # Record region (no sound)
+        "Ctrl Alt, R, Record screen (no sound), exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/record.sh --fullscreen" # [hidden] Record screen (no sound)
+        "$mainMod SHIFT Alt, R, Record screen (with sound), exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/record.sh --fullscreen-sound" # Record screen (with sound)
         # AI
-        "$mainMod SHIFT Alt, mouse:273, Generate AI summary for selected text, exec, ~/.config/hypr/hyprland/scripts/ai/primary-buffer-query.sh" # AI summary for selected text
+        "$mainMod SHIFT Alt, mouse:273, Generate AI summary for selected text, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/ai/primary-buffer-query.sh" # AI summary for selected text
       ];
 
       bindle = [
@@ -64,11 +64,11 @@
       ];
 
       bindl = [
-        "$mainMod SHIFT, M, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --toggle" # Toggle mute speakers
-        "$mainMod, M, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --toggle-mic" # Toggle mute mic
-        ",XF86AudioMute, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --toggle" # [hidden]
-        "Alt ,XF86AudioMute, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
-        ",XF86AudioMicMute, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --toggle-mic" # [hidden]
+        "$mainMod SHIFT, M, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --toggle" # Toggle mute speakers
+        "$mainMod, M, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --toggle-mic" # Toggle mute mic
+        ",XF86AudioMute, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --toggle" # [hidden]
+        "Alt ,XF86AudioMute, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --toggle-mic" # [hidden]
+        ",XF86AudioMicMute, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --toggle-mic" # [hidden]
         "$mainMod SHIFT, N, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # Next track
         ",XF86AudioNext, exec, playerctl next || playerctl position bc <<< 100 * \$(playerctl metadata mpris:length) / 1000000 / 100" # [hidden]
         ",XF86AudioPrev, exec, playerctl previous" # [hidden]
@@ -113,11 +113,11 @@
 
         # === VOLUME ===
         # Note: Mic mute ($mainMod, M) is in bindl section
-        "$mainMod SHIFT, up, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --mic-inc"
-        "$mainMod SHIFT, down, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --mic-dec"
+        "$mainMod SHIFT, up, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --mic-inc"
+        "$mainMod SHIFT, down, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --mic-dec"
         
-        "$mainMod, up, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --inc"
-        "$mainMod, down, exec, ${hostVars.nix_config}/home/shared/hypr/scripts/volume.sh --dec"
+        "$mainMod, up, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --inc"
+        "$mainMod, down, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/volume.sh --dec"
 
         # === WORKSPACE MANAGEMENT ===
 
@@ -148,16 +148,16 @@
         "$mainMod, l, workspace, r+1"
 
         #/# bind = $mainMod, Hash,, # Focus workspace # (1, 2, 3,...)
-        "$mainMod, 1, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 1" # [hidden]
-        "$mainMod, 2, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 2" # [hidden]
-        "$mainMod, 3, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 3" # [hidden]
-        "$mainMod, 4, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 4" # [hidden]
-        "$mainMod, 5, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 5" # [hidden]
-        "$mainMod, 6, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 6" # [hidden]
-        "$mainMod, 7, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 7" # [hidden]
-        "$mainMod, 8, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 8" # [hidden]
-        "$mainMod, 9, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 9" # [hidden]
-        "$mainMod, 0, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh workspace 10" # [hidden]
+        "$mainMod, 1, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 1" # [hidden]
+        "$mainMod, 2, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 2" # [hidden]
+        "$mainMod, 3, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 3" # [hidden]
+        "$mainMod, 4, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 4" # [hidden]
+        "$mainMod, 5, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 5" # [hidden]
+        "$mainMod, 6, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 6" # [hidden]
+        "$mainMod, 7, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 7" # [hidden]
+        "$mainMod, 8, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 8" # [hidden]
+        "$mainMod, 9, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 9" # [hidden]
+        "$mainMod, 0, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh workspace 10" # [hidden]
 
         #/# bind = Ctrl $mainMod ALT, ←/→,, # [hidden] Focus busy left/right
         "$mainMod CTRL ALT, Right, workspace, m+1" # [hidden]
@@ -186,16 +186,16 @@
         "$mainMod CTRL, Down, workspace, r+5" # [hidden]
 
         #/# bind = $mainMod ALT, Hash,, # Send to workspace # (1, 2, 3,...)
-        "$mainMod SHIFT, 1, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 1" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 2, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 2" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 3, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 3" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 4, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 4" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 5, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 5" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 6, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 6" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 7, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 7" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 8, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 8" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 9, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 9" # [hidden] or movetoworkspacesilent
-        "$mainMod SHIFT, 0, exec, ~/.config/hypr/hyprland/scripts/workspace_action.sh movetoworkspace 10" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 1, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 1" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 2, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 2" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 3, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 3" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 4, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 4" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 5, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 5" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 6, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 6" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 7, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 7" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 8, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 8" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 9, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 9" # [hidden] or movetoworkspacesilent
+        "$mainMod SHIFT, 0, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/workspace_action.sh movetoworkspace 10" # [hidden] or movetoworkspacesilent
 
         #/#/# bind = $mainMod SHIFT, Scroll ↑/↓,, # Send to workspace left/right
         "$mainMod SHIFT, mouse_down, movetoworkspace, r-1" # [hidden]
@@ -234,16 +234,16 @@
         "$mainMod SHIFT ALT, mouse:276, exec, playerctl next || playerctl position \$(bc <<< \"100 * \$(playerctl metadata mpris:length) / 1000000 / 100\")" # [hidden]
         
         ##! Apps
-        "$mainMod, SPACE, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $terminal kitty -1 foot alacritty wezterm konsole kgx uxterm xterm" # [hidden] (terminal) (alt)
-        "$mainMod, D, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh discord" # [hidden] (discord) (alt)
-        # "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor" # [hidden] (code editor) (alt)
+        "$mainMod, SPACE, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh $terminal kitty -1 foot alacritty wezterm konsole kgx uxterm xterm" # [hidden] (terminal) (alt)
+        "$mainMod, D, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh discord" # [hidden] (discord) (alt)
+        # "$mainMod, C, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh $codeEditor" # [hidden] (code editor) (alt)
         "$mainMod, C, exec, $codeEditor" # [hidden] (code editor) (alt)
-        "$mainMod, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $fileManager dolphin nautilus nemo thunar" # [hidden] (file manager) (alt)
-        "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser google-chrome-stable zen-browser brave firefox chromium microsoft-edge-stable opera librewolf" # [hidden] (browser) (alt)
+        "$mainMod, E, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh $fileManager dolphin nautilus nemo thunar" # [hidden] (file manager) (alt)
+        "$mainMod, B, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh $browser google-chrome-stable zen-browser brave firefox chromium microsoft-edge-stable opera librewolf" # [hidden] (browser) (alt)
         
-        "$mainMod SHIFT, W, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh wps onlyoffice-desktopeditors" # Office software
-        "$mainMod, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh kate gnome-text-editor emacs" # Text editor
-        "Ctrl $mainMod, V, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh pavucontrol-qt pavucontrol" # Volume mixer
+        "$mainMod SHIFT, W, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh wps onlyoffice-desktopeditors" # Office software
+        "$mainMod, X, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh kate gnome-text-editor emacs" # Text editor
+        "Ctrl $mainMod, V, exec, ${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/launch_first_available.sh pavucontrol-qt pavucontrol" # Volume mixer
 
         # Cursed stuff
         # Make window not amogus large
