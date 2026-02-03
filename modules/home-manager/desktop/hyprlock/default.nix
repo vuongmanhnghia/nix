@@ -53,7 +53,7 @@
 
         { # Caps Lock Warning
           monitor = "";
-          text = "cmd[update:250] ${hostVars.nix_config}/home/shared/hypr/scripts/hyprlock/check-capslock.sh";
+          text = "cmd[update:250] ${hostVars.nix_config}/modules/home-manager/desktop/hyprlock/scripts/check-capslock.sh";
           color = "$text_color";
           font_size = 13;
           font_family = "$font_family";
@@ -91,7 +91,7 @@
 
         { # Status
           monitor = "";
-          text = "cmd[update:5000] ${hostVars.nix_config}/home/shared/hypr/scripts/hyprlock/status.sh";
+          text = "cmd[update:5000] ${hostVars.nix_config}/modules/home-manager/desktop/hyprlock/scripts/status.sh";
           color = "$text_color";
           font_size = 14;
           font_family = "$font_family";

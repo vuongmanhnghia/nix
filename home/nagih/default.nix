@@ -8,6 +8,8 @@
   imports = [
     # Desktop
     ../../modules/home-manager/desktop/hyprland
+    ../../modules/home-manager/desktop/hyprlock
+    ../../modules/home-manager/desktop/hypridle
     ../../modules/home-manager/desktop/xdg-portal
 
     # Features

@@ -1,10 +1,9 @@
 # matugen/default.nix - Improved version
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostVars, ... }:
 
 let
-  configPath = "${config.home.homeDirectory}/Workspaces/config/nixos";
-  generatedPath = "${configPath}/generated";
-  templatePath = "${configPath}/home/shared/matugen/templates";
+  generatedPath = "${hostVars.nix_config}/generated";
+  templatePath = "${hostVars.nix_config}/home/shared/matugen/templates";
 in
 {
   # Install matugen package
