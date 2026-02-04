@@ -9,5 +9,7 @@
     usbutils  # USB utilities (lsusb)
     woeusb-ng # USB device manager
     ntfs3g    # NTFS driver
+    coreutils # Core utilities
+    xdg-user-dirs     # XDG user directories
   ];
 }

@@ -45,14 +45,4 @@
       ];
     };
   };
-
-  # Install required packages
-  home.packages = with pkgs; [
-    networkmanagerapplet
-    swww
-    blueman
-    hypridle
-    wl-clipboard
-    cliphist
-  ];
 }

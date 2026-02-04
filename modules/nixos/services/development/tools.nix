@@ -2,7 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
-    rustdesk
+    axel                      # Fast download accelerator
+    rsync                     # File synchronization
+
     # === CODE EDITORS ===
     neovim                    # Modern Vim-based text editor with LSP support   
     # === LUA DEVELOPMENT ===

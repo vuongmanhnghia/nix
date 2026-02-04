@@ -10,6 +10,7 @@
       noto-fonts-color-emoji
       liberation_ttf
       dejavu_fonts
+      rubik
       
       # === MODERN UI FONTS ===
       inter                    
@@ -17,6 +18,7 @@
       open-sans
       aileron
       ubuntu-classic
+      material-symbols
       
       # === PROGRAMMING FONTS ===
       source-code-pro

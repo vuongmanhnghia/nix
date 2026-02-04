@@ -17,7 +17,6 @@
     apple-cursor
     
     # === THEMING UTILITIES ===
-    matugen           # Material You color generation from wallpapers
     nwg-look          # GTK theme configuration
     
     # === QT THEMING ===

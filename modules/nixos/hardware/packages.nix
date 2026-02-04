@@ -19,6 +19,9 @@
     tree          # Display directory structure in tree format
     fzf           # Fuzzy finder for command-line
     wl-clipboard  # Clipboard manager for Wayland
+
+    acpi                      # ACPI utilities for battery info
+    lm_sensors               # Hardware sensors
   ];
   
   # Allow installation of proprietary software (required for some development tools)

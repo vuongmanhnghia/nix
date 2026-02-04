@@ -3,8 +3,8 @@
 {
 
   imports = [
-    ./dependencies.nix
-    ./services.nix
+    ./modules/dependencies.nix
+    ./modules/services.nix
   ];
 
   xdg.configFile."quickshell".source = ./config;
