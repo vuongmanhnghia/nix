@@ -71,7 +71,6 @@
     
     # === NOTIFICATIONS ===
     libnotify               # Desktop notifications
-    dunst                   # Notification daemon
     
     # === HYPRLAND INTEGRATION ===
     # Note: hyprland is provided by system (desktop/hyprland.nix) with GCC 15 fix

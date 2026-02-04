@@ -8,7 +8,7 @@ local bg_image = home .. "/Pictures/Wallpapers/random_wallpaper.png"
 local brightness = 0.05
 local opacity = 0.8
 
-local font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium", stretch = "Expanded" })
+local font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular", stretch = "Normal" })
 local font_size = 14
 
 local function get_random_bg(folder)
