@@ -3,103 +3,67 @@
 {
   programs.starship = {
     enable = true;
-    
+    enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = ''
-        $cmd_duration 󰜥 $directory $git_branch
-        $character'';
+      format = "$character $os$directory(fg:#7aa2f7) $git_branch$git_status$kubernetes$docker_context$terraform$nix_shell$cmd_duration";
 
-      kubernetes.disabled = false;
-      terraform.disabled = false;
-      
       character = {
-        success_symbol = "[ ➜ ](bold fg:blue)";
-        error_symbol = "[ ✗ ](bold fg:red)";
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
       };
-      
-      package = {
-        disabled = true;
+
+      os = {
+        disabled = false;
+        style = "bold fg:#7aa2f7";
+        symbols = { NixOS = "  "; };
       };
-      
-      git_branch = {
-        style = "bg: cyan";
-        symbol = "󰘬 ";
-        truncation_length = 12;
-        truncation_symbol = "";
-        format = "󰜥 [](bold fg:cyan)[$symbol $branch(:$remote_branch)](fg:black bg:cyan)[ ](bold fg:cyan)";
-      };
-      
-      git_commit = {
-        commit_hash_length = 4;
-        tag_symbol = " ";
-      };
-      
-      git_state = {
-        format = "[\($state( $progress_current of $progress_total)\)]($style) ";
-        cherry_pick = "[🍒 PICKING](bold red)";
-      };
-      
-      git_status = {
-        conflicted = " 🏳 ";
-        ahead = " 🏎💨 ";
-        behind = " 😰 ";
-        diverged = " 😵 ";
-        untracked = " 🤷 ‍";
-        stashed = " 📦 ";
-        modified = " 📝 ";
-        staged = "[++\($count\)](green)";
-        renamed = " ✍️ ";
-        deleted = " 🗑 ";
-      };
-      
+
       directory = {
-        truncation_length = 3;
-        truncation_symbol = "…/";
-        home_symbol = " ~";
-        read_only_style = "197";
-        read_only = "  ";
-        format = "at [$path]($style)[$read_only]($read_only_style) ";
+        style = "bold fg:#7aa2f7";
+        format = "[$path]($style) ";
+        truncation_length = 1;
+        truncation_symbol = "";
+        truncate_to_repo = false;
       };
-      
-      cmd_duration = {
-        format = " [$duration]($style) ";
-        style = "yellow";
+
+      git_branch = {
+        symbol = "󰘬 ";
+        style = "bold green";
+        format = "[$symbol$branch]($style) ";
       };
-      
-      python = {
-        symbol = "󰌠 ";
-        python_binary = ["./venv/bin/python" "python" "python3" "python2"];
+
+      git_status = {
+        modified = "[● ](bold red)";
+        staged = "[+ ](bold green)";
+        deleted = "[✘ ](bold red)";
+        renamed = "[» ](bold yellow)";
+        untracked = "[? ](bold magenta)";
+
+        format = "([$all_status]($style))";
       };
-      
-      nodejs = {
-        symbol = "󰎙 ";
+
+      kubernetes = {
+        symbol = "󱃾 ";
+        style = "fg:#7dcfff";
+        format = "[$symbol$context( \($namespace\))]($style) ";
       };
-      
-      rust = {
-        symbol = "󱘗 ";
-      };
-      
-      golang = {
-        symbol = "󰟓 ";
-      };
-      
+
       docker_context = {
         symbol = "󰡨 ";
+        style = "fg:#7dcfff";
+        format = "[$symbol$context]($style) ";
       };
-      
-      hostname = {
-        ssh_only = false;
-        format = "[$hostname](bold red) ";
-        disabled = false;
+
+      nix_shell = {
+        symbol = " ";
+        style = "fg:#7dcfff";
+        format = "[$symbol$state]($style) ";
       };
-      
-      username = {
-        style_user = "green bold";
-        style_root = "red bold";
-        format = "[$user]($style) ";
-        disabled = false;
-        show_always = true;
+
+      cmd_duration = {
+        min_time = 500;
+        format = "took [$duration](bold yellow) ";
       };
     };
   };

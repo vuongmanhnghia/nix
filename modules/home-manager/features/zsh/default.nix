@@ -134,16 +134,6 @@
 
     # === ADVANCED ZSH CONFIGURATION ===
     initContent = ''
-      # === POWERLEVEL10K INSTANT PROMPT ===
-      # Enable instant prompt but suppress warnings to fix console output issue
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-      
-      # === POWERLEVEL10K THEME SETUP ===
-      # Source Powerlevel10k theme from nix package
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      
       # === MODERN ZSH OPTIONS ===
       setopt AUTO_CD              # cd to directory by typing name
       setopt AUTO_PUSHD           # automatically push directories to stack
@@ -222,21 +212,13 @@
       export BAT_THEME="Catppuccin-mocha"
       export EZA_COLORS="da=36:di=34:fi=0:ln=35:pi=33:so=32:bd=33:cd=33:or=31:mi=31:ex=32"
       
-      # === POWERLEVEL10K CONFIGURATION ===
-      # To customize prompt, run: p10k configure
-      [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
-
       export PATH="$HOME/.local/bin:$PATH"
     '';
   };
 
-  # === P10K CONFIGURATION FILE ===
-  xdg.configFile."zsh/p10k.zsh".source = ./config/p10k.zsh;
-
   # === ADDITIONAL PACKAGES FOR ZSH ===
   home.packages = with pkgs; [
     # === MODERN CLI TOOLS ===
-    zsh-powerlevel10k          # Modern, fast prompt
     zsh-autosuggestions        # Command autosuggestions
     zsh-syntax-highlighting    # Syntax highlighting
     zsh-history-substring-search # Better history search

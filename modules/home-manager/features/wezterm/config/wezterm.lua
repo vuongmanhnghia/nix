@@ -8,6 +8,9 @@ local bg_image = home .. "/Pictures/Wallpapers/random_wallpaper.png"
 local brightness = 0.05
 local opacity = 0.8
 
+local font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium", stretch = "Expanded" })
+local font_size = 14
+
 local function get_random_bg(folder)
     local files = wezterm.read_dir(folder)
     local images = {}
@@ -27,8 +30,8 @@ end
 
 local function update_appearance(window)
     window:set_config_overrides({
-        font = wezterm.font("JetBrains Mono Nerd Font", { weight = "Medium", stretch = "Expanded" }),
-        font_size = 14,
+        font = font,
+        font_size = font_size,
         background = {
             {
                 source = { File = bg_image },
@@ -43,13 +46,16 @@ local function update_appearance(window)
     })
 end
 
-config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium", stretch = "Expanded" })
-config.font_size = 14
-config.allow_square_glyphs_to_overflow_adjacent_columns = true
+config.font = font
+config.font_size = font_size
 config.color_scheme = "Tokyo Night"
 config.window_decorations = "NONE"
 config.enable_tab_bar = false
 config.window_padding = { left = 15, right = 15, top = 15, bottom = 15 }
+
+config.front_end = "WebGpu"
+config.allow_square_glyphs_to_overflow_width = "Always"
+config.adjust_window_size_when_changing_font_size = false
 
 config.background = {
     {
