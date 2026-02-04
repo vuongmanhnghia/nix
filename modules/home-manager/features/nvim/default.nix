@@ -7,46 +7,34 @@
     viAlias = true;
     vimAlias = true;
     
-    # Cài đặt các package cần thiết cho neovim
     extraPackages = with pkgs; [
-      # Language servers
+      # LSP
       lua-language-server
-      nil # Nix LSP
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted # HTML, CSS, JSON, ESLint
-      python3Packages.python-lsp-server
-      rust-analyzer
-      
-      # Formatters và linters
       stylua
-      nixpkgs-fmt
+      nil
+
+      # Formatters
       nodePackages.prettier
+      nodePackages.vscode-langservers-extracted
+
+      # Nix
+      nixpkgs-fmt      
+
+      # TypeScript
+      typescript-language-server
+
+      # Python
+      python3Packages.python-lsp-server
       black
       isort
+
+      # Rust
+      rust-analyzer
       rustfmt
-
-      # Java development (nếu cần)
-      # jdt-language-server
     ];
-    
-    # Plugin configuration sẽ được quản lý bởi Lazy.nvim từ dotfiles
-    plugins = [ ];
-    
-    # Không đặt cấu hình trực tiếp ở đây vì chúng ta sử dụng dotfiles
-    extraConfig = "";
   };
 
-  # Tạo symlink đến dotfiles neovim config
-  home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/nvim";
-    recursive = true;
-  };
-
-  # Cài đặt các environment variables cần thiết
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
+  xdg.configFile."nvim".source = ./config;
 
   programs.zsh.shellAliases = {
     v = "nvim";
@@ -54,37 +42,16 @@
     vim = "nvim";
   };
 
-  # Đảm bảo các dependencies runtime được cài đặt
   home.packages = with pkgs; [
-    # Clipboard support
-    xclip
-    wl-clipboard
-    
-    # Font cho icons (cách mới cho nerd fonts)
-    nerd-fonts.fira-code
-    nerd-fonts.jetbrains-mono
-    
-    # File manager alternative
     ranger
-    
-    # Database tools (nếu cần)
-    sqlite
-
-    # Development tools cơ bản
-    git
-    ripgrep
-    fd
     tree-sitter
   ];
 
-  # Cấu hình tmux (cho vim-tmux-navigator)
   programs.tmux = {
     enable = true;
     terminal = "screen-256color";
     keyMode = "vi";
     extraConfig = ''
-      # Smart pane switching with awareness of Vim splits.
-      # See: https://github.com/christoomey/vim-tmux-navigator
       is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
           | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
       bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'

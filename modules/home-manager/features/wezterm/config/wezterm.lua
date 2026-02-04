@@ -43,8 +43,9 @@ local function update_appearance(window)
     })
 end
 
-config.font = wezterm.font("JetBrains Mono Nerd Font", { weight = "Medium", stretch = "Expanded" })
+config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium", stretch = "Expanded" })
 config.font_size = 14
+config.allow_square_glyphs_to_overflow_adjacent_columns = true
 config.color_scheme = "Tokyo Night"
 config.window_decorations = "NONE"
 config.enable_tab_bar = false

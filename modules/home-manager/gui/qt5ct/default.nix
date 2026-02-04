@@ -1,13 +1,6 @@
-# home/shared/ripgrep.nix - Home Manager configuration for ripgrep
 { config, pkgs, ... }:
 
 {
-  # Cài đặt ripgrep
-  home.packages = with pkgs; [
-    ripgrep
-  ];
-
-  # Tạo file cấu hình ripgrep
   xdg.configFile."qt5ct/qt5ct.conf".text = ''
     [Appearance]
     color_scheme_path=/usr/share/qt5ct/colors/darker.conf

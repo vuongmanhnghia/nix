@@ -1,19 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  # === GLOBAL GIT CONFIGURATION ===
   programs.git = {
-    enable = true;  # Enable Git version control system
+    enable = true;
     
-    # === GIT BEHAVIOR SETTINGS ===
     settings = {
-      init.defaultBranch = "main";  # Use 'main' as default branch name (modern standard)
-      push.default = "simple";      # Push only current branch to upstream
-      pull.rebase = false;          # Use merge strategy for pulls (safer than rebase)
-      core.editor = "nvim";         # Set Neovim as default Git editor
+      init.defaultBranch = "main";
+      push.default = "simple";
+      pull.rebase = false;
+      core.editor = "nvim";
       core.pager = "delta";
       
-      # === DELTA CONFIGURATION ===
       interactive.diffFilter = "delta --color-only";
       
       delta = {

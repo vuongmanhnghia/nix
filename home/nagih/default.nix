@@ -24,6 +24,7 @@
     ../../modules/home-manager/features/fastfetch
     ../../modules/home-manager/features/ripgrep
     ../../modules/home-manager/features/starship
+    ../../modules/home-manager/features/cava
     
     # GUI
     ../../modules/home-manager/gui/cursor
@@ -93,6 +94,11 @@
   };
 
   home.sessionVariables = {
+    # Editor
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+
+    # Directories
     DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
     DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
     NIX_CONFIG = "${hostVars.nix_config}";

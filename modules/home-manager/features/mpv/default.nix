@@ -1,5 +1,3 @@
-# 🎬 MPV VIDEO PLAYER CONFIGURATION
-# Modern video player with hardware acceleration
 { config, pkgs, ... }:
 
 {
@@ -7,7 +5,6 @@
     enable = true;
     
     config = {
-      # Keep video window open after playback ends
       keep-open = "yes";
       
       # Hardware acceleration (adjust based on your GPU)

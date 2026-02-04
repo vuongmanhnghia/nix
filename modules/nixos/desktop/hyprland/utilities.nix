@@ -16,7 +16,6 @@
     
     # === VISUAL AND AUDIO ===
     swww              # Wallpaper daemon
-    cava              # Audio visualizer
     brightnessctl     # Brightness control
     pavucontrol       # PulseAudio volume control
     pamixer           # PulseAudio mixer
@@ -27,15 +26,10 @@
     networkmanagerapplet     # Network manager applet
     blueman                  # Bluetooth manager
     wlogout                  # Logout menu
-    fuzzel                   # Application launcher
     wdisplays                # Display configuration
     
     # === MULTIMEDIA ===
-    mpv               # Video player
     cheese            # Webcam utility
-    
-    # === SYSTEM INFO ===
-    fastfetch         # System information tool
     
     # === ADDITIONAL TOOLS ===
     tesseract            # OCR tool

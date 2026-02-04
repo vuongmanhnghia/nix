@@ -89,8 +89,8 @@ in
 
     [templates.cava]
     input_path = '${templatePath}/cava.config'
-    output_path = '${generatedPath}/cava.config'
-    # Uncomment if needed: post_hook = "pkill -SIGUSR2 cava 2>/dev/null || true"
+    output_path = '~/.config/cava/config'
+    post_hook = "pkill -SIGUSR2 cava 2>/dev/null || true"
     
     # Quickshell colors - generate directly to quickshell state directory
     [templates.quickshell_colors]

@@ -1,13 +1,6 @@
-# 🗂️ NEMO FILE MANAGER CONFIGURATION
-# Nemo (Cinnamon File Manager) settings for NixOS
 { config, pkgs, ... }:
 
-{
-  # === NEMO CONFIGURATION ===
-  # Nemo is already installed in desktop/hyprland.nix
-  
-  # === XDG MIME ASSOCIATIONS ===
-  # Set Nemo as default file manager for directory/folder types
+{  
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -16,8 +9,6 @@
     };
   };
 
-  # === NEMO DConf SETTINGS ===
-  # Configure Nemo preferences using dconf
   dconf.settings = {
     "org/nemo/preferences" = {
       show-hidden-files = false;

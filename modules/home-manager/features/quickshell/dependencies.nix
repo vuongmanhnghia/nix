@@ -9,7 +9,6 @@
 
     # === KDE ===
     # AUDIO
-    cava
     lxqt.pavucontrol-qt
     libdbusmenu-gtk3
     playerctl
@@ -101,7 +100,6 @@
     matugen                 # Material Design color generation
     swww                    # Wallpaper manager
     imagemagick            # Image manipulation and identification
-    cava                   # Audio visualizer
     
     # === UTILITIES ===
     procps                  # Process utilities (pidof, etc.)
@@ -119,7 +117,6 @@
     rubik                 # Rubik font for Hyprlock
     
     # === WIDGETS & TOOLS ===
-    fuzzel                # Application launcher
     wlogout              # Logout menu
     swappy               # Screenshot editor
     grim                 # Screenshot utility

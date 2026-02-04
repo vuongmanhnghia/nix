@@ -22,12 +22,11 @@
 
   # === FONTS FOR WEZTERM (minimal to avoid conflicts) ===
   home.packages = with pkgs; [
-    # Only the specific font used by WezTerm
-    nerd-fonts.inconsolata     # Match the font in wezterm.lua - this is the only one needed
+    nerd-fonts.inconsolata
   ];
 
   # === FILE COPYING ===
-  xdg.configFile."wezterm/wezterm.lua".source = ./config/.wezterm.lua;
+  xdg.configFile."wezterm".source = ./config;
 
   # === DESKTOP INTEGRATION ===
   xdg.desktopEntries."wezterm-here" = {

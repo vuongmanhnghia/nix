@@ -38,12 +38,34 @@
     
     fontconfig = {
       enable = true;
+      antialias = true;
+      hinting = {
+        enable = true;
+        autohint = true;
+        style = "full";
+      };
+
+      subpixel = {
+        rgba = "rgb";
+        lcdfilter = "default";
+      };
+
       defaultFonts = {
         serif = [ "Adwaita Serif" "Roboto Serif" "Noto Serif" ];
         sansSerif = [ "Inter" "Roboto" "Open Sans" "Noto Sans" ];
-        monospace = [ "JetBrains Mono Nerd Font" "Source Code Pro" ];
+        monospace = [ "JetBrainsMono Nerd Font" "FiraCode Nerd Font" "Source Code Pro" ];
         emoji = [ "Noto Color Emoji" ];
       };
+
+      localConf = ''
+        <alias>
+          <family>monospace</family>
+          <prefer>
+            <family>JetBrainsMono Nerd Font</family>
+            <family>Noto Color Emoji</family>
+          </prefer>
+        </alias>
+      '';
     };
   };
 
