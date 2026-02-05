@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 
 
-{ config, pkgs, ... }:
+{ config, pkgs, end-4-dots, ... }:
 
 {
   wayland.windowManager.hyprland = {
@@ -18,4 +18,6 @@
   imports = [
     ./modules
   ];
+
+  xdg.configFile."hypr/hyprland/scripts".source = "${end-4-dots}/dots/.config/hypr/hyprland/scripts";
 }
