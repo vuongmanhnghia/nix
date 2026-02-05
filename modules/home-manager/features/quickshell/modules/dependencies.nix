@@ -12,10 +12,13 @@
     libdbusmenu-gtk3                    # DBus menu for KDE
 
     # === KDE ===
-    kdePackages.qt5compat               # Qt5 compatibility layer
+    kdePackages.qtwayland               # Wayland support for Qt
+    kdePackages.qtpositioning           # Location and positioning services
+    kdePackages.qtlocation              # Location services
+    kdePackages.kdialog                 # Dialog utility
     kdePackages.syntax-highlighting     # Syntax highlighting
+    kdePackages.qt5compat               # Qt5 compatibility layer
     kdePackages.bluedevil               # Bluetooth management
-    gnome-keyring                       # Keyring management
     kdePackages.plasma-nm               # NetworkManager integration
     kdePackages.polkit-kde-agent-1      # Polkit agent
     kdePackages.systemsettings          # System settings
@@ -24,14 +27,17 @@
     libsForQt5.kirigami2                # Kirigami2 for Qt5 compatibility
     
     # === QT6 FRAMEWORK ===
-    # qt6.full                    # Complete Qt6 suite
+    qt6.qtbase
     qt6.qtwayland              # Wayland support for Qt6
+    qt6.qt5compat              # Qt5 compatibility layer
     qt6.qtdeclarative          # QML runtime and compiler
     qt6.qtsvg                  # SVG support
     qt6.qtimageformats         # Additional image format support
     qt6.qtmultimedia           # Multimedia support for media controls
     qt6.qtnetworkauth          # Network authentication (for AI services)
     qt6.qtpositioning          # Location and positioning services
+    qt6.qtquicktimeline        # QML timeline support
+    qt6.qtvirtualkeyboard      # Virtual keyboard support
     qt6.qttools                # Qt development tools (includes qmllint)
     
     # === INPUT AUTOMATION ===

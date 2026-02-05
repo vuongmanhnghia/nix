@@ -1,4 +1,3 @@
-# home/shared/ripgrep.nix - Home Manager configuration for ripgrep
 { config, pkgs, ... }:
 
 {
