@@ -19,6 +19,9 @@
     kdePackages.plasma-nm               # NetworkManager integration
     kdePackages.polkit-kde-agent-1      # Polkit agent
     kdePackages.systemsettings          # System settings
+    kdePackages.kirigami                # Kirigami framework for QML
+    kdePackages.kirigami-addons         # Additional Kirigami components
+    libsForQt5.kirigami2                # Kirigami2 for Qt5 compatibility
     
     # === QT6 FRAMEWORK ===
     # qt6.full                    # Complete Qt6 suite

@@ -12,11 +12,12 @@
     
     # === CLIPBOARD AND NOTIFICATIONS ===
     cliphist                    # Clipboard manager
-    swaynotificationcenter      # Notification daemon
+    # swaynotificationcenter disabled - quickshell handles notifications
     
     # === VISUAL AND AUDIO ===
     swww              # Wallpaper daemon
     brightnessctl     # Brightness control
+    ddcutil           # DDC/CI monitor control
     pavucontrol       # PulseAudio volume control
     pamixer           # PulseAudio mixer
     lxqt.pavucontrol-qt  # Qt-based volume control

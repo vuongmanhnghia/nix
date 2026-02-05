@@ -21,7 +21,7 @@
     };
 
     end-4-dots = {
-      url = "github:end-4/dots-hyprland";
+      url = "git+https://github.com/end-4/dots-hyprland?submodules=1";
       flake = false;
     };
   };

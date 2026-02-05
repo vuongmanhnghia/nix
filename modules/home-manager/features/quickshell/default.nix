@@ -1,5 +1,199 @@
 { config, pkgs, quickshell, hostVars, end-4-dots, ... }:
 
+let
+  # Create custom quickshell config that merges GitHub repo with qmldir overlays
+  quickshellConfig = pkgs.runCommand "quickshell-config" {} ''
+    # Copy base config from GitHub repo
+    cp -r ${end-4-dots}/dots/.config/quickshell $out
+    chmod -R u+w $out
+    
+    # Create symlink qs -> . inside ii to allow resolving qs.* modules
+    # This makes 'qs' available within the configuration root
+    ln -s . $out/ii/qs
+    
+    # Overlay qmldir files for module resolution
+
+    cat > $out/ii/modules/qmldir << 'EOF'
+module qs.modules
+
+# Common modules
+common 1.0 common/
+crosshair 1.0 crosshair/
+
+# II-specific modules  
+ii.background 1.0 background/
+ii.bar 1.0 bar/
+ii.cheatsheet 1.0 cheatsheet/
+ii.dock 1.0 dock/
+ii.lock 1.0 lock/
+ii.mediaControls 1.0 mediaControls/
+ii.notificationPopup 1.0 notificationPopup/
+ii.onScreenDisplay 1.0 onScreenDisplay/
+ii.onScreenKeyboard 1.0 onScreenKeyboard/
+ii.overlay 1.0 overlay/
+ii.overview 1.0 overview/
+ii.polkit 1.0 polkit/
+ii.regionSelector 1.0 regionSelector/
+ii.screenCorners 1.0 screenCorners/
+ii.sessionScreen 1.0 sessionScreen/
+ii.sidebarLeft 1.0 sidebarLeft/
+ii.sidebarRight 1.0 sidebarRight/
+ii.verticalBar 1.0 verticalBar/
+ii.wallpaperSelector 1.0 wallpaperSelector/
+EOF
+
+    cat > $out/ii/services/qmldir << 'EOF'
+module qs.services
+
+# Singleton services (files with pragma Singleton)
+singleton Ai 1.0 Ai.qml
+singleton AppSearch 1.0 AppSearch.qml
+singleton Audio 1.0 Audio.qml
+singleton Battery 1.0 Battery.qml
+singleton BluetoothStatus 1.0 BluetoothStatus.qml
+singleton Booru 1.0 Booru.qml
+singleton Brightness 1.0 Brightness.qml
+singleton Cliphist 1.0 Cliphist.qml
+singleton ConflictKiller 1.0 ConflictKiller.qml
+singleton DateTime 1.0 DateTime.qml
+singleton EasyEffects 1.0 EasyEffects.qml
+singleton Emojis 1.0 Emojis.qml
+singleton FirstRunExperience 1.0 FirstRunExperience.qml
+singleton GlobalFocusGrab 1.0 GlobalFocusGrab.qml
+singleton HyprlandData 1.0 HyprlandData.qml
+singleton HyprlandKeybinds 1.0 HyprlandKeybinds.qml
+singleton HyprlandXkb 1.0 HyprlandXkb.qml
+singleton Hyprsunset 1.0 Hyprsunset.qml
+singleton Idle 1.0 Idle.qml
+singleton KeyringStorage 1.0 KeyringStorage.qml
+singleton LatexRenderer 1.0 LatexRenderer.qml
+singleton LauncherApps 1.0 LauncherApps.qml
+singleton LauncherSearch 1.0 LauncherSearch.qml
+singleton MaterialThemeLoader 1.0 MaterialThemeLoader.qml
+singleton MprisController 1.0 MprisController.qml
+singleton Network 1.0 Network.qml
+singleton Notifications 1.0 Notifications.qml
+singleton PolkitService 1.0 PolkitService.qml
+singleton Privacy 1.0 Privacy.qml
+singleton ResourceUsage 1.0 ResourceUsage.qml
+singleton SessionWarnings 1.0 SessionWarnings.qml
+singleton SettingsLauncher 1.0 SettingsLauncher.qml
+singleton SongRec 1.0 SongRec.qml
+singleton SystemInfo 1.0 SystemInfo.qml
+singleton TaskbarApps 1.0 TaskbarApps.qml
+singleton TimerService 1.0 TimerService.qml
+singleton Todo 1.0 Todo.qml
+singleton Translation 1.0 Translation.qml
+singleton TrayService 1.0 TrayService.qml
+singleton Updates 1.0 Updates.qml
+singleton Wallpapers 1.0 Wallpapers.qml
+singleton Weather 1.0 Weather.qml
+singleton Ydotool 1.0 Ydotool.qml
+
+# Non-singleton types
+BooruResponseData 1.0 BooruResponseData.qml
+EOF
+
+    # Create qmldir for shapes subdirectory if it exists
+    if [ -d "$out/ii/modules/common/widgets/shapes" ]; then
+      cat > $out/ii/modules/common/widgets/shapes/qmldir << 'EOF'
+module qs.modules.common.widgets.shapes
+ShapeCanvas 1.0 ShapeCanvas.qml
+
+# Subdirectories
+geometry 1.0 geometry/
+graphics 1.0 graphics/
+shapes 1.0 shapes/
+EOF
+    fi
+
+    # Create SettingsLauncher singleton to fix QS_CONFIG_NAME conflict
+    cat > $out/ii/services/SettingsLauncher.qml << 'LAUNCHEREOF'
+pragma Singleton
+import QtQuick
+import Quickshell
+
+Singleton {
+    function open() {
+        // Use wrapper script that unsets QS_CONFIG_NAME before launching
+        Quickshell.execDetached(["bash", "-c", "exec ~/.local/bin/qs-settings"]);
+    }
+}
+LAUNCHEREOF
+
+    # Patch files that open settings to use SettingsLauncher
+    # SidebarRightContent.qml
+    if [ -f "$out/ii/modules/ii/sidebarRight/SidebarRightContent.qml" ]; then
+      sed -i 's|Quickshell\.execDetached(\["qs", "-p", root\.settingsQmlPath\]);|SettingsLauncher.open();|g' \
+        "$out/ii/modules/ii/sidebarRight/SidebarRightContent.qml"
+    fi
+
+    # Patch shell.qml to disable WaffleFamily (missing Kirigami in Qt6)
+    cat > $out/ii/shell.qml << 'SHELLEOF'
+//@ pragma UseQApplication
+//@ pragma Env QS_NO_RELOAD_POPUP=1
+//@ pragma Env QT_QUICK_CONTROLS_STYLE=Basic
+//@ pragma Env QT_QUICK_FLICKABLE_WHEEL_DECELERATION=10000
+
+// Remove two slashes below and adjust the value to change the UI scale
+////@ pragma Env QT_SCALE_FACTOR=1
+
+import "modules/common"
+import "services"
+import "panelFamilies"
+
+import QtQuick
+import QtQuick.Window
+import Quickshell
+import Quickshell.Io
+import Quickshell.Hyprland
+
+ShellRoot {
+    id: root
+
+    // Global helper function to open settings (fixes QS_CONFIG_NAME conflict)
+    function openSettings() {
+        Quickshell.execDetached(["bash", "-c", "~/.local/bin/qs-settings"]);
+    }
+
+    // Stuff for every panel family
+    ReloadPopup {}
+
+    Component.onCompleted: {
+        MaterialThemeLoader.reapplyTheme()
+        Hyprsunset.load()
+        FirstRunExperience.load()
+        ConflictKiller.load()
+        Cliphist.refresh()
+        Wallpapers.load()
+        Updates.load()
+    }
+
+
+    // Panel families - Only load IllogicalImpulseFamily (WaffleFamily disabled due to missing Kirigami)
+    property list<string> families: ["ii"]
+    function cyclePanelFamily() {
+        // Only one family available
+        Config.options.panelFamily = "ii"
+    }
+
+    component PanelFamilyLoader: LazyLoader {
+        required property string identifier
+        property bool extraCondition: true
+        active: Config.ready && Config.options.panelFamily === identifier && extraCondition
+    }
+    
+    PanelFamilyLoader {
+        identifier: "ii"
+        component: IllogicalImpulseFamily {}
+    }
+
+    // WaffleFamily disabled: requires org.kde.kirigami which is not available in Qt6
+}
+SHELLEOF
+  '';
+in
+
 {
 
   imports = [
@@ -7,7 +201,8 @@
     ./modules/services.nix
   ];
 
-  xdg.configFile."quickshell".source = "${end-4-dots}/dots/.config/quickshell";
+  # Copy merged quickshell config (GitHub repo + qmldir overlays + shell.qml patch)
+  xdg.configFile."quickshell".source = quickshellConfig;
 
   # === ENVIRONMENT VARIABLES ===
   home.sessionVariables = {
@@ -19,11 +214,14 @@
     QT_QUICK_FLICKABLE_WHEEL_DECELERATION = "10000";
     
     # QuickShell specific
-    QS_CONFIG = "ii";
+    QS_CONFIG_NAME = "ii";
     QS_NO_RELOAD_POPUP = "1";
     
-    # Python path for scripts - use python3.12 for NixOS 24.11
-    PYTHONPATH = "${pkgs.python3Packages.pywayland}/lib/python3.12/site-packages:${pkgs.python3Packages.setproctitle}/lib/python3.12/site-packages:${pkgs.python3Packages.pillow}/lib/python3.12/site-packages:${pkgs.python3Packages.numpy}/lib/python3.12/site-packages:${pkgs.python3Packages.requests}/lib/python3.12/site-packages";
+    # QML import paths for KDE modules
+    QML2_IMPORT_PATH = "${pkgs.kdePackages.kirigami}/${pkgs.kdePackages.qtbase.qtQmlPrefix}";
+    
+    # Python path for scripts - dynamically use the correct Python version
+    PYTHONPATH = "${pkgs.python3Packages.pywayland}/${pkgs.python3.sitePackages}:${pkgs.python3Packages.setproctitle}/${pkgs.python3.sitePackages}:${pkgs.python3Packages.pillow}/${pkgs.python3.sitePackages}:${pkgs.python3Packages.numpy}/${pkgs.python3.sitePackages}:${pkgs.python3Packages.requests}/${pkgs.python3.sitePackages}";
     
     # Virtual environment path
     ILLOGICAL_IMPULSE_VIRTUAL_ENV = "${config.home.homeDirectory}/.local/state/quickshell/.venv";
@@ -39,6 +237,17 @@
       $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/Pictures/Screenshots
       $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/matugen/templates/kde
       $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/state/quickshell/user/generated
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/illogical-impulse/translations
+      
+      # Create default translation file
+      if [ ! -f "${config.home.homeDirectory}/.config/illogical-impulse/translations/en_US.json" ]; then
+        cat > ${config.home.homeDirectory}/.config/illogical-impulse/translations/en_US.json << 'TRANEOF'
+{
+  "language": "English (US)",
+  "translations": {}
+}
+TRANEOF
+      fi
       
       # Create Python virtual environment if it doesn't exist
       if [ ! -d "${config.home.homeDirectory}/.local/state/quickshell/.venv" ]; then
@@ -50,6 +259,16 @@
       $DRY_RUN_CMD touch ${config.home.homeDirectory}/.config/hypr/custom/scripts/__restore_video_wallpaper.sh
       $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.config/hypr/custom/scripts/__restore_video_wallpaper.sh
       
+      # Create settings wrapper script to unset QS_CONFIG_NAME
+      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/bin
+      cat > ${config.home.homeDirectory}/.local/bin/qs-settings << 'SETTINGSEOF'
+#!/usr/bin/env bash
+# Wrapper script to launch quickshell settings
+# Unsets QS_CONFIG_NAME to avoid conflict with --path
+env -u QS_CONFIG_NAME quickshell --path ~/.config/quickshell/ii/settings.qml "$@"
+SETTINGSEOF
+      $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.local/bin/qs-settings
+      
       # Create basic KDE wrapper script
       $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.config/matugen/templates/kde
       cat > ${config.home.homeDirectory}/.config/matugen/templates/kde/kde-material-you-colors-wrapper.sh << 'EOF'
@@ -59,16 +278,9 @@ echo "KDE theming not fully implemented yet"
 EOF
       $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.config/matugen/templates/kde/kde-material-you-colors-wrapper.sh
 
-      # Create AI service start script in a writable location
-      $DRY_RUN_CMD mkdir -p ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai
-      if [ ! -f "${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/start_ai_service.sh" ]; then
-        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/quickshell/ii/scripts/ai/start_ai_service.sh ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/
-        $DRY_RUN_CMD chmod +x ${config.home.homeDirectory}/.local/state/quickshell/scripts/ai/start_ai_service.sh
-      fi
-
       # Create default wallpaper if it doesn't exist
       if [ ! -f "${config.home.homeDirectory}/Pictures/Wallpapers/default.png" ]; then
-        $DRY_RUN_CMD cp -f ${config.home.homeDirectory}/Workspaces/config/nixos/dotfiles/quickshell/ii/assets/images/default_wallpaper.png ${config.home.homeDirectory}/Pictures/Wallpapers/default.png
+        $DRY_RUN_CMD cp -f ${end-4-dots}/dots/.config/quickshell/ii/assets/images/default_wallpaper.png ${config.home.homeDirectory}/Pictures/Wallpapers/default.png
       fi
     '';
   };

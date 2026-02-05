@@ -1,0 +1,26 @@
+module qs.modules
+
+# Common modules
+common 1.0 common/
+crosshair 1.0 crosshair/
+
+# II-specific modules  
+ii.background 1.0 background/
+ii.bar 1.0 bar/
+ii.cheatsheet 1.0 cheatsheet/
+ii.dock 1.0 dock/
+ii.lock 1.0 lock/
+ii.mediaControls 1.0 mediaControls/
+ii.notificationPopup 1.0 notificationPopup/
+ii.onScreenDisplay 1.0 onScreenDisplay/
+ii.onScreenKeyboard 1.0 onScreenKeyboard/
+ii.overlay 1.0 overlay/
+ii.overview 1.0 overview/
+ii.polkit 1.0 polkit/
+ii.regionSelector 1.0 regionSelector/
+ii.screenCorners 1.0 screenCorners/
+ii.sessionScreen 1.0 sessionScreen/
+ii.sidebarLeft 1.0 sidebarLeft/
+ii.sidebarRight 1.0 sidebarRight/
+ii.verticalBar 1.0 verticalBar/
+ii.wallpaperSelector 1.0 wallpaperSelector/
