@@ -11,6 +11,8 @@ _A modern, rice-focused NixOS configuration featuring Hyprland compositor with a
 
 [Features](#-features) • [Screenshots](#-screenshots) • [Installation](#-installation) • [Configuration](#%EF%B8%8F-configuration) • [Usage](#-usage)
 
+My Quickshell configuration is dynamically sourced from end-4/dots-hyprland via Nix Flakes.
+
 ⭐ Please **Star** the repository
 
 </div>
@@ -36,11 +38,11 @@ _A modern, rice-focused NixOS configuration featuring Hyprland compositor with a
 
 This is a comprehensive NixOS configuration built around the **Hyprland** wayland compositor, designed for developers and enthusiasts who want a beautiful, functional, and reproducible desktop environment. The configuration emphasizes:
 
--   **Dynamic theming** with automatic color generation from wallpapers
--   **Performance** optimized for development workflows
--   **Modularity** with clean, organized code structure
--   **Beautiful aesthetics** with modern UI components
--   **Developer experience** with pre-configured tools and workflows
+- **Dynamic theming** with automatic color generation from wallpapers
+- **Performance** optimized for development workflows
+- **Modularity** with clean, organized code structure
+- **Beautiful aesthetics** with modern UI components
+- **Developer experience** with pre-configured tools and workflows
 
 ## Features
 
@@ -49,46 +51,46 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 
 ### 🖥️ **Desktop Environment**
 
--   **Hyprland** - Modern wayland compositor with smooth animations
--   **Waybar** - Highly customizable status bar with system monitoring
--   **Rofi** - Application launcher and window switcher
--   **SwayNC** - Notification center with custom styling
--   **Wlogout** - Beautiful logout menu
+- **Hyprland** - Modern wayland compositor with smooth animations
+- **Waybar** - Highly customizable status bar with system monitoring
+- **Rofi** - Application launcher and window switcher
+- **SwayNC** - Notification center with custom styling
+- **Wlogout** - Beautiful logout menu
 
 ### 🎨 **Dynamic Theming System**
 
--   **Matugen** - Automatic color palette generation from wallpapers
--   **Live color updates** across all applications
--   **40+ wallpapers** included in the collection
--   **Auto wallpaper rotation** with configurable intervals
--   **Consistent theming** for GTK, Qt, and terminal applications
+- **Matugen** - Automatic color palette generation from wallpapers
+- **Live color updates** across all applications
+- **40+ wallpapers** included in the collection
+- **Auto wallpaper rotation** with configurable intervals
+- **Consistent theming** for GTK, Qt, and terminal applications
 
 ### 🔧 **Development Environment**
 
--   **Pre-configured IDEs**: Neovim, VS Code, Cursor
--   **Multiple languages**: Python, Go, JavaScript/Node.js, C/C++
--   **Docker & containerization** support
--   **Git with Delta** for enhanced diff viewing
--   **Modern CLI tools**: ripgrep, fd, bat, eza, fzf
--   **Terminal multiplexing** with tmux
+- **Pre-configured IDEs**: Neovim, VS Code, Cursor
+- **Multiple languages**: Python, Go, JavaScript/Node.js, C/C++
+- **Docker & containerization** support
+- **Git with Delta** for enhanced diff viewing
+- **Modern CLI tools**: ripgrep, fd, bat, eza, fzf
+- **Terminal multiplexing** with tmux
 
 ### 📱 **Applications & Tools**
 
--   **Browsers**: Firefox with optimizations
--   **Media**: VLC, OBS Studio for streaming
--   **Productivity**: LibreOffice, Obsidian
--   **Gaming**: Steam with Proton support
--   **Communication**: Discord, Zoom
--   **Vietnamese input**: fcitx5 with unikey
+- **Browsers**: Firefox with optimizations
+- **Media**: VLC, OBS Studio for streaming
+- **Productivity**: LibreOffice, Obsidian
+- **Gaming**: Steam with Proton support
+- **Communication**: Discord, Zoom
+- **Vietnamese input**: fcitx5 with unikey
 
 ### 🔒 **System Features**
 
--   **NVIDIA drivers** with Wayland support
--   **Audio system**: PipeWire with low-latency configuration
--   **Security**: Firewall, SSH hardening, PolicyKit
--   **Network**: NetworkManager, Tailscale VPN
--   **File sync**: Syncthing for cross-device synchronization
--   **Automatic cleanup** and garbage collection
+- **NVIDIA drivers** with Wayland support
+- **Audio system**: PipeWire with low-latency configuration
+- **Security**: Firewall, SSH hardening, PolicyKit
+- **Network**: NetworkManager, Tailscale VPN
+- **File sync**: Syncthing for cross-device synchronization
+- **Automatic cleanup** and garbage collection
 
 <!-- ## 📸 Screenshots
 
@@ -99,21 +101,21 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 
 ### Desktop Overview
 
--   Clean Hyprland desktop with Waybar
--   Dynamic color theming in action
--   Application launcher (Rofi)
+- Clean Hyprland desktop with Waybar
+- Dynamic color theming in action
+- Application launcher (Rofi)
 
 ### Development Environment
 
--   Neovim with LSP configuration
--   Terminal setup with modern tools
--   Multi-monitor workspace setup
+- Neovim with LSP configuration
+- Terminal setup with modern tools
+- Multi-monitor workspace setup
 
 ### Media & Entertainment
 
--   Music visualization with Cava
--   Gaming setup with Steam
--   Media consumption setup
+- Music visualization with Cava
+- Gaming setup with Steam
+- Media consumption setup
 
 </details>
 
@@ -121,12 +123,12 @@ This is a comprehensive NixOS configuration built around the **Hyprland** waylan
 
 ### Prerequisites
 
--   **NixOS 25.05** or later
--   **UEFI system** with secure boot support
--   **NVIDIA GPU** (optional, but configurations are optimized for it)
--   **Internet connection** for flake inputs and package downloads
--   **At least 8GB RAM** recommended
--   **20GB+ free disk space** for system and packages
+- **NixOS 25.05** or later
+- **UEFI system** with secure boot support
+- **NVIDIA GPU** (optional, but configurations are optimized for it)
+- **Internet connection** for flake inputs and package downloads
+- **At least 8GB RAM** recommended
+- **20GB+ free disk space** for system and packages
 
 ### Getting nix config
 
@@ -262,28 +264,28 @@ This configuration includes **hardware volume monitoring** for accurate display 
 
 **Services:**
 
--   `dotfiles/quickshell/ii/services/HardwareAudio.qml` - Hardware volume monitoring service
--   `dotfiles/quickshell/ii/services/Audio.qml` - Enhanced audio service with hardware volume
--   `dotfiles/quickshell/ii/services/qmldir` - Service registry
+- `dotfiles/quickshell/ii/services/HardwareAudio.qml` - Hardware volume monitoring service
+- `dotfiles/quickshell/ii/services/Audio.qml` - Enhanced audio service with hardware volume
+- `dotfiles/quickshell/ii/services/qmldir` - Service registry
 
 **UI Components:**
 
--   `dotfiles/quickshell/ii/modules/onScreenDisplay/indicators/VolumeIndicator.qml` - OSD volume display
--   `dotfiles/quickshell/ii/modules/onScreenDisplay/OnScreenDisplay.qml` - Volume change detection
--   `dotfiles/quickshell/ii/modules/bar/BarContent.qml` - Panel volume/mute indicators
--   `dotfiles/quickshell/ii/modules/verticalBar/VerticalBarContent.qml` - Vertical bar indicators
--   `dotfiles/quickshell/ii/modules/sidebarRight/volumeMixer/VolumeMixer.qml` - Input device selector fix
+- `dotfiles/quickshell/ii/modules/onScreenDisplay/indicators/VolumeIndicator.qml` - OSD volume display
+- `dotfiles/quickshell/ii/modules/onScreenDisplay/OnScreenDisplay.qml` - Volume change detection
+- `dotfiles/quickshell/ii/modules/bar/BarContent.qml` - Panel volume/mute indicators
+- `dotfiles/quickshell/ii/modules/verticalBar/VerticalBarContent.qml` - Vertical bar indicators
+- `dotfiles/quickshell/ii/modules/sidebarRight/volumeMixer/VolumeMixer.qml` - Input device selector fix
 
 **Scripts:**
 
--   `home/shared/hypr/scripts/volume.sh` - Unified volume control (speakers + mic)
--   `home/shared/hypr/scripts/get-hardware-volume.sh` - Hardware volume monitoring
+- `home/shared/hypr/scripts/volume.sh` - Unified volume control (speakers + mic)
+- `home/shared/hypr/scripts/get-hardware-volume.sh` - Hardware volume monitoring
 
 **Configuration:**
 
--   `home/shared/easyeffects.nix` - EasyEffects service configuration
--   `home/shared/hypr/modules/keybinding.nix` - Audio keybindings
--   `desktop/audio.nix` - System audio with plugins
+- `home/shared/easyeffects.nix` - EasyEffects service configuration
+- `home/shared/hypr/modules/keybinding.nix` - Audio keybindings
+- `desktop/audio.nix` - System audio with plugins
 
 #### Features:
 

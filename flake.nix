@@ -19,9 +19,14 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    end-4-dots = {
+      url = "github:end-4/dots-hyprland";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, end-4-dots, ... }@inputs:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
@@ -37,7 +42,7 @@
             config.allowUnfree = true;
           };
 
-          specialArgs = { inherit inputs quickshell unstable hostVars; };
+          specialArgs = { inherit inputs quickshell unstable hostVars end-4-dots; };
         in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -45,7 +50,7 @@
           modules = [
             ./hosts/${hostName}
             agenix.nixosModules.default
-
+            
             home-manager.nixosModules.home-manager
             {
               home-manager = {

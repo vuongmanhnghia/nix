@@ -1,4 +1,4 @@
-{ config, pkgs, quickshell, hostVars, ... }:
+{ config, pkgs, quickshell, hostVars, end-4-dots, ... }:
 
 {
 
@@ -7,7 +7,7 @@
     ./modules/services.nix
   ];
 
-  xdg.configFile."quickshell".source = ./config;
+  xdg.configFile."quickshell".source = "${end-4-dots}/dots/.config/quickshell";
 
   # === ENVIRONMENT VARIABLES ===
   home.sessionVariables = {
