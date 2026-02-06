@@ -2,19 +2,15 @@
 
 {
   imports = [
-    ./animation.nix
-    ./appearance.nix
+    ./general.nix
     ./autostart.nix
     ./colors.nix
     ./environment.nix
     ./input.nix
     ./keybinding.nix
-    ./layout.nix
-    ./misc.nix
     ./programs.nix
     ./tags.nix
     ./windowrule.nix
     ./workspaces.nix
-    ./plugin.nix
   ];
 }

@@ -1,14 +1,6 @@
-{ config, lib, pkgs, end-4-dots, ... }:
+{ config, lib, pkgs, ... }:
 
-let
-  rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprland/colors.conf";
-in
 {
-  # wayland.windowManager.hyprland = {
-  #   extraConfig = ''
-  #     ${rawConfig}
-  #   '';
-  # };
   wayland.windowManager.hyprland.settings = {
     "$background" = "rgba(0e1416ff)";
     "$error" = "rgba(ffb4abff)";
