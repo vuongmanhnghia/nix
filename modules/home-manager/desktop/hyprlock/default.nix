@@ -1,112 +1,31 @@
-{ config, lib, pkgs, hostVars, ... }:
+{ config, lib, pkgs, hostVars, end-4-dots, ... }:
 
+let
+  rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprlock.conf";
+
+  finalConfig = builtins.replaceStrings
+    [ 
+      "\${XDG_CONFIG_HOME:-$HOME/.config}"
+      "color = rgba(181818FF)"
+    ]
+    [ 
+      "${end-4-dots}/dots/.config"
+      "path = $background_image\ncolor = rgba(181818FF)\nblur_passes = 2\nblur_size = 3\nnoise = 0.01\ncontrast = 0.8\nbrightness = 0.8\nvibrancy = 0.1\nvibrancy_darkness = 0.0"
+    ]
+  rawConfig;
+in
 {
   programs.hyprlock = {
     enable = true;
+
+    extraConfig = ''
+      ${finalConfig}
+    '';
+
     settings = {
-      source = "~/.config/hypr/hyprlock/colors.conf";
-
-      general = {
-        grace = 1;
-        fractional_scaling = 2;
-        immediate_render = true;
-      };
-
       background = [
         {
           path = "$background_image";
-          color = "rgba(181818FF)"; # color will be rendered initially until path is available
-          blur_passes = 2;
-          blur_size = 3;
-          noise = 0.01;
-          contrast = 0.8;
-          brightness = 0.8;
-          vibrancy = 0.1;
-          vibrancy_darkness = 0.0;
-        }
-      ];
-
-      input-field = [
-        {
-          monitor = "";
-          size = "250, 50";
-          outline_thickness = 2;
-
-          dots_size = 0.1; # Scale of input-field height, 0.2 - 0.8
-          dots_spacing = 0.3; # Scale of dots' absolute size, 0.0 - 1.0
-
-          outer_color = "$entry_border_color";
-          inner_color = "$entry_background_color";
-          font_color = "$entry_color";
-
-          fade_on_empty = true;
-
-          position = "0, 20";
-          halign = "center";
-          valign = "center";
-        }
-      ];
-
-      label = [
-        {
-          monitor = "";
-          text = "$LAYOUT";
-          color = "$text_color";
-          font_size = 14;
-          font_family = "$font_family";
-          position = "-30, 30";
-          halign = "right";
-          valign = "bottom";
-        }
-
-        { # Caps Lock Warning
-          monitor = "";
-          text = "cmd[update:250] ${hostVars.nix_config}/modules/home-manager/desktop/hyprlock/scripts/check-capslock.sh";
-          color = "$text_color";
-          font_size = 13;
-          font_family = "$font_family";
-          position = "0, -25";
-          halign = "center";
-          valign = "center";
-        }
-
-        { # Date
-          monitor = "";
-          text = "cmd[update:5000] date +\"%A, %B %d\"";
-          color = "$text_color";
-          font_size = 17;
-          font_family = "$font_family_clock";
-
-          position = "0, 240";
-          halign = "center";
-          valign = "center";
-        }
-
-        { # User
-          monitor = "";
-          text = "    ${hostVars.user.name}";
-          color = "$text_color";
-          outline_thickness = 2;
-          dots_size = 0.2; # Scale of input-field height, 0.2 - 0.8
-          dots_spacing = 0.2; # Scale of dots' absolute size, 0.0 - 1.0
-          dots_center = true;
-          font_size = 20;
-          font_family = "$font_family";
-          position = "0, 50";
-          halign = "center";
-          valign = "bottom";
-        }
-
-        { # Status
-          monitor = "";
-          text = "cmd[update:5000] ${hostVars.nix_config}/modules/home-manager/desktop/hyprlock/scripts/status.sh";
-          color = "$text_color";
-          font_size = 14;
-          font_family = "$font_family";
-
-          position = "30, -30";
-          halign = "left";
-          valign = "top";
         }
       ];
     };
