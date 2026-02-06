@@ -51,7 +51,7 @@
 
     extraConfig = ''
       # Import color scheme
-      include ${hostVars.nix_config}/generated/kitty.conf
+      include ~/.config/kitty/kitty.conf
 
       # Copy
       map ctrl+c    copy_or_interrupt

@@ -7,33 +7,51 @@
 #------------------------------------------------------------------------------------------------
 
 
-{ config, lib, pkgs, hostVars, ... }:
+{ config, lib, pkgs, end-4-dots, ... }: 
 
+let
+  rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprland/env.conf";
 
+  keysToRemove = [
+    "XDG_DATA_DIRS"
+  ];
+  
+  processedEnvFiles = 
+    let
+      lines = lib.splitString "\n" rawConfig;
+
+      isNotBlacklisted = line: 
+        !(lib.any (key: lib.hasInfix key line) keysToRemove);
+
+      processLine = line: 
+        let 
+          trimmed = lib.strings.trim line;
+          cleanLine = lib.removePrefix "env =" (lib.strings.trim trimmed);
+        in 
+          lib.strings.trim cleanLine;
+
+      isValidLine = line: 
+        let trimmed = lib.strings.trim line;
+        in trimmed != "" && !(lib.hasPrefix "#" trimmed) && (isNotBlacklisted trimmed);
+        
+    in
+      map processLine (builtins.filter isValidLine lines);
+in
 {
   wayland.windowManager.hyprland = {
+    enable = true;
     settings = {
       env = [
-        "GDK_SCALE,1"
-        "ELM_SCALE,1"
-        "QT_SCALE_FACTOR,1"
-        
+        "GDK_SCALE, 1"
+        "ELM_SCALE, 1"
+        "QT_SCALE_FACTOR, 1"
+
         # === CURSOR THEME ===
-        "XCURSOR_THEME,apple-cursor"
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_THEME,apple-cursor"
-        "HYPRCURSOR_SIZE,24"
-
-        # ############ Wayland #############
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-
-        # ############ Themes #############
-        "XDG_MENU_PREFIX,plasma-"
-        "QT_QPA_PLATFORMTHEME,qt6ct"
-
-        # ######## Virtual envrionment #########
-        "ILLOGICAL_IMPULSE_VIRTUAL_ENV=${config.home.homeDirectory}/.local/state/quickshell/.venv"
-      ];
+        "XCURSOR_THEME, apple-cursor"
+        "XCURSOR_SIZE, 24"
+        "HYPRCURSOR_THEME, apple-cursor"
+        "HYPRCURSOR_SIZE, 24"
+      ] ++ processedEnvFiles;
     };
   };
 }

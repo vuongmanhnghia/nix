@@ -4,7 +4,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      source = "${hostVars.nix_config}/generated/hyprlock.conf";
+      source = "~/.config/hypr/hyprlock/colors.conf";
 
       general = {
         grace = 1;

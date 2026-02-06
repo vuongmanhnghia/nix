@@ -25,9 +25,8 @@ TRANEOF
     
     # === PYTHON VIRTUAL ENVIRONMENT ===
     if [ ! -d "${config.home.homeDirectory}/.local/state/quickshell/.venv" ]; then
-      $DRY_RUN_CMD ${pkgs.python3}/bin/python -m venv ${config.home.homeDirectory}/.local/state/quickshell/.venv
-      $DRY_RUN_CMD ${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/pip install \
-        Pillow numpy requests materialyoucolor pywayland setproctitle
+      $DRY_RUN_CMD ${pkgs.python3}/bin/python -m venv --system-site-packages ${config.home.homeDirectory}/.local/state/quickshell/.venv
+      $DRY_RUN_CMD ${config.home.homeDirectory}/.local/state/quickshell/.venv/bin/pip install materialyoucolor
     fi
           
     # === HYPRLAND SCRIPTS ===

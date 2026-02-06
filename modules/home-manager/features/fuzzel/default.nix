@@ -6,7 +6,7 @@
   ];
 
   xdg.configFile."fuzzel/fuzzel.ini".text = ''
-    include="${hostVars.nix_config}/generated/fuzzel_theme.ini"
+    include="~/.config/fuzzel/fuzzel_theme.ini"
     font=Gabarito
     terminal=kitty -1
     prompt=">>  "
