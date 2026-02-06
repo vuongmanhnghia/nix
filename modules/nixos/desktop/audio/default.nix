@@ -30,5 +30,6 @@
     alsa-utils
     sof-firmware
     libopus
+    easyeffects
   ];
 } 

@@ -6,8 +6,34 @@
 # ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 #------------------------------------------------------------------------------
 
-{ config, lib, pkgs, hostVars, ... }:
+{ config, lib, pkgs, hostVars, end-4-dots, ... }:
 
+let
+  rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprland/execs.conf";
+
+  keysToRemove = [ ];
+
+  processedEnvFiles = 
+  let
+    lines = lib.splitString "\n" rawConfig;
+
+    isNotBlacklisted = line: 
+      !(lib.any (key: lib.hasInfix key line) keysToRemove);
+
+    processLine = line: 
+      let 
+        trimmed = lib.strings.trim line;
+        cleanLine = lib.removePrefix "exec-once =" (lib.strings.trim trimmed);
+      in 
+        lib.strings.trim cleanLine;
+
+    isValidLine = line: 
+      let trimmed = lib.strings.trim line;
+      in trimmed != "" && !(lib.hasPrefix "#" trimmed) && (isNotBlacklisted trimmed);
+      
+  in
+    map processLine (builtins.filter isValidLine lines);
+in
 {
   wayland.windowManager.hyprland = {    
     settings = {
@@ -15,9 +41,6 @@
         # Set monitors
         "${hostVars.nix_config}/scripts/set_monitors.sh"
         
-        "${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/start_geoclue_agent.sh"
-        "qs -c $qsConfig &" # QuickShell
-
         # Setup fcitx5
         "export GTK_IM_MODULE=fcitx5"
         "export QT_IM_MODULE=fcitx5"
@@ -27,25 +50,11 @@
         "fcitx5"
 
         # Core components (authentication, lock screen, notification daemon)
-        "gnome-keyring-daemon --start --components=secrets"
         "/usr/lib/polkit-kde-authentication-agent-1 || /usr/libexec/polkit-kde-authentication-agent-1  || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 || /usr/libexec/polkit-gnome-authentication-agent-1"
-        "hypridle"
-        "dbus-update-activation-environment --all"
-        "sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP # Some fix idk"
-        "hyprpm reload"
-
-        # Clipboard: history
-        "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store && qs -c $qsConfig ipc call cliphistService update"
-        "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store && qs -c $qsConfig ipc call cliphistService update"
 
         # Set cursor theme
         "hyprctl setcursor macOS 24"
-
-        # Network management
-        "${pkgs.networkmanagerapplet}/bin/nm-applet"
-
-        # "otd-daemon" # Tablet
-      ];
+      ] ++ processedEnvFiles;
     };
   };
 }
