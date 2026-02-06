@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {  
+  home.packages = with pkgs; [
+    nemo-with-extensions
+  ];
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
