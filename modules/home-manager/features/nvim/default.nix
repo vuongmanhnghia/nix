@@ -45,6 +45,9 @@
   home.packages = with pkgs; [
     ranger
     tree-sitter
+    lua51Packages.lua
+    luarocks
+    glow
   ];
 
   programs.tmux = {

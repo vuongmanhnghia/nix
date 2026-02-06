@@ -1,11 +1,66 @@
-{ config, pkgs, inputs, hostVars, lib, ... }:
+{ config, pkgs, hostVars, ... }:
 
 {
-  system.stateVersion = hostVars.nix_version;
-
   imports = [
-    ../../modules/nixos/hardware                   # Hardware configurations (Bluetooth, Boot, Nvidia, etc.)
-    ../../modules/nixos/desktop                    # Desktop environment configurations (Hyprland core, audio, fonts, etc.)
-    ../../modules/nixos/services                   # Services configurations (Cloudflared, Docker, etc.)
+    # === HARDWARE CONFIGURATION ===
+    ../../modules/nixos/hardware/boot               # Bootloader and kernel configuration
+    ../../modules/nixos/hardware/firmware           # Firmware configuration
+    ../../modules/nixos/hardware/bluetooth          # Bluetooth configuration
+
+    # === SERVICES CONFIGURATION ===
+    ../../modules/nixos/services/security           # Security hardening (SSH, sudo, etc.)
+    ../../modules/nixos/services/resolved           # Docker configuration for container management
+    ../../modules/nixos/services/gaming             # Gaming-related services (Lutris, Steam, etc.)
+    ../../modules/nixos/services/git                # Git configuration for version control
+    ../../modules/nixos/services/multimedia         # Multimedia services (audio, video, etc.)
+    ../../modules/nixos/services/tailscale          # Tailscale configuration for secure VPN access
+    ../../modules/nixos/services/cloudflared        # Cloudflared configuration for secure tunneling
+
+    # === DESKTOP CONFIGURATION ===
+    ../../modules/nixos/desktop/hyprland
+    ../../modules/nixos/desktop/graphics
+    ../../modules/nixos/desktop/audio
+    ../../modules/nixos/desktop/display
+    ../../modules/nixos/desktop/fonts
+
+    # === CORE CONFIGURATION ===
+    ../../modules/nixos/core/networking              # Networking configuration
+    ../../modules/nixos/core/virtualization          # Visual enhancements (themes, icons, etc.)
+
+    # === FEATURE CONFIGURATION ===
+    ../../modules/nixos/features/cli                 # CLI tools and utilities
+    ../../modules/nixos/features/locale              # Locale and language settings
+    ../../modules/nixos/features/nix-ld              # Nix LDA configuration
   ];
+
+  # === USER ACCOUNT CONFIGURATION ===
+  config = {
+    system.stateVersion = hostVars.nix_version;
+    programs.zsh.enable = true;
+
+    # === USER ACCOUNT CONFIGURATION ===
+    users.users = {
+      "${hostVars.user.username}" = {
+        isNormalUser = true;
+        description = "${hostVars.user.description}";
+        home = "/home/${hostVars.user.username}";
+        extraGroups = [ 
+          "wheel"           # Enable sudo
+          "networkmanager"  # Manage network connections
+          "audio"           # Access audio devices
+          "realtime"        # Real-time scheduling
+          "video"           # Access video devices  
+          "input"           # Access input devices
+          "storage"         # Access storage devices
+          "optical"         # Access optical drives
+          "scanner"         # Access scanners
+          "systemd-journal" # Read system logs
+          "disk"            # Disk management access
+          "adbusers"        # D-Bus access
+          "plugdev"         # Hotplug devices
+        ];
+        shell = pkgs.zsh;  # Default shell (zsh)
+      };
+    };
+  };
 }

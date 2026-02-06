@@ -11,7 +11,6 @@
     ./keybinding.nix
     ./layout.nix
     ./misc.nix
-    ./monitors.nix
     ./programs.nix
     ./tags.nix
     ./windowrule.nix

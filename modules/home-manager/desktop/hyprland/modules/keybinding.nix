@@ -43,8 +43,8 @@ let
   finalConfigContent = builtins.replaceStrings 
     [ 
       # === Original bindings ===
-      "Super, Super_L, Toggle search"
-      "Super, Super_R, Toggle search"
+      "bindid = Super, Super_L, Toggle search"
+      "bindid = Super, Super_R, Toggle search"
       "movetoworkspacesilent"
 
       # Media and system
@@ -69,8 +69,8 @@ let
     ]
     [ 
       # === Customized bindings ===
-      "$mainMod, Tab, Toggle search"
-      "$mainMod, Tab, Toggle search"
+      "# bindd = $mainMod, Tab, Toggle search"
+      "# bindd = $mainMod, Tab, Toggle search"
       "movetoworkspace"
 
       # Media and system

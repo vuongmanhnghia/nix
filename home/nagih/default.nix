@@ -19,12 +19,18 @@
     ../../modules/home-manager/features/wezterm
     ../../modules/home-manager/features/tmux
     ../../modules/home-manager/features/git
+    ../../modules/home-manager/features/fcitx5
     ../../modules/home-manager/features/mpv
     ../../modules/home-manager/features/nemo
     ../../modules/home-manager/features/fastfetch
     ../../modules/home-manager/features/ripgrep
     ../../modules/home-manager/features/starship
     ../../modules/home-manager/features/cava
+
+    # CLI
+    ../../modules/home-manager/features/cli/nix
+    ../../modules/home-manager/features/cli/utils
+    ../../modules/home-manager/features/cli/devtools
     
     # GUI
     ../../modules/home-manager/gui/cursor
@@ -34,7 +40,21 @@
     ../../modules/home-manager/gui/kvantum
     ../../modules/home-manager/gui/matugen
     ../../modules/home-manager/gui/qt5ct
-    ../../modules/home-manager/gui/qt6ct      
+    ../../modules/home-manager/gui/qt6ct  
+
+    # Development
+    ../../modules/home-manager/development/database
+    ../../modules/home-manager/development/lsp/python
+    ../../modules/home-manager/development/lsp/golang
+    ../../modules/home-manager/development/lsp/cpp
+    ../../modules/home-manager/development/virtualization/machines
+    ../../modules/home-manager/development/virtualization/docker
+    ../../modules/home-manager/development/virtualization/kubernetes
+    ../../modules/home-manager/development/networking
+
+    # Applications
+    ../../modules/home-manager/apps/beekeeper-studio
+    # (pkgs.callPackage ../../modules/home-manager/build/coccoc { })
   ];
 
   programs.direnv = {
@@ -59,7 +79,14 @@
     unstable.telegram-desktop         
     unstable.slack                    
     unstable.obsidian                 
-    unstable.obs-studio               
+    unstable.obs-studio
+    unstable.drawio
+    unstable.teams-for-linux
+    unstable.logseq
+    unstable.rpi-imager
+    unstable.hugo 
+    unstable.ngrok
+    unstable.bruno
     (prismlauncher.override {
       jdks = [
         jdk
@@ -101,7 +128,7 @@
     # Directories
     DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
     DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
-    NIX_CONFIG = "${hostVars.nix_config}";
+    NIX_CONFIG_DIR = "${hostVars.nix_config}";
   };
 
   programs.ssh = {

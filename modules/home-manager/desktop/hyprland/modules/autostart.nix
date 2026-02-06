@@ -12,6 +12,9 @@
   wayland.windowManager.hyprland = {    
     settings = {
       exec-once = [
+        # Set monitors
+        "${hostVars.nix_config}/scripts/set_monitors.sh"
+        
         "${hostVars.nix_config}/modules/home-manager/desktop/hyprland/scripts/start_geoclue_agent.sh"
         "qs -c $qsConfig &" # QuickShell
 

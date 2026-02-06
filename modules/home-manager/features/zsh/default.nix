@@ -67,7 +67,6 @@
       
       # === MODERN CLI REPLACEMENTS ===
       ls = "eza --icons --group-directories-first";    # Better ls with icons
-      cat = "bat --style=numbers,changes,header";       # Syntax highlighted cat
       grep = "rg --color=auto --smart-case";           # Better grep with smart case
       find = "fd --color=auto";                        # Better find
       du = "dust";                                     # Modern disk usage
