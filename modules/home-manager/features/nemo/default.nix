@@ -3,6 +3,8 @@
 {  
   home.packages = with pkgs; [
     nemo-with-extensions
+    ffmpegthumbnailer
+    libgsf
   ];
 
   xdg.mimeApps = {
@@ -27,7 +29,7 @@
     "org/nemo/preferences" = {
       show-hidden-files = false;
       show-image-thumbnails = "always";
-      thumbnail-limit = 10485760; 
+      thumbnail-limit = 104857600; # 100 MB
       quick-renames-with-pause-in-between = true;
       confirm-trash = false;
     };

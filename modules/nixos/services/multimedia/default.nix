@@ -6,4 +6,6 @@
     evince              # PDF viewer
     file-roller         # Archive manager
   ];
+
+  services.tumbler.enable = true;
 }
