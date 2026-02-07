@@ -13,12 +13,23 @@
     };
   };
 
+  xdg.desktopEntries.nemo = {
+    name = "Nemo";
+    genericName = "File Manager";
+    exec = "nemo %U";
+    terminal = false;
+    icon = "${config.home.homeDirectory}/.local/share/icons/custom/nemo.svg";
+    categories = [ "System" "FileTools" "FileManager" ];
+    mimeType = [ "inode/directory" "application/x-gnome-saved-search" ];
+  };
+
   dconf.settings = {
     "org/nemo/preferences" = {
       show-hidden-files = false;
       show-image-thumbnails = "always";
-      thumbnail-limit = 10485760; # 10MB
+      thumbnail-limit = 10485760; 
       quick-renames-with-pause-in-between = true;
+      confirm-trash = false;
     };
 
     "org/nemo/window-state" = {

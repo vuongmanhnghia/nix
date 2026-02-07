@@ -17,14 +17,14 @@
     settings = {
       # ######## Workspace Rules ########
       workspace = [
-        "special:special, gapsout:30"
+        "special:special, gapsout:15"
       ];
 
       # ######## Window Rules V2 ########
       windowrulev2 = [
         # --- Disable Blur ---
         "noblur, class:^$, title:^$"
-        "noblur, class:.*"
+        # "noblur, class:.*"
 
         # --- Floating & Center (General) ---
         "float, title:^(Open File|Select a File|Choose wallpaper|Open Folder|Save As|Library|File Upload|.*wants to save|.*wants to open)$"
@@ -68,6 +68,9 @@
 
         # --- No shadow for tiled windows ---
         "noshadow, floating:0"
+
+        # --- Force Tile for Browsers ---
+        "tile, class:^(brave)$"
       ];
 
       # ######## Layer Rules ########

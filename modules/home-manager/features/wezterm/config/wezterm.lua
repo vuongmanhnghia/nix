@@ -4,7 +4,16 @@ local config = wezterm.config_builder()
 local home = os.getenv("HOME")
 local background_folder = home .. "/Pictures/Wallpapers"
 
-local bg_image = home .. "/Pictures/Wallpapers/random_wallpaper.png"
+local function read_file(path)
+    local file = io.open(path, "r")
+    if not file then return nil end
+    local content = file:read("*l")
+    file:close()
+    return content
+end
+
+local path_file = os.getenv("HOME") .. "/.local/state/quickshell/user/generated/wallpaper/path.txt"
+local bg_image = read_file(path_file)
 local brightness = 0.05
 local opacity = 0.8
 
@@ -16,7 +25,6 @@ local function get_random_bg(folder)
     local images = {}
     if files then
         for _, file in ipairs(files) do
-            -- Chỉ lấy file ảnh
             if file:match("%.png$") or file:match("%.jpg$") or file:match("%.jpeg$") then
                 table.insert(images, file)
             end
@@ -48,7 +56,7 @@ end
 
 config.font = font
 config.font_size = font_size
-config.color_scheme = "Tokyo Night"
+config.color_scheme = "Catppuccin Mocha"
 config.window_decorations = "NONE"
 config.enable_tab_bar = false
 config.window_padding = { left = 15, right = 15, top = 15, bottom = 15 }

@@ -30,6 +30,7 @@
     # === HYPRLAND UTILITIES ===
     hyprpicker
     hyprcursor
+    nwg-look
 
     # === WAYLAND UTILITIES ===
     grim              # Screenshot utility

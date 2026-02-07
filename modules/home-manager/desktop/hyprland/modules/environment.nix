@@ -42,6 +42,7 @@ in
     enable = true;
     settings = {
       env = [
+        "GTK_THEME, catppuccin-mocha-blue-compact"
         "GDK_SCALE, 1"
         "ELM_SCALE, 1"
         "QT_SCALE_FACTOR, 1"
