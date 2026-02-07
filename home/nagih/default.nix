@@ -27,6 +27,7 @@
     ../../modules/home-manager/features/starship
     ../../modules/home-manager/features/cava
     ../../modules/home-manager/features/kitty
+    ../../modules/home-manager/features/qimgv
 
     # CLI
     ../../modules/home-manager/features/cli/nix
