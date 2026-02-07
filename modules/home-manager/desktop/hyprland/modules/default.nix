@@ -9,6 +9,5 @@
     ./keybinding.nix
     ./programs.nix
     ./windowrule.nix
-    ./workspaces.nix
   ];
 }
