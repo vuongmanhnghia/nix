@@ -34,15 +34,16 @@
 
       mkHost = hostName:
         let
+          commonVars = import ./hosts/common/variables.nix;
           hostVars = import ./hosts/${hostName}/variables.nix;
-          system = "${hostVars.isa}-${hostVars.os}";
+          system = "${commonVars.isa}-${commonVars.os}";
 
           unstable = import nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
           };
 
-          specialArgs = { inherit inputs quickshell unstable hostVars end-4-dots; };
+          specialArgs = { inherit inputs quickshell unstable commonVars hostVars end-4-dots; };
         in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;

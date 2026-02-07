@@ -2,6 +2,8 @@
 
 {
   config = {
-    services.cloudflared = hostVars.cloudflared;
+    services.cloudflared = {
+      enable = false;
+    };
   };
 }

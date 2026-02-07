@@ -1,4 +1,4 @@
-{ config, pkgs, hostVars, ... }:
+{ config, pkgs, commonVars, hostVars, ... }:
 
 {
   imports = [
@@ -35,7 +35,7 @@
 
   # === USER ACCOUNT CONFIGURATION ===
   config = {
-    system.stateVersion = hostVars.nix_version;
+    system.stateVersion = commonVars.nix_version;
     programs.zsh.enable = true;
 
     # === USER ACCOUNT CONFIGURATION ===
