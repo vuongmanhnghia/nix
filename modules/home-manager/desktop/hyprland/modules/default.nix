@@ -8,7 +8,6 @@
     ./environment.nix
     ./keybinding.nix
     ./programs.nix
-    ./tags.nix
     ./windowrule.nix
     ./workspaces.nix
   ];
