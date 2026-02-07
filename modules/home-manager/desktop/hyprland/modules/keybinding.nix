@@ -17,9 +17,10 @@ let
     "catchall"
     "submap"
     "RANDOM_IMAGE"
+    "bind = Super+Shift, X"
+    "bind = Super+Shift, T"
     "Super, B, global, quickshell:sidebarLeftToggle"
     "Super, O, global, quickshell:sidebarLeftToggle"
-    "Super, T, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
     "Ctrl+Alt, T, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
   ];
 
@@ -40,7 +41,7 @@ let
     in
       lib.concatStringsSep "\n" filteredLines;
 
-  finalConfigContent = builtins.replaceStrings 
+  finalConfig = builtins.replaceStrings 
     [ 
       # === Original bindings ===
       "bindid = Super, Super_L, Toggle search"
@@ -64,6 +65,7 @@ let
       "Super, W, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
       "Super, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
       "Super, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
+      "Super, T, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
 
       "Super"
     ]
@@ -90,6 +92,7 @@ let
       "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser #"
       "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor #"
       "$mainMod, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $note #"
+      "$mainMod, D, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh discord #"
 
       "$mainMod" 
     ] 
@@ -103,7 +106,7 @@ in
     };
 
     extraConfig = ''
-      ${finalConfigContent}
+      ${finalConfig}
     '';
   };
 }

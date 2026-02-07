@@ -14,7 +14,7 @@
   wayland.windowManager.hyprland = {
     settings = {
       "$qsConfig" = "ii";
-      "$terminal" = "wezterm"; # kitty
+      "$terminal" = "wezterm";
       "$fileManager" = "nemo";
       "$browser" = "brave";
       "$codeEditor" = "code";
