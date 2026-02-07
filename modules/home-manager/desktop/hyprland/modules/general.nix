@@ -11,7 +11,7 @@
 let
   rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprland/general.conf";
 
-  keysToRemove = [ "on_focus_under_fullscreen" ];
+  keysToRemove = [ "on_focus_under_fullscreen" "vrr"];
 
   processConfig = content:
     let
