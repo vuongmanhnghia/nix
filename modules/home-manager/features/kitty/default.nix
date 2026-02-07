@@ -3,6 +3,7 @@
 {
   programs.kitty = {
     enable = true;
+    theme = "Catppuccin-Mocha";
     
     font = {
       name = "JetBrainsMono NF Bold";
@@ -25,7 +26,7 @@
 
       # Window settings - Transparent background
       background_opacity = "0.7";
-      background_blur = 30;
+      background_blur = 5;
       background_image = "none";
       background_tint = "0.8";
       confirm_os_window_close = 0;
@@ -46,32 +47,6 @@
       # Additional transparency settings
       dynamic_background_opacity = true;
       background_image_layout = "scaled";
-
     };
-
-    extraConfig = ''
-      # Import color scheme
-      include ~/.config/kitty/kitty.conf
-
-      # Copy
-      map ctrl+c    copy_or_interrupt
-
-      # Search
-      map ctrl+f   launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
-      map kitty_mod+f   launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
-
-      # Scroll & Zoom
-      map page_up    scroll_page_up
-      map page_down    scroll_page_down
-
-      map ctrl+plus  change_font_size all +1
-      map ctrl+equal  change_font_size all +1
-      map ctrl+kp_add  change_font_size all +1
-      map ctrl+minus       change_font_size all -1
-      map ctrl+underscore       change_font_size all -1
-      map ctrl+kp_subtract       change_font_size all -1
-      map ctrl+0 change_font_size all 0
-      map ctrl+kp_0 change_font_size all 0
-    '';
   };
 }

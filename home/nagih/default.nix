@@ -26,6 +26,7 @@
     ../../modules/home-manager/features/ripgrep
     ../../modules/home-manager/features/starship
     ../../modules/home-manager/features/cava
+    ../../modules/home-manager/features/kitty
 
     # CLI
     ../../modules/home-manager/features/cli/nix
