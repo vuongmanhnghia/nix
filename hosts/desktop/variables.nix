@@ -15,7 +15,7 @@ rec {
   user = {
     name = "Nagih";
     username = "nagih";
-    description = "DevOps Engineer";
+    description = "Vuong Manh Nghia";
     email = "vuongmanhnghia@gmail.com";
   };
 

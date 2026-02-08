@@ -76,8 +76,8 @@ else
 fi
 
 writer "\nUser configuration ---\n" 0.01
-USERNAME=$(ask "Enter your name (Nagih)" "None")
-USER_DESCRIPTION=$(ask "Enter a description for you (DevOps Engineer)" "None")
+USERNAME=$(ask "Enter your name (Join)" "None")
+USER_DESCRIPTION=$(ask "Enter a description for you (Join Smith)" "$USERNAME")
 USER_EMAIL=$(ask "Enter your email (your_email@example.com)" "your_email@example.com")
 
 writer "\nGit configuration ---\n" 0.01

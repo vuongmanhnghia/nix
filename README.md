@@ -10,6 +10,7 @@ This is a comprehensive NixOS configuration built around the Hyprland wayland co
 
 ### Prerequisites
 
+- Architechture: x86_64-linux
 - NixOS 25.11 or later
 - UEFI system
 - Internet connection
@@ -71,5 +72,11 @@ Pre-configured environment includes:
 - Neovim with LSP and plugins
 - VS Code and Cursor editors
 - CLI tools: ripgrep, fd, bat, eza, fzf, delta
+
+## Hyprland & Quickshell
+
+This configuration utilizes the [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) repository to provide comprehensive configurations for both Hyprland and Quickshell.
+
+These configurations ensure a cohesive and feature-rich desktop experience integrated with the NixOS setup.
 
 ## Quickshell
