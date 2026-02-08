@@ -72,6 +72,7 @@ Pre-configured environment includes:
 - **Languages:** Python (pip, poetry), Node.js (npm, pnpm), Go, C/C++ (gcc, cmake, clang).
 - **Editors:** Neovim (LazyVim based), VS Code.
 - **CLI Utilities:** ripgrep, fd, bat, eza, fzf, delta, zoxide.
+- **Input Method:** fcitx5 (Unikey)
 
 ## Credits
 
