@@ -1,23 +1,9 @@
-{ config, pkgs, hostVars, ... }:
+{ config, pkgs, hostVars, nagih7-dots, ... }:
 
 {
   programs.tmux = {
     enable = true;
-    
-    # === SHELL AND TERMINAL CONFIGURATION ===
     shell = "${pkgs.zsh}/bin/zsh";
-    
-    # === BASIC SETTINGS ===
-    baseIndex = 1;
-    escapeTime = 0;
-
-    extraConfig = ''
-      ${builtins.readFile ./config/.tmux.conf}
-
-      unbind r
-      bind r source-file "${config.home.homeDirectory}/Workspaces/config/nixos/modules/home-manager/features/tmux/config/.tmux.conf" \; display "Config Reloaded!"
-      bind R source-file "${config.home.homeDirectory}/Workspaces/config/nixos/modules/home-manager/features/tmux/config/.tmux.conf" \; display "Config Reloaded!"
-    '';
 
     # === PLUGINS ===
     plugins = with pkgs.tmuxPlugins; [
@@ -28,5 +14,16 @@
       cpu           # Optional: CPU usage monitoring
       weather       # Optional: weather monitoring
     ];
+    
+    extraConfig = ''
+      source-file ${nagih7-dots}/tmux/.tmux.conf
+
+      # Override
+      unbind r
+      unbind R
+      bind r source-file ${nagih7-dots}/tmux/.tmux.conf \; display-message "Tmux config reloaded!"
+      bind R source-file ${nagih7-dots}/tmux/.tmux.conf \; display-message "Tmux config reloaded!"
+      set -g status off
+    '';
   };
 }
