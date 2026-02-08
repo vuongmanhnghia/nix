@@ -74,6 +74,12 @@ Pre-configured environment includes:
 - **CLI Utilities:** ripgrep, fd, bat, eza, fzf, delta, zoxide.
 - **Input Method:** fcitx5 (Unikey)
 
+### Screenshots
+
+| end-4/dots-hyprland | terminal |
+|:---|:---------------|
+| <img width="1920" height="1080" alt="image" src="./assets/end-4.png" /> | <img width="1920" height="1080" alt="image" src="./assets/terminal.png" /> | |
+
 ## Credits
 
 Special thanks to the following projects:
