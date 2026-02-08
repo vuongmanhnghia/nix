@@ -1,4 +1,4 @@
-<div align="center">
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/1733abf2-2b5b-461a-9097-4b0577dd54d2" /><img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/a5a8214c-bc03-468a-9523-d6e2d5a6bc31" /><div align="center">
 
 [![NixOS](https://img.shields.io/badge/NixOS-25.11-blue.svg?style=flat&logo=nixos&logoColor=white)](https://nixos.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-Bleeding%20Edge-blue.svg?style=flat&logo=wayland&logoColor=white)](https://hyprland.org)
@@ -35,7 +35,7 @@ Leveraging the robust foundation of [end-4/dots-hyprland](https://github.com/end
     git clone git@github.com:nagih7/nix.git
 
     # HTTPS
-    git clone [https://github.com/nagih7/nix.git](https://github.com/nagih7/nix.git)
+    git clone https://github.com/nagih7/nix.git
     ```
 
 2.  **Run setup script:**
