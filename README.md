@@ -85,4 +85,4 @@ Pre-configured environment includes:
 Special thanks to the following projects:
 
 * **[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)**: For the amazing Hyprland and Quickshell implementation that powers the core UI of this setup.
-* **NixOS Community**: For
+* **NixOS Community**: For the documentation and tools
