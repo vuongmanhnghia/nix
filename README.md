@@ -5,7 +5,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Stars](https://img.shields.io/github/stars/nagih7/nix?style=flat)](https://github.com/nagih7/nix)
 
-<h2>Nagih's NixOS Configuration</h2>
+<h2>❄️ Nagih's NixOS Configuration</h2>
 
 _A modern, reproducible NixOS configuration powered by Hyprland & Flakes._
 
@@ -45,25 +45,38 @@ Leveraging the robust foundation of [end-4/dots-hyprland](https://github.com/end
     chmod +x setup.sh
     ./setup.sh
     ```
-    
+
     > **Note:** Ensure you have backed up your current configuration before proceeding.
 
 3.  Follow the on-screen instructions to build and switch generations.
 
 ## Usage
 
+### Nix Commands
+
+This configuration utilizes [`nh`](https://github.com/viperML/nh) for faster builds and better output formatting. Convenient aliases are pre-configured:
+
+| Alias | Underlying Command      | Description                                |
+| :---- | :---------------------- | :----------------------------------------- |
+| `nxs` | `nh os switch`          | Rebuild and switch to the new generation   |
+| `nxu` | `nh os switch --update` | Update flake inputs and rebuild system     |
+| `nxt` | `nh os test`            | Build and test configuration (dry-run)     |
+| `hms` | `nh home switch`        | Rebuild Home Manager configuration only    |
+| `nxc` | `nh clean all --keep 3` | Garbage collect (keeps last 3 generations) |
+| `nxf` | `nh search`             | Search for packages in Nixpkgs             |
+
 ### Key Bindings
 
-| Keybinding | Action |
-| :--- | :--- |
-| <kbd>Super</kbd> + <kbd>Space</kbd> | Open Terminal |
-| <kbd>Super</kbd> + <kbd>C</kbd> | Open Code Editor |
-| <kbd>Super</kbd> + <kbd>B</kbd> | Open Browser |
-| <kbd>Super</kbd> + <kbd>E</kbd> | Open File Explorer |
-| <kbd>Super</kbd> + <kbd>F</kbd> | Toggle Fullscreen |
-| <kbd>Super</kbd> + <kbd>1</kbd>-<kbd>9</kbd> | Switch Workspace |
+| Keybinding                                                      | Action                   |
+| :-------------------------------------------------------------- | :----------------------- |
+| <kbd>Super</kbd> + <kbd>Space</kbd>                             | Open Terminal            |
+| <kbd>Super</kbd> + <kbd>C</kbd>                                 | Open Code Editor         |
+| <kbd>Super</kbd> + <kbd>B</kbd>                                 | Open Browser             |
+| <kbd>Super</kbd> + <kbd>E</kbd>                                 | Open File Explorer       |
+| <kbd>Super</kbd> + <kbd>F</kbd>                                 | Toggle Fullscreen        |
+| <kbd>Super</kbd> + <kbd>1</kbd>-<kbd>9</kbd>                    | Switch Workspace         |
 | <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>1</kbd>-<kbd>9</kbd> | Move Window to Workspace |
-| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> | Lock Screen |
+| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd>              | Lock Screen              |
 
 ### Development Tools
 
@@ -76,13 +89,13 @@ Pre-configured environment includes:
 
 ### Screenshots
 
-| end-4/dots-hyprland | terminal |
-|:---|:---------------|
-| <img width="1920" height="1080" alt="image" src="./assets/end-4.png" /> | <img width="1920" height="1080" alt="image" src="./assets/terminal.png" /> | |
+| end-4/dots-hyprland                                                     | terminal                                                                   |
+| :---------------------------------------------------------------------- | :------------------------------------------------------------------------- | --- |
+| <img width="1920" height="1080" alt="image" src="./assets/end-4.png" /> | <img width="1920" height="1080" alt="image" src="./assets/terminal.png" /> |     |
 
 ## Credits
 
 Special thanks to the following projects:
 
-* **[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)**: For the amazing Hyprland and Quickshell implementation that powers the core UI of this setup.
-* **NixOS Community**: For the documentation and tools
+- **[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)**: For the amazing Hyprland and Quickshell implementation that powers the core UI of this setup.
+- **NixOS Community**: For the documentation and tools
