@@ -1,3 +1,5 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # NixOS Hyprland Configuration
 
 A modern NixOS configuration featuring the Hyprland compositor with automatic color theming.
@@ -5,6 +7,12 @@ A modern NixOS configuration featuring the Hyprland compositor with automatic co
 ## Overview
 
 This is a comprehensive NixOS configuration built around the Hyprland wayland compositor, designed for developers and enthusiasts who want a beautiful, functional, and reproducible desktop environment. The configuration emphasizes dynamic theming, performance optimization, modularity, and developer experience.
+
+## Hyprland & Quickshell
+
+This configuration utilizes the [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) repository to provide comprehensive configurations for both Hyprland and Quickshell.
+
+These configurations ensure a cohesive and feature-rich desktop experience integrated with the NixOS setup.
 
 ## Installation
 
@@ -72,11 +80,3 @@ Pre-configured environment includes:
 - Neovim with LSP and plugins
 - VS Code and Cursor editors
 - CLI tools: ripgrep, fd, bat, eza, fzf, delta
-
-## Hyprland & Quickshell
-
-This configuration utilizes the [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) repository to provide comprehensive configurations for both Hyprland and Quickshell.
-
-These configurations ensure a cohesive and feature-rich desktop experience integrated with the NixOS setup.
-
-## Quickshell
