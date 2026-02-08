@@ -26,7 +26,7 @@
   ];
 
   # === FILE COPYING ===
-  xdg.configFile."wezterm".source = "${nagih7-dots}/wezterm/config";
+  xdg.configFile."wezterm".source = "${nagih7-dots}/wezterm";
 
   # === DESKTOP INTEGRATION ===
   xdg.desktopEntries."wezterm-here" = {
