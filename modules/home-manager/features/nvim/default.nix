@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nagih7-dots, ... }:
 
 {
   programs.neovim = {
@@ -34,7 +34,7 @@
     ];
   };
 
-  xdg.configFile."nvim".source = ./config;
+  xdg.configFile."nvim".source = "${nagih7-dots}/nvim";
 
   programs.zsh.shellAliases = {
     v = "nvim";

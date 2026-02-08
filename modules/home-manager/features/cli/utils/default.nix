@@ -10,6 +10,7 @@
     bat               # Syntax-highlighted cat replacement
     bash-completion   # Enhanced bash completion
     delta             # Git diff viewer with syntax highlighting
+    zoxide            # Smart, fast directory jumper
     highlight         # Universal syntax highlighter
     neofetch          # System information tool
     lshw              # Hardware information tool

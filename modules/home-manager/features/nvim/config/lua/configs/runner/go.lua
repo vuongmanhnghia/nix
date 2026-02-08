@@ -1,3 +1,0 @@
-return {
-  default = "go run %",
-}

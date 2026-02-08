@@ -105,6 +105,24 @@
         "type": "github"
       }
     },
+    "nagih7-dots": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770537914,
+        "narHash": "sha256-lDtXjKc1DuSGHo9p3BlRROoFTZPNtcDe55jqwUiwQto=",
+        "ref": "refs/heads/main",
+        "rev": "4f20106dde70a4b79dc11fb75abc2a6aaa9ed40e",
+        "revCount": 2,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/nagih7/dotfiles"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/nagih7/dotfiles"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1770136044,
@@ -162,6 +180,7 @@
         "agenix": "agenix",
         "end-4-dots": "end-4-dots",
         "home-manager": "home-manager_2",
+        "nagih7-dots": "nagih7-dots",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "quickshell": "quickshell"

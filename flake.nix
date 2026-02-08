@@ -20,13 +20,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nagih7-dots = {
+      url = "git+https://github.com/nagih7/dotfiles?submodules=1";
+      flake = false;
+    };
+
     end-4-dots = {
       url = "git+https://github.com/end-4/dots-hyprland?submodules=1";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, end-4-dots, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, nagih7-dots, end-4-dots, ... }@inputs:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
@@ -43,7 +48,7 @@
             config.allowUnfree = true;
           };
 
-          specialArgs = { inherit inputs quickshell unstable commonVars hostVars end-4-dots; };
+          specialArgs = { inherit inputs quickshell unstable commonVars hostVars nagih7-dots end-4-dots; };
         in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
