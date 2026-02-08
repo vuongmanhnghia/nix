@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     # === TERMINAL MULTIPLEXER AND UTILITIES ===
-    htop              # Interactive process viewer and system monitor
     glow              # Markdown renderer for the terminal
     ripgrep           # Fast text search tool (better grep replacement)
     fd                # Fast and user-friendly alternative to find

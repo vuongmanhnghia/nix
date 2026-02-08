@@ -2,6 +2,8 @@ rec {
   nix_config = "/home/nagih/Workspaces/config/nixos";
 
   hostname = "desktop";
+  cpu = "intel";
+  gpu = "nvidia";
   nameservers = [ "8.8.8.8" "8.8.4.4" ];
   firewall = {
     enable = true;

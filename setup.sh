@@ -48,13 +48,13 @@ ask() {
 # === Main Script ===
 clear
 cat << 'EOF'
-#  ███╗   ██╗██╗██╗  ██╗    ██╗  ██╗    ███╗   ██╗ █████╗  ██████╗ ██╗██╗  ██╗
-#  ████╗  ██║██║╚██╗██╔╝    ╚██╗██╔╝    ████╗  ██║██╔══██╗██╔════╝ ██║██║  ██║
-#  ██╔██╗ ██║██║ ╚███╔╝       ███╔╝     ██╔██╗ ██║███████║██║  ███╗██║███████║
-#  ██║╚██╗██║██║ ██╔██╗      ██╔██╗     ██║╚██╗██║██╔══██║██║   ██║██║██╔══██║
-#  ██║ ╚████║██║██╔╝ ██╗    ██╔╝ ██╗    ██║ ╚████║██║  ██║╚██████╔╝██║██║  ██║
-#  ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═╝  ╚═╝
-#-----------------------------------------------------------------------------
+███╗   ██╗██╗██╗  ██╗    ██╗  ██╗    ███╗   ██╗ █████╗  ██████╗ ██╗██╗  ██╗
+████╗  ██║██║╚██╗██╔╝    ╚██╗██╔╝    ████╗  ██║██╔══██╗██╔════╝ ██║██║  ██║
+██╔██╗ ██║██║ ╚███╔╝       ███╔╝     ██╔██╗ ██║███████║██║  ███╗██║███████║
+██║╚██╗██║██║ ██╔██╗      ██╔██╗     ██║╚██╗██║██╔══██║██║   ██║██║██╔══██║
+██║ ╚████║██║██╔╝ ██╗    ██╔╝ ██╗    ██║ ╚████║██║  ██║╚██████╔╝██║██║  ██║
+╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚═╝╚═╝  ╚═╝
+===========================================================================
 EOF
 printf "${GREEN}" >&2
 writer "\nHi there!" 0.01
@@ -66,6 +66,8 @@ printf "${NC}" >&2
 
 writer "\n--- System Configuration ---\n" 0.01
 HOSTNAME=$(ask "Enter your desired hostname" "example-host")
+CPU=$(./scripts/detect_cpu.sh)
+GPU=$(./scripts/detect_gpu.sh)
 ENABLE_FIREWALL=$(ask "Do you want to enable the firewall? (yes/no)" "no")
 if [ "$ENABLE_FIREWALL" == "yes" ]; then
     ENABLE_FIREWALL="true"
@@ -76,7 +78,7 @@ else
 fi
 
 writer "\nUser configuration ---\n" 0.01
-USERNAME=$(ask "Enter your name (Join)" "None")
+USERNAME=$(ask "Enter your name (Join)" "none")
 USER_DESCRIPTION=$(ask "Enter a description for you (Join Smith)" "$USERNAME")
 USER_EMAIL=$(ask "Enter your email (your_email@example.com)" "your_email@example.com")
 
@@ -106,6 +108,8 @@ printf "${BLUE}" >&2
 writer "\nYour configuration summary:" 0.01
 printf "${GREEN}" >&2
 writer "Hostname:           ${HOSTNAME}" 0.01
+writer "CPU:                ${CPU}" 0.01
+writer "GPU:                ${GPU:-None}" 0.01
 writer "Firewall Enabled:   ${ENABLE_FIREWALL} ${FIREWALL_PORTS}" 0.01
 writer "Tailscale Enabled:  ${ENABLE_TAILSCALE}" 0.01
 writer "User Name:          ${USERNAME}" 0.01
@@ -151,6 +155,8 @@ rec {
   nix_config = "$(pwd)";
 
   hostname = "${HOSTNAME}";
+  cpu = "${CPU}";
+  gpu = "${GPU}";
   nameservers = [ "8.8.8.8" "8.8.4.4" ];
   firewall = {
     enable = ${ENABLE_FIREWALL};

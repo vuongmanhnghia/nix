@@ -14,6 +14,7 @@
     
     # === SYSTEM MONITORING ===
     htop     # Interactive process viewer and system monitor
+    btop     # Advanced system monitor with graphical interface
     
     # === SYSTEM UTILITIES ===
     file          # File type identification utility

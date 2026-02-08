@@ -27,7 +27,13 @@ let
   finalConfig = processConfig rawConfig;
 in
 {
-  wayland.windowManager.hyprland = {    
+  wayland.windowManager.hyprland = { 
+    settings = {
+      misc = {
+        vfr = 0;
+        vrr = 2;
+      };
+    };  
     extraConfig = ''
       ${finalConfig}
     '';
