@@ -1,7 +1,7 @@
 rec {
   nix_config = "/home/nagih/Workspaces/config/nixos";
 
-  hostname = "nixos-desktop";
+  hostname = "desktop";
   nameservers = [ "8.8.8.8" "8.8.4.4" ];
   firewall = {
     enable = true;

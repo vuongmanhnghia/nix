@@ -86,6 +86,8 @@
   };
 
   home.sessionVariables = {
+    FLAKE = hostVars.nix_config;
+    HOSTNAME = hostVars.hostname;
     # Editor
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -94,6 +96,28 @@
     DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
     DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
     NIX_CONFIG_DIR = "${hostVars.nix_config}";
+  };
+
+  home.shellAliases = {
+    oh = "cd ~/ && echo 'Went back home'";
+    nh = "nocorrect nh";
+
+    docs = "cd ~/Documents";
+    down = "cd ~/Downloads";
+
+    # --- System Operations ---
+    nixs = "nh os switch $FLAKE --hostname $HOSTNAME --impure";
+    nixu = "nix flake update";
+    nixt = "nh os test $FLAKE --hostname $HOSTNAME --impure";
+
+    # --- Home Manager ---
+    hms = "nh home switch $FLAKE --hostname $HOSTNAME --impure";
+
+    # --- Garbage Collection (Dọn rác) ---
+    nixc = "nh clean all --keep 3";
+    
+    # --- Developer Tools ---
+    nixf = "nh search";
   };
 
   programs.ssh = {

@@ -3,6 +3,8 @@
 {
   # Essential system packages only - development tools moved to programs/development/
   environment.systemPackages = with pkgs; [
+    nix-output-monitor
+    nh
     # === NETWORK UTILITIES ===
     curl     # Command-line tool for data transfer with URLs
     wget     # Network downloader for retrieving files from web servers
