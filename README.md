@@ -90,8 +90,8 @@ Pre-configured environment includes:
 ### Screenshots
 
 | end-4/dots-hyprland                                                     | terminal                                                                   |
-| :---------------------------------------------------------------------- | :------------------------------------------------------------------------- | --- |
-| <img width="1920" height="1080" alt="image" src="./assets/end-4.png" /> | <img width="1920" height="1080" alt="image" src="./assets/terminal.png" /> |     |
+| :---------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| <img width="1920" height="1080" alt="image" src="./assets/end-4.png" /> | <img width="1920" height="1080" alt="image" src="./assets/terminal.png" /> |
 
 ## Credits
 
