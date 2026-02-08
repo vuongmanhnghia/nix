@@ -58,7 +58,7 @@ cat << 'EOF'
 EOF
 printf "${GREEN}" >&2
 writer "\nHi there!" 0.01
-writer "Welcome to the NixOS configuration by Nagih [https://github.com/vuongmanhnghia]" 0.01
+writer "Welcome to the NixOS configuration by Nagih [https://github.com/nagih7]" 0.01
 
 printf "${YELLOW}" >&2
 writer "\nPlease answer the following questions..."
