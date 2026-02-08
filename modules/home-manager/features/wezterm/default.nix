@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nagih7-dots, ... }:
 
 {
   # === WEZTERM TERMINAL CONFIGURATION ===
@@ -26,7 +26,7 @@
   ];
 
   # === FILE COPYING ===
-  xdg.configFile."wezterm".source = ./config;
+  xdg.configFile."wezterm".source = "${nagih7-dots}/wezterm/config";
 
   # === DESKTOP INTEGRATION ===
   xdg.desktopEntries."wezterm-here" = {
