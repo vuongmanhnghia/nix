@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  nagih7-dots,
+  hostVars,
   ...
 }:
 
@@ -14,6 +14,7 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      nvim-treesitter-textobjects
       (nvim-treesitter.withPlugins (p: [
         p.tree-sitter-nix
         p.tree-sitter-vim
@@ -51,27 +52,21 @@
       isort
       rust-analyzer
       rustfmt
-
       tree-sitter
-
-      lazygit # Fix lỗi Snacks.lazygit
-      sqlite # Fix lỗi Snacks.picker history
-      trash-cli # Fix lỗi trash command (thay cho gio/kioclient)
-
-      imagemagick # Đã có, nhưng cứ đảm bảo
-      ghostscript # Fix lỗi 'gs' (render PDF)
-      mermaid-cli # Fix lỗi 'mmdc' (vẽ biểu đồ)
-      tectonic # Fix lỗi render Latex (nhẹ hơn cài full texlive)
-
+      lazygit
+      sqlite
+      trash-cli
+      imagemagick
+      ghostscript
+      mermaid-cli
+      tectonic
       gcc
       gnumake
     ];
   };
 
-  xdg.configFile."nvim" = {
-    source = "${nagih7-dots}/nvim";
-    recursive = true;
-  };
+  xdg.configFile."nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${hostVars.nix_config}/dotfiles/nvim";
 
   programs.zsh.shellAliases = {
     v = "nvim";
@@ -85,5 +80,6 @@
     lua51Packages.lua
     luarocks
     glow
+    github-cli
   ];
 }

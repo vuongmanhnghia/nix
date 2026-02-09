@@ -69,6 +69,7 @@
 
         # --- Force Tile for Browsers ---
         "tile, class:^(brave)$"
+        "tile, class:^(brave-browser)$"
       ];
 
       # ######## Layer Rules ########

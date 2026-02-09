@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   unstable,
   inputs,
   commonVars,
@@ -8,6 +9,11 @@
   ...
 }:
 
+let
+  git = "${pkgs.git}/bin/git";
+  dotfilesRepo = "https://github.com/nagih7/dotfiles.git";
+  dotfilesDir = "${hostVars.nix_config}/dotfiles";
+in
 {
   programs.home-manager.enable = true;
   home.username = hostVars.user.username;
@@ -148,4 +154,31 @@
       };
     };
   };
+
+  home.activation.cloneDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -d "${dotfilesDir}" ]; then
+      echo "🚀 [Dotfiles] Chưa thấy repo, đang clone từ Github..."
+      ${git} clone ${dotfilesRepo} "${dotfilesDir}"
+    else
+      echo "🔍 [Dotfiles] Repo đã tồn tại. Đang kiểm tra cập nhật..."
+      cd "${dotfilesDir}"
+      ${git} fetch origin main
+      
+      LOCAL=$(${git} rev-parse @)
+      REMOTE=$(${git} rev-parse @{u})
+      
+      if [ $LOCAL = $REMOTE ]; then
+        echo "✅ [Dotfiles] Code đang ở bản mới nhất."
+      else
+        echo "⚠️  [Dotfiles] PHÁT HIỆN COMMIT MỚI TRÊN GITHUB!"
+        echo "   👉 Bạn đang ở commit: $LOCAL"
+        echo "   👉 Remote đang ở:     $REMOTE"
+        echo "   💡 Gợi ý: Chạy lệnh 'cd ${dotfilesDir} && git pull' để cập nhật."
+        
+        # TÙY CHỌN: Nếu bạn muốn nó TỰ ĐỘNG PULL luôn (Cẩn thận Conflict!)
+        # echo "🔄 Đang tự động pull code mới..."
+        # ${git} pull
+      fi
+    fi
+  '';
 }
