@@ -30,17 +30,13 @@ let
     isValidLine = line: 
       let trimmed = lib.strings.trim line;
       in trimmed != "" && !(lib.hasPrefix "#" trimmed) && (isNotBlacklisted trimmed);
-      
   in
     map processLine (builtins.filter isValidLine lines);
 in
 {
   wayland.windowManager.hyprland = {    
     settings = {
-      exec-once = [
-        # Set monitors
-        "${hostVars.nix_config}/scripts/set_monitors.sh"
-        
+      exec-once = processedEnvFiles ++ [
         # Setup fcitx5
         "export GTK_IM_MODULE=fcitx5"
         "export QT_IM_MODULE=fcitx5"
@@ -48,13 +44,7 @@ in
         "export INPUT_METHOD=fcitx5"
         "export SDL_IM_MODULE=fcitx5"
         "fcitx5"
-
-        # Core components (authentication, lock screen, notification daemon)
-        "/usr/lib/polkit-kde-authentication-agent-1 || /usr/libexec/polkit-kde-authentication-agent-1  || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 || /usr/libexec/polkit-gnome-authentication-agent-1"
-
-        # Set cursor theme
-        "hyprctl setcursor macOS 24"
-      ] ++ processedEnvFiles;
+      ];
     };
   };
 }

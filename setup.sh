@@ -184,7 +184,7 @@ EOL
 # === Generate user configuration file ===
 mkdir -p home/$(whoami)
 cat > home/$(whoami)/default.nix <<EOL
-{ config, pkgs, unstable, hostVars, ... }:
+{ config, pkgs, hostVars, ... }:
 
 { 
   imports = [
@@ -192,10 +192,10 @@ cat > home/$(whoami)/default.nix <<EOL
   ];
 
   home.packages = with pkgs; [
-    unstable.brave                    
-    unstable.discord                  
-    unstable.spotify                  
-    unstable.vscode                   
+    pkgs.unstable.brave                    
+    pkgs.unstable.discord                  
+    pkgs.unstable.spotify                  
+    pkgs.unstable.vscode                   
   ];
 
   home.shellAliases = { };

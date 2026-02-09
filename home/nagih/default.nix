@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, hostVars, ... }:
+{ config, pkgs, hostVars, ... }:
 
 { 
   imports = [
@@ -10,22 +10,22 @@
   ];
 
   home.packages = with pkgs; [
-    unstable.brave                    
-    unstable.discord                  
-    unstable.spotify                  
-    unstable.vscode                   
-    unstable.antigravity              
-    unstable.telegram-desktop         
-    unstable.slack                    
-    unstable.obsidian                 
-    unstable.obs-studio
-    unstable.drawio
-    unstable.teams-for-linux
-    unstable.logseq
-    unstable.rpi-imager
-    unstable.hugo 
-    unstable.ngrok
-    unstable.bruno
+    pkgs.unstable.brave                    
+    pkgs.unstable.discord                  
+    pkgs.unstable.spotify                  
+    pkgs.unstable.vscode                   
+    pkgs.unstable.antigravity              
+    pkgs.unstable.telegram-desktop         
+    pkgs.unstable.slack                    
+    pkgs.unstable.obsidian                 
+    pkgs.unstable.obs-studio
+    pkgs.unstable.drawio
+    pkgs.unstable.teams-for-linux
+    pkgs.unstable.logseq
+    pkgs.unstable.rpi-imager
+    pkgs.unstable.hugo 
+    pkgs.unstable.ngrok
+    pkgs.unstable.bruno
     (prismlauncher.override {
       jdks = [
         jdk

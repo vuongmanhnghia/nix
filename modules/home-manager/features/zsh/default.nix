@@ -208,7 +208,6 @@
       typeset -U PATH path  # Remove duplicates from PATH
       
       # === MODERN CLI TOOL PREFERENCES ===
-      export BAT_THEME="Catppuccin-mocha"
       export EZA_COLORS="da=36:di=34:fi=0:ln=35:pi=33:so=32:bd=33:cd=33:or=31:mi=31:ex=32"
       
       export PATH="$HOME/.local/bin:$PATH"

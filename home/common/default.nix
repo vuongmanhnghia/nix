@@ -1,6 +1,7 @@
 { config, pkgs, unstable, inputs, commonVars, hostVars, ... }:
 
 {
+  programs.home-manager.enable = true;
   home.username = hostVars.user.username;            
   home.homeDirectory = "/home/${hostVars.user.username}"; 
   home.stateVersion = commonVars.nix_version;
@@ -86,7 +87,7 @@
   };
 
   home.sessionVariables = {
-    FLAKE = hostVars.nix_config;
+    NH_FLAKE = hostVars.nix_config;
     HOSTNAME = hostVars.hostname;
     # Editor
     EDITOR = "nvim";
@@ -106,12 +107,12 @@
     down = "cd ~/Downloads";
 
     # --- System Operations ---
-    nixs = "nh os switch $FLAKE --hostname $HOSTNAME --impure";
+    nixs = "nh os switch $NH_FLAKE --hostname $HOSTNAME --impure";
     nixu = "nix flake update";
-    nixt = "nh os test $FLAKE --hostname $HOSTNAME --impure";
+    nixt = "nh os test $NH_FLAKE --hostname $HOSTNAME --impure";
 
     # --- Home Manager ---
-    hms = "nh home switch $FLAKE --hostname $HOSTNAME --impure";
+    hms = "nh home switch $NH_FLAKE --impure";
 
     # --- Garbage Collection (Dọn rác) ---
     nixc = "nh clean all --keep 3";

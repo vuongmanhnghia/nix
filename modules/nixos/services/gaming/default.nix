@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, hostVars, ... }:
+{ config, pkgs, hostVars, ... }:
 
 {
   # === STEAM GAMING PLATFORM ===
@@ -13,9 +13,9 @@
 
   # === GAMING SOFTWARE PACKAGES ===
   environment.systemPackages = with pkgs; [
-    unstable.steam                # Steam gaming platform
-    unstable.protonup-qt          # GUI tool for managing Proton versions (Steam's Wine fork)
-    unstable.steam-run            # Utility for running non-Steam applications with Steam's runtime
+    pkgs.unstable.steam                # Steam gaming platform
+    pkgs.unstable.protonup-qt          # GUI tool for managing Proton versions (Steam's Wine fork)
+    pkgs.unstable.steam-run            # Utility for running non-Steam applications with Steam's runtime
     # winePackages.stable         # Stable Wine version for running Windows games/applications
     winetricks                    # Script to install Windows components in Wine prefixes
     wineWowPackages.waylandFull   # Wine version with Wayland support

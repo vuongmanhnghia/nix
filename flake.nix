@@ -34,38 +34,65 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, nagih7-dots, end-4-dots, ... }@inputs:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      mkHost = hostName:
+      # Helper to get common args for hosts and home configurations
+      getCommonArgs = hostName:
         let
           commonVars = import ./hosts/common/variables.nix;
           hostVars = import ./hosts/${hostName}/variables.nix;
           system = "${commonVars.isa}-${commonVars.os}";
-
-          unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
+          
+          unstable-overlay = final: prev: {
+            unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
           };
+        in {
+          inherit commonVars hostVars system;
+          overlays = [ unstable-overlay ];
+          specialArgs = { inherit inputs quickshell commonVars hostVars nagih7-dots end-4-dots; };
+        };
 
-          specialArgs = { inherit inputs quickshell unstable commonVars hostVars nagih7-dots end-4-dots; };
+      # NixOS System
+      mkHost = hostName:
+        let
+          args = getCommonArgs hostName;
         in
         nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
-          
+          system = args.system;
+          specialArgs = args.specialArgs;
           modules = [
             ./hosts/${hostName}
             agenix.nixosModules.default
-            
-            home-manager.nixosModules.home-manager
             {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                extraSpecialArgs = specialArgs;
-                users.${hostVars.user.username} = import ./home/${hostVars.user.username};
-              };
+              nixpkgs.overlays = args.overlays;
+              nixpkgs.config.allowUnfree = true; 
+            }
+          ];
+        };
+
+      # Home Manager
+      mkHome = hostName:
+        let
+          args = getCommonArgs hostName;
+          
+          pkgs = import nixpkgs {
+            inherit (args) system;
+            config.allowUnfree = true;
+            config.allowUnfreePredicate = (_: true);
+          };
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs; 
+          extraSpecialArgs = args.specialArgs;
+          
+          modules = [
+            ./home/${args.hostVars.user.username}
+            {
+              nixpkgs.overlays = args.overlays;
+              nixpkgs.config.allowUnfree = true;
             }
           ];
         };
@@ -74,8 +101,13 @@
       nixosConfigurations = {
         desktop = mkHost "desktop";
         laptop  = mkHost "laptop";
-        # device.example = mkHost "device.example";
       };
+
+      homeConfigurations = {
+        nagih = mkHome "desktop";
+        # "nagih" = mkHome "laptop";
+      };
+
       devShells = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
         in {
@@ -85,6 +117,7 @@
               home-manager
               git
               just
+              nixfmt-rfc-style
             ];
           };
         });

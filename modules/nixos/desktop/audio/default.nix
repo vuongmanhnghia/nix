@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, ... }:
+{ config, pkgs, ... }:
 
 {
   # === MINIMAL AUDIO CONFIGURATION - NixOS 25.11 Default ===
