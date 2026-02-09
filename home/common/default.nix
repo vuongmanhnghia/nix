@@ -1,11 +1,19 @@
-{ config, pkgs, unstable, inputs, commonVars, hostVars, ... }:
+{
+  config,
+  pkgs,
+  unstable,
+  inputs,
+  commonVars,
+  hostVars,
+  ...
+}:
 
 {
   programs.home-manager.enable = true;
-  home.username = hostVars.user.username;            
-  home.homeDirectory = "/home/${hostVars.user.username}"; 
+  home.username = hostVars.user.username;
+  home.homeDirectory = "/home/${hostVars.user.username}";
   home.stateVersion = commonVars.nix_version;
-  
+
   imports = [
     # Desktop
     ../../modules/home-manager/desktop/hyprland
@@ -34,7 +42,7 @@
     ../../modules/home-manager/features/cli/nix
     ../../modules/home-manager/features/cli/utils
     ../../modules/home-manager/features/cli/devtools
-    
+
     # GUI
     ../../modules/home-manager/gui/cursor
     ../../modules/home-manager/gui/fontconfig
@@ -43,7 +51,7 @@
     ../../modules/home-manager/gui/kvantum
     ../../modules/home-manager/gui/matugen
     ../../modules/home-manager/gui/qt5ct
-    ../../modules/home-manager/gui/qt6ct  
+    ../../modules/home-manager/gui/qt6ct
 
     # Development
     ../../modules/home-manager/development/database
@@ -58,7 +66,7 @@
 
   programs.direnv.enable = true;
   programs.git.settings.user = {
-    name = hostVars.git_name;               
+    name = hostVars.git_name;
     email = hostVars.git_email;
   };
 
@@ -79,7 +87,7 @@
     createDirectories = true;
     documents = "${config.home.homeDirectory}/Documents";
     pictures = "${config.home.homeDirectory}/Pictures";
-    
+
     extraConfig = {
       XDG_DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
       XDG_WORKSPACES_DIR = "${config.home.homeDirectory}/Workspaces";
@@ -116,7 +124,7 @@
 
     # --- Garbage Collection (Dọn rác) ---
     nixc = "nh clean all --keep 3";
-    
+
     # --- Developer Tools ---
     nixf = "nh search";
   };
@@ -124,7 +132,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    
+
     extraConfig = ''
       AddKeysToAgent yes
       IdentityFile ~/.ssh/id_ed25519

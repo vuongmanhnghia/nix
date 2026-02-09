@@ -1,4 +1,10 @@
-{ config, lib, pkgs, nagih7-dots, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nagih7-dots,
+  ...
+}:
 
 {
   programs.neovim = {
@@ -6,35 +12,66 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    
+
+    plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.tree-sitter-nix
+        p.tree-sitter-vim
+        p.tree-sitter-vimdoc
+        p.tree-sitter-bash
+        p.tree-sitter-regex
+        p.tree-sitter-lua
+        p.tree-sitter-markdown
+        p.tree-sitter-markdown-inline
+        p.tree-sitter-c
+        p.tree-sitter-python
+        p.tree-sitter-json
+        p.tree-sitter-yaml
+        p.tree-sitter-html
+        p.tree-sitter-css
+        p.tree-sitter-javascript
+        p.tree-sitter-typescript
+        p.tree-sitter-tsx
+        p.tree-sitter-toml
+        p.tree-sitter-gitcommit
+        p.tree-sitter-gitignore
+      ]))
+    ];
+
     extraPackages = with pkgs; [
-      # LSP
       lua-language-server
       stylua
       nil
-
-      # Formatters
       nodePackages.prettier
       nodePackages.vscode-langservers-extracted
-
-      # Nix
-      nixpkgs-fmt      
-
-      # TypeScript
+      nixpkgs-fmt
       typescript-language-server
-
-      # Python
       python3Packages.python-lsp-server
       black
       isort
-
-      # Rust
       rust-analyzer
       rustfmt
+
+      tree-sitter
+
+      lazygit # Fix lỗi Snacks.lazygit
+      sqlite # Fix lỗi Snacks.picker history
+      trash-cli # Fix lỗi trash command (thay cho gio/kioclient)
+
+      imagemagick # Đã có, nhưng cứ đảm bảo
+      ghostscript # Fix lỗi 'gs' (render PDF)
+      mermaid-cli # Fix lỗi 'mmdc' (vẽ biểu đồ)
+      tectonic # Fix lỗi render Latex (nhẹ hơn cài full texlive)
+
+      gcc
+      gnumake
     ];
   };
 
-  xdg.configFile."nvim".source = "${nagih7-dots}/nvim";
+  xdg.configFile."nvim" = {
+    source = "${nagih7-dots}/nvim";
+    recursive = true;
+  };
 
   programs.zsh.shellAliases = {
     v = "nvim";
@@ -49,29 +86,4 @@
     luarocks
     glow
   ];
-
-  programs.tmux = {
-    enable = true;
-    terminal = "screen-256color";
-    keyMode = "vi";
-    extraConfig = ''
-      is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-          | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-      bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-      bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-      bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-      bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
-      tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(\\.[0-9]+)?).*/\\1/p")'
-      if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-      if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-
-      bind-key -T copy-mode-vi 'C-h' select-pane -L
-      bind-key -T copy-mode-vi 'C-j' select-pane -D
-      bind-key -T copy-mode-vi 'C-k' select-pane -U
-      bind-key -T copy-mode-vi 'C-l' select-pane -R
-      bind-key -T copy-mode-vi 'C-\\' select-pane -l
-    '';
-  };
 }

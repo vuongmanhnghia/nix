@@ -4,15 +4,15 @@
   # Minimal C/C++ setup for occasional DSA and competitive programming
   home.packages = with pkgs; [
     # === ESSENTIAL COMPILER ===
-    gcc         # GNU Compiler Collection for C/C++ (sufficient for DSA)
-    
+    gcc # GNU Compiler Collection for C/C++ (sufficient for DSA)
+
     # === BASIC BUILD TOOLS ===
-    cmake       # Build system for larger projects
-    gnumake     # GNU make for simple compilation
-    
+    cmake # Build system for larger projects
+    gnumake # GNU make for simple compilation
+
     # === DEBUGGING ===
-    gdb         # GNU Debugger for debugging DSA code
-    
+    gdb # GNU Debugger for debugging DSA code
+
     # === CODE INTELLIGENCE ===
     clang-tools # Provides clangd LSP for VSCode C++ IntelliSense
   ];

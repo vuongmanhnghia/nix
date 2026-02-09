@@ -5,6 +5,9 @@
     enable = true;
     useRoutingFeatures = "client";
     openFirewall = true;
-    extraUpFlags = [ "--operator=${hostVars.user.name}" "--accept-dns=false" ]; 
+    extraUpFlags = [
+      "--operator=${hostVars.user.name}"
+      "--accept-dns=false"
+    ];
   };
 }

@@ -1,50 +1,56 @@
-{ config, pkgs, lib, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cisco-packet-tracer = pkgs.appimageTools.wrapType2 rec {
     pname = "cisco-packet-tracer";
     version = "9.0.0";
-    
+
     src = /home/nagih/Documents/packages/CiscoPacketTracer/packettracer.AppImage;
 
-    extraPkgs = pkgs: with pkgs; [
-      libpng
-      libxkbfile
+    extraPkgs =
+      pkgs: with pkgs; [
+        libpng
+        libxkbfile
 
-      qt5.qtbase
-      qt5.qtmultimedia  
-      
-      libxcb
-      xcb-util-cursor
-      # xcb-util-image
-      # xcb-util-keysyms
-      # xcb-util-renderutil
-      # xcb-util-wm
+        qt5.qtbase
+        qt5.qtmultimedia
 
-      libGL
-      libdrm
-      mesa
+        libxcb
+        xcb-util-cursor
+        # xcb-util-image
+        # xcb-util-keysyms
+        # xcb-util-renderutil
+        # xcb-util-wm
 
-      dbus
-      fontconfig
-      freetype
-    ];
+        libGL
+        libdrm
+        mesa
 
-    extraInstallCommands = 
+        dbus
+        fontconfig
+        freetype
+      ];
+
+    extraInstallCommands =
       let
         contents = pkgs.appimageTools.extractType2 {
           name = "cisco-packet-tracer";
           src = /home/nagih/Documents/packages/CiscoPacketTracer/packettracer.AppImage;
         };
-      in ''
+      in
+      ''
         source ${pkgs.makeWrapper}/nix-support/setup-hook
-        
+
         wrapProgram $out/bin/cisco-packet-tracer \
           --set QT_QPA_PLATFORM xcb \
           --prefix QT_PLUGIN_PATH : "${pkgs.qt5.qtbase}/${pkgs.qt5.qtbase.qtPluginPrefix}"
       '';
-    
+
     meta = with lib; {
       description = "Cisco Packet Tracer - Network simulation tool";
       homepage = "https://www.netacad.com/courses/packet-tracer";
@@ -69,4 +75,3 @@ in
     ciscoPacketTracerDesktopItem
   ];
 }
-

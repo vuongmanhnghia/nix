@@ -11,33 +11,33 @@
       liberation_ttf
       dejavu_fonts
       rubik
-      
+
       # === MODERN UI FONTS ===
-      inter                    
+      inter
       roboto
       open-sans
       aileron
       ubuntu-classic
       material-symbols
-      
+
       # === PROGRAMMING FONTS ===
       source-code-pro
       fira-code
       jetbrains-mono
-      hack-font               
-      
+      hack-font
+
       # === NERD FONTS ===
       nerd-fonts.inconsolata
       nerd-fonts.jetbrains-mono
       nerd-fonts.fira-code
       nerd-fonts.meslo-lg
       nerd-fonts.roboto-mono
-      
+
       # === VIETNAMESE SUPPORT ===
       source-han-sans
       source-han-serif
     ];
-    
+
     fontconfig = {
       enable = true;
       antialias = true;
@@ -53,9 +53,22 @@
       };
 
       defaultFonts = {
-        serif = [ "Adwaita Serif" "Roboto Serif" "Noto Serif" ];
-        sansSerif = [ "Inter" "Roboto" "Open Sans" "Noto Sans" ];
-        monospace = [ "JetBrainsMono Nerd Font" "FiraCode Nerd Font" "Source Code Pro" ];
+        serif = [
+          "Adwaita Serif"
+          "Roboto Serif"
+          "Noto Serif"
+        ];
+        sansSerif = [
+          "Inter"
+          "Roboto"
+          "Open Sans"
+          "Noto Sans"
+        ];
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "FiraCode Nerd Font"
+          "Source Code Pro"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
 

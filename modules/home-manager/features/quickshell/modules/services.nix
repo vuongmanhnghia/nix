@@ -1,4 +1,9 @@
-{ config, pkgs, quickshell, ... }:
+{
+  config,
+  pkgs,
+  quickshell,
+  ...
+}:
 
 {
   # === SYSTEMD USER SERVICES ===
@@ -51,4 +56,4 @@
       };
     };
   };
-} 
+}

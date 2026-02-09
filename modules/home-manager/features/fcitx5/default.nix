@@ -1,4 +1,10 @@
-{ config, lib, pkgs, hostVars, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  hostVars,
+  ...
+}:
 
 {
   # SYSTEM-LEVEL
@@ -26,9 +32,9 @@
   # CONFIGURATION
   xdg.configFile."fcitx5".source = ./config;
 
-    # AUTOSTART 
+  # AUTOSTART
   xdg.configFile."autostart/fcitx5.desktop" = {
-    force = true;  
+    force = true;
     text = ''
       [Desktop Entry]
       Name=Fcitx 5

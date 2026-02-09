@@ -1,20 +1,25 @@
-{ config, lib, hostVars, ... }:
+{
+  config,
+  lib,
+  hostVars,
+  ...
+}:
 
 {
   programs.kitty = {
     enable = true;
     themeFile = "Catppuccin-Mocha";
-    
+
     font = {
       name = "JetBrainsMono NF Bold";
       size = 14.0;
     };
-    
+
     settings = {
       # Remote control for theme reloading
       allow_remote_control = true;
       listen_on = "unix:/tmp/kitty-socket";
-      
+
       # Cursor settings
       cursor_shape = "beam";
       cursor_trail = 1;
@@ -32,7 +37,6 @@
       confirm_os_window_close = 0;
       window_padding_width = 4;
       window_margin_width = 4;
-
 
       # Display server
       linux_display_server = "auto";

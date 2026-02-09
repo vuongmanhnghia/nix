@@ -1,20 +1,28 @@
-{ config, pkgs, lib, hostVars, end-4-dots, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  hostVars,
+  end-4-dots,
+  ...
+}:
 
 let
   localTemplatePath = "${hostVars.nix_config}/modules/home-manager/gui/matugen/templates";
 
   rawConfig = builtins.readFile "${end-4-dots}/dots/.config/matugen/config.toml";
 
-  finalConfig = builtins.replaceStrings
-    [ 
-      "~/.config/matugen/templates"
-      "version_check = false"
-    ]
-    [ 
-      "${end-4-dots}/dots/.config/matugen/templates"
-      "version_check = false\nreload_config = true"
-    ]
-    rawConfig;
+  finalConfig =
+    builtins.replaceStrings
+      [
+        "~/.config/matugen/templates"
+        "version_check = false"
+      ]
+      [
+        "${end-4-dots}/dots/.config/matugen/templates"
+        "version_check = false\nreload_config = true"
+      ]
+      rawConfig;
 in
 {
   home.packages = with pkgs; [

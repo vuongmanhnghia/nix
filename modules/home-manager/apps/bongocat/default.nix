@@ -1,16 +1,20 @@
-{ config, pkgs, lib, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   bongocat = pkgs.appimageTools.wrapType2 rec {
     pname = "bongocat";
     version = "0.8.2";
-    
+
     src = fetchurl {
       url = "https://github.com/ayangweb/BongoCat/releases/download/v${version}/BongoCat_${version}_amd64.AppImage";
       sha256 = "sha256-1vn3FsUkCx3EQmASZnLnTON0NWavt41Pn2Pi/Eswkcg=";
     };
-    
+
     meta = with lib; {
       description = "Bongo Cat";
       homepage = "";
@@ -35,4 +39,3 @@ in
     bongocatDesktopItem
   ];
 }
-

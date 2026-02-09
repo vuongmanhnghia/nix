@@ -4,15 +4,26 @@ rec {
   hostname = "desktop";
   cpu = "intel";
   gpu = "nvidia";
-  nameservers = [ "8.8.8.8" "8.8.4.4" ];
+  nameservers = [
+    "8.8.8.8"
+    "8.8.4.4"
+  ];
   firewall = {
     enable = true;
-    tcp_ports = [ 80 443 ];
+    tcp_ports = [
+      80
+      443
+    ];
     udp_ports = [ ];
     trusted_interfaces = [ "tailscale0" ];
   };
-  fallback_dns = [ "1.1.1.1" "1.0.0.1" ];
-  tailscale = { enable = true; };
+  fallback_dns = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
+  tailscale = {
+    enable = true;
+  };
 
   user = {
     name = "Nagih";
@@ -26,41 +37,55 @@ rec {
 
   syncthing = {
     enable = true;
-    
+
     settings = {
       gui = {
-        address = "127.0.0.1:8384";  
-        user = "${user.username}";          
+        address = "127.0.0.1:8384";
+        user = "${user.username}";
       };
 
       devices = {
-        "nixos-desktop" = { id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ"; };
-        "syncthing-server" = { 
+        "nixos-desktop" = {
+          id = "CQA7ZJT-S4HOWZ5-TZLMHEC-B7XGZB4-XWVA7BM-IPR3RPL-SCTFXIA-O6GSHQQ";
+        };
+        "syncthing-server" = {
           id = "6DLXC5P-OYUDW5M-7NYJOSU-3DHKU65-2KECRVD-MEVDAF4-CYTOJWE-7NJXFAF";
           addresses = [ "tcp://14.225.218.83:22000" ];
         };
       };
-      
+
       folders = {
         "workspaces" = {
           id = "workspaces";
           path = "/home/${user.username}/Workspaces";
-          devices = [ "nixos-desktop" "syncthing-server" ];
+          devices = [
+            "nixos-desktop"
+            "syncthing-server"
+          ];
         };
         "documents" = {
           id = "documents";
           path = "/home/${user.username}/Documents";
-          devices = [ "nixos-desktop" "syncthing-server" ];
+          devices = [
+            "nixos-desktop"
+            "syncthing-server"
+          ];
         };
         "pictures" = {
           id = "pictures";
           path = "/home/${user.username}/Pictures";
-          devices = [ "nixos-desktop" "syncthing-server" ];
+          devices = [
+            "nixos-desktop"
+            "syncthing-server"
+          ];
         };
         "hugo" = {
           id = "hugo";
           path = "/home/${user.username}/hugo";
-          devices = [ "nixos-desktop" "syncthing-server" ];
+          devices = [
+            "nixos-desktop"
+            "syncthing-server"
+          ];
         };
       };
     };

@@ -1,12 +1,10 @@
 # ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ██╗    ██╗██████╗ ██╗   ██╗██╗     ███████╗
 # ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗██║    ██║██╔══██╗██║   ██║██║     ██╔════╝
-# ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║██████╔╝██║   ██║██║     █████╗  
-# ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║██╔══██╗██║   ██║██║     ██╔══╝  
+# ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║██████╔╝██║   ██║██║     █████╗
+# ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║██╔══██╗██║   ██║██║     ██╔══╝
 # ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝╚███╔███╔╝██║  ██║╚██████╔╝███████╗███████╗
 #  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
 #------------------------------------------------------------------------------------
-
-
 
 { config, pkgs, ... }:
 
@@ -29,7 +27,7 @@
         # --- Floating & Center (General) ---
         "float, title:^(Open File|Select a File|Choose wallpaper|Open Folder|Save As|Library|File Upload|.*wants to save|.*wants to open)$"
         "center, title:^(Open File|Select a File|Choose wallpaper|Open Folder|Save As|Library|File Upload|.*wants to save|.*wants to open)$"
-        
+
         # --- Specific Sizes ---
         "size 60% 65%, title:^(Choose wallpaper)$"
         "float, class:^(org\\.freedesktop\\.impl\\.portal\\.desktop\\.kde)$"
@@ -54,7 +52,7 @@
         # --- Picture-in-Picture (PiP) ---
         "float, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
         "keepaspectratio, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
-        "move 73% 72%, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" 
+        "move 73% 72%, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
         "size 25% 25%, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
         "pin, title:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$"
 
@@ -89,13 +87,13 @@
         # --- AGS / Bar / Dock ---
         "blur, ^(session[0-9]*|bar[0-9]*|dock[0-9]*|overview[0-9]*|barcorner.*|cheatsheet[0-9]*|sideright[0-9]*|sideleft[0-9]*|indicator.*|osk[0-9]*)$"
         "ignorealpha 0.6, ^(bar[0-9]*|dock[0-9]*|overview[0-9]*|barcorner.*|cheatsheet[0-9]*|sideright[0-9]*|sideleft[0-9]*|indicator.*|osk[0-9]*)$"
-        
+
         # --- AGS Animations ---
         "animation slide left, ^(sideleft.*)$"
         "animation slide right, ^(sideright.*)$"
 
         # ######## Quickshell Rules (Chi tiết từng dòng) ########
-        
+
         # 1. General Quickshell
         "blurpopups, ^(quickshell:.*)$"
         "blur, ^(quickshell:.*)$"
@@ -123,12 +121,10 @@
 
         "ignorealpha 1, ^(quickshell:(overlay|popup|mediaControls))$"
         "xray 0, ^(quickshell:popup)$" # Fix weird color
-        
+
         # 5. Ordering
         "order -1, ^(quickshell:osk)$"
       ];
     };
   };
 }
-
-

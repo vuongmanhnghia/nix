@@ -1,13 +1,18 @@
 # ███████╗███╗   ██╗██╗   ██╗██╗██████╗  ██████╗ ███╗   ██╗███╗   ███╗███████╗███╗   ██╗████████╗
 # ██╔════╝████╗  ██║██║   ██║██║██╔══██╗██╔═══██╗████╗  ██║████╗ ████║██╔════╝████╗  ██║╚══██╔══╝
-# █████╗  ██╔██╗ ██║██║   ██║██║██████╔╝██║   ██║██╔██╗ ██║██╔████╔██║█████╗  ██╔██╗ ██║   ██║   
-# ██╔══╝  ██║╚██╗██║╚██╗ ██╔╝██║██╔══██╗██║   ██║██║╚██╗██║██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║   
-# ███████╗██║ ╚████║ ╚████╔╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║ ╚═╝ ██║███████╗██║ ╚████║   ██║   
-# ╚══════╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   
+# █████╗  ██╔██╗ ██║██║   ██║██║██████╔╝██║   ██║██╔██╗ ██║██╔████╔██║█████╗  ██╔██╗ ██║   ██║
+# ██╔══╝  ██║╚██╗██║╚██╗ ██╔╝██║██╔══██╗██║   ██║██║╚██╗██║██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║
+# ███████╗██║ ╚████║ ╚████╔╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║ ╚═╝ ██║███████╗██║ ╚████║   ██║
+# ╚══════╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝
 #------------------------------------------------------------------------------------------------
 
-
-{ config, lib, pkgs, end-4-dots, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  end-4-dots,
+  ...
+}:
 
 let
   rawConfig = builtins.readFile "${end-4-dots}/dots/.config/hypr/hyprland/env.conf";
@@ -15,27 +20,30 @@ let
   keysToRemove = [
     "XDG_DATA_DIRS"
   ];
-  
-  processedEnvFiles = 
+
+  processedEnvFiles =
     let
       lines = lib.splitString "\n" rawConfig;
 
-      isNotBlacklisted = line: 
-        !(lib.any (key: lib.hasInfix key line) keysToRemove);
+      isNotBlacklisted = line: !(lib.any (key: lib.hasInfix key line) keysToRemove);
 
-      processLine = line: 
-        let 
+      processLine =
+        line:
+        let
           trimmed = lib.strings.trim line;
           cleanLine = lib.removePrefix "env =" (lib.strings.trim trimmed);
-        in 
-          lib.strings.trim cleanLine;
+        in
+        lib.strings.trim cleanLine;
 
-      isValidLine = line: 
-        let trimmed = lib.strings.trim line;
-        in trimmed != "" && !(lib.hasPrefix "#" trimmed) && (isNotBlacklisted trimmed);
-        
+      isValidLine =
+        line:
+        let
+          trimmed = lib.strings.trim line;
+        in
+        trimmed != "" && !(lib.hasPrefix "#" trimmed) && (isNotBlacklisted trimmed);
+
     in
-      map processLine (builtins.filter isValidLine lines);
+    map processLine (builtins.filter isValidLine lines);
 in
 {
   wayland.windowManager.hyprland = {
@@ -52,7 +60,8 @@ in
         "XCURSOR_SIZE, 24"
         "HYPRCURSOR_THEME, apple-cursor"
         "HYPRCURSOR_SIZE, 24"
-      ] ++ processedEnvFiles;
+      ]
+      ++ processedEnvFiles;
     };
   };
 }

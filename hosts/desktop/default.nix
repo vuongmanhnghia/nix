@@ -10,7 +10,7 @@
     enable = true;
     description = "Nvidia Control - Persistence Mode & Clock Lock";
     wantedBy = [ "multi-user.target" ];
-    
+
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${config.boot.kernelPackages.nvidia_x11.bin}/bin/nvidia-smi -pm 1";

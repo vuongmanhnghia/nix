@@ -1,4 +1,10 @@
-{ config, pkgs, lib, nagih7-dots, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nagih7-dots,
+  ...
+}:
 
 {
   # === WEZTERM TERMINAL CONFIGURATION ===
@@ -35,6 +41,9 @@
     exec = "wezterm start --cwd %f";
     icon = "org.wezfurlong.wezterm";
     type = "Application";
-    categories = [ "System" "TerminalEmulator" ];
+    categories = [
+      "System"
+      "TerminalEmulator"
+    ];
   };
-} 
+}

@@ -2,7 +2,7 @@
 
 {
   # === MINIMAL AUDIO CONFIGURATION - NixOS 25.11 Default ===
-  
+
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -10,7 +10,7 @@
     pulse.enable = true;
     alsa.enable = true;
     wireplumber.enable = true;
-    
+
     wireplumber.configPackages = [
       (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/99-disable-routes.conf" ''
         wireplumber.profiles = {
@@ -32,4 +32,4 @@
     libopus
     easyeffects
   ];
-} 
+}

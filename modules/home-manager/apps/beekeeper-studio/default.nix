@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   pname = "beekeeper-studio";
@@ -17,7 +22,13 @@ let
 
   beekeeper-studio-pkg = pkgs.appimageTools.wrapType2 {
     inherit pname version src;
-    extraPkgs = pkgs: with pkgs; [ libGL vulkan-loader libglvnd xorg.libX11 ];
+    extraPkgs =
+      pkgs: with pkgs; [
+        libGL
+        vulkan-loader
+        libglvnd
+        xorg.libX11
+      ];
   };
 
   beekeeperStudioDesktopItem = pkgs.makeDesktopItem {
@@ -26,7 +37,10 @@ let
     exec = "${pname} --disable-gpu";
     icon = "${iconPath}";
     terminal = false;
-    categories = [ "Development" "Database" ];
+    categories = [
+      "Development"
+      "Database"
+    ];
     startupWMClass = "beekeeper-studio";
   };
 in

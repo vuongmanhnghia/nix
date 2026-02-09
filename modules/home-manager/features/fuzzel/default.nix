@@ -1,4 +1,9 @@
-{ config, pkgs, hostVars, ... }:
+{
+  config,
+  pkgs,
+  hostVars,
+  ...
+}:
 
 {
   home.packages = with pkgs; [

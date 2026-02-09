@@ -31,32 +31,58 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, quickshell, agenix, nagih7-dots, end-4-dots, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      quickshell,
+      agenix,
+      nagih7-dots,
+      end-4-dots,
+      ...
+    }@inputs:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
       # Helper to get common args for hosts and home configurations
-      getCommonArgs = hostName:
+      getCommonArgs =
+        hostName:
         let
           commonVars = import ./hosts/common/variables.nix;
           hostVars = import ./hosts/${hostName}/variables.nix;
           system = "${commonVars.isa}-${commonVars.os}";
-          
+
           unstable-overlay = final: prev: {
             unstable = import nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
             };
           };
-        in {
+        in
+        {
           inherit commonVars hostVars system;
           overlays = [ unstable-overlay ];
-          specialArgs = { inherit inputs quickshell commonVars hostVars nagih7-dots end-4-dots; };
+          specialArgs = {
+            inherit
+              inputs
+              quickshell
+              commonVars
+              hostVars
+              nagih7-dots
+              end-4-dots
+              ;
+          };
         };
 
       # NixOS System
-      mkHost = hostName:
+      mkHost =
+        hostName:
         let
           args = getCommonArgs hostName;
         in
@@ -68,16 +94,17 @@
             agenix.nixosModules.default
             {
               nixpkgs.overlays = args.overlays;
-              nixpkgs.config.allowUnfree = true; 
+              nixpkgs.config.allowUnfree = true;
             }
           ];
         };
 
       # Home Manager
-      mkHome = hostName:
+      mkHome =
+        hostName:
         let
           args = getCommonArgs hostName;
-          
+
           pkgs = import nixpkgs {
             inherit (args) system;
             config.allowUnfree = true;
@@ -85,9 +112,9 @@
           };
         in
         home-manager.lib.homeManagerConfiguration {
-          inherit pkgs; 
+          inherit pkgs;
           extraSpecialArgs = args.specialArgs;
-          
+
           modules = [
             ./home/${args.hostVars.user.username}
             {
@@ -100,7 +127,7 @@
     {
       nixosConfigurations = {
         desktop = mkHost "desktop";
-        laptop  = mkHost "laptop";
+        laptop = mkHost "laptop";
       };
 
       homeConfigurations = {
@@ -108,9 +135,12 @@
         # "nagih" = mkHome "laptop";
       };
 
-      devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               nixos-rebuild
@@ -120,6 +150,7 @@
               nixfmt-rfc-style
             ];
           };
-        });
+        }
+      );
     };
 }

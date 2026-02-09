@@ -4,7 +4,7 @@
   # === GTK THEME CONFIGURATION ===
   gtk = {
     enable = true;
-    
+
     theme = {
       name = "Catppuccin-Mocha-Compact-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
@@ -13,23 +13,23 @@
         variant = "mocha";
       };
     };
-    
+
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    
+
     cursorTheme = {
       name = "macOS";
       package = pkgs.apple-cursor;
       size = 24;
     };
-    
+
     font = {
       name = "JetBrainsMono Nerd Font";
       size = 11;
     };
-    
+
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
       gtk-theme-name = "Catppuccin-Mocha-Compact-Blue-Dark";
@@ -37,7 +37,7 @@
       gtk-cursor-theme-name = "macOS";
       gtk-font-name = "JetBrainsMono Nerd Font 11";
     };
-    
+
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = true;
       gtk-theme-name = "Catppuccin-Mocha-Compact-Blue-Dark";
@@ -59,4 +59,4 @@
 
   # === CUSTOM ICONS ===
   xdg.dataFile."icons/custom".source = ./icons;
-} 
+}

@@ -16,7 +16,9 @@
       os = {
         disabled = false;
         style = "bold fg:#7aa2f7";
-        symbols = { NixOS = "  "; };
+        symbols = {
+          NixOS = "  ";
+        };
       };
 
       directory = {
@@ -67,4 +69,4 @@
       };
     };
   };
-} 
+}

@@ -21,10 +21,10 @@
       trustedInterfaces = hostVars.firewall.trusted_interfaces;
     };
   };
-  
+
   # Disable NSCD (Name Service Cache Daemon) to avoid conflicts
   services.nscd.enable = false;
 
   # Force empty NSS modules (often done to fix specific glibc/flake issues)
-  system.nssModules = lib.mkForce [];
+  system.nssModules = lib.mkForce [ ];
 }

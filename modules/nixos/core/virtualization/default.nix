@@ -1,4 +1,9 @@
-{ config, pkgs, hostVars, ... }:
+{
+  config,
+  pkgs,
+  hostVars,
+  ...
+}:
 
 {
   virtualisation = {
@@ -7,7 +12,7 @@
 
       # Automatic cleanup
       autoPrune = {
-        enable = true;     
+        enable = true;
         dates = "weekly";
       };
     };
@@ -15,12 +20,12 @@
     libvirtd = {
       enable = true;
       qemu = {
-        package = pkgs.qemu_kvm;    # Use KVM-enabled QEMU for better performance
-        runAsRoot = false;          # Run QEMU as unprivileged user (more secure)
-        swtpm.enable = true;        # Enable TPM emulation support
+        package = pkgs.qemu_kvm; # Use KVM-enabled QEMU for better performance
+        runAsRoot = false; # Run QEMU as unprivileged user (more secure)
+        swtpm.enable = true; # Enable TPM emulation support
       };
-      onBoot = "start";             # Start default libvirt networks on boot
-      onShutdown = "shutdown";      # Gracefully shutdown VMs on host shutdown
+      onBoot = "start"; # Start default libvirt networks on boot
+      onShutdown = "shutdown"; # Gracefully shutdown VMs on host shutdown
     };
 
     # Shared memory for better VM performance
@@ -28,7 +33,11 @@
   };
 
   users.users.${hostVars.user.username} = {
-    extraGroups = [ "libvirtd" "kvm" "docker" ];  # Add user to necessary groups for virtualization and Docker
+    extraGroups = [
+      "libvirtd"
+      "kvm"
+      "docker"
+    ]; # Add user to necessary groups for virtualization and Docker
   };
 
   # Enable dnsmasq for libvirt default network

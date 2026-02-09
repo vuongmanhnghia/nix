@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-{  
+{
   home.packages = with pkgs; [
     nemo-with-extensions
     ffmpegthumbnailer
@@ -21,8 +21,15 @@
     exec = "nemo %U";
     terminal = false;
     icon = "${config.home.homeDirectory}/.local/share/icons/custom/nemo.svg";
-    categories = [ "System" "FileTools" "FileManager" ];
-    mimeType = [ "inode/directory" "application/x-gnome-saved-search" ];
+    categories = [
+      "System"
+      "FileTools"
+      "FileManager"
+    ];
+    mimeType = [
+      "inode/directory"
+      "application/x-gnome-saved-search"
+    ];
   };
 
   dconf.settings = {
@@ -40,8 +47,22 @@
     };
 
     "org/nemo/list-view" = {
-      default-visible-columns = ["name" "size" "type" "date_modified"];
-      default-column-order = ["name" "size" "type" "date_modified" "date_created" "owner" "group" "permissions"];
+      default-visible-columns = [
+        "name"
+        "size"
+        "type"
+        "date_modified"
+      ];
+      default-column-order = [
+        "name"
+        "size"
+        "type"
+        "date_modified"
+        "date_created"
+        "owner"
+        "group"
+        "permissions"
+      ];
     };
   };
 }

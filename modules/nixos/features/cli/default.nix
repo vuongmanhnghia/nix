@@ -5,30 +5,30 @@
   environment.systemPackages = with pkgs; [
     nix-output-monitor
     nh
+    nixfmt
+    nixfmt-tree
     # === NETWORK UTILITIES ===
-    curl     # Command-line tool for data transfer with URLs
-    wget     # Network downloader for retrieving files from web servers
-    
-    # === REMOTE ACCESS ===
-    openssh  # Secure Shell for remote login and command execution
-    
-    # === SYSTEM MONITORING ===
-    htop     # Interactive process viewer and system monitor
-    btop     # Advanced system monitor with graphical interface
-    
-    # === SYSTEM UTILITIES ===
-    file          # File type identification utility
-    which         # Locate command binary in PATH
-    tree          # Display directory structure in tree format
-    fzf           # Fuzzy finder for command-line
-    wl-clipboard  # Clipboard manager for Wayland
+    curl # Command-line tool for data transfer with URLs
+    wget # Network downloader for retrieving files from web servers
 
-    acpi                      # ACPI utilities for battery info
-    lm_sensors               # Hardware sensors
+    # === REMOTE ACCESS ===
+    openssh # Secure Shell for remote login and command execution
+
+    # === SYSTEM MONITORING ===
+    htop # Interactive process viewer and system monitor
+    btop # Advanced system monitor with graphical interface
+
+    # === SYSTEM UTILITIES ===
+    file # File type identification utility
+    which # Locate command binary in PATH
+    tree # Display directory structure in tree format
+    fzf # Fuzzy finder for command-line
+    wl-clipboard # Clipboard manager for Wayland
+
+    acpi # ACPI utilities for battery info
+    lm_sensors # Hardware sensors
   ];
 
-  # programs.zsh.enable = true;
-  
   # Allow installation of proprietary software (required for some development tools)
   nixpkgs.config.allowUnfree = true;
-} 
+}

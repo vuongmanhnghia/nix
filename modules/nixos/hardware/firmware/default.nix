@@ -3,6 +3,6 @@
 {
   hardware = {
     enableRedistributableFirmware = true;
-    enableAllFirmware = true; 
+    enableAllFirmware = true;
   };
-} 
+}

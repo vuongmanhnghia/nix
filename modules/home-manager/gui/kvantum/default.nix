@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 
 {
@@ -14,4 +13,4 @@
       theme=MaterialAdw
     '';
   };
-} 
+}

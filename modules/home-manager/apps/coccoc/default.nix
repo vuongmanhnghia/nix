@@ -1,18 +1,20 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   pname = "coccoc-browser";
   version = "141.0.7390.132-1";
-  
+
   coccoc-src = pkgs.stdenv.mkDerivation {
     name = "${pname}-source";
     src = pkgs.fetchurl {
       url = "https://browser-linux.coccoc.com/deb/pool/main/coccoc-browser-stable_${version}_amd64.deb";
-      sha256 = "0diqr1jvxxmfl32aa8d643b45v8irxjv6hra89ms50bc9c71rsi1"; 
+      sha256 = "0diqr1jvxxmfl32aa8d643b45v8irxjv6hra89ms50bc9c71rsi1";
     };
-    
+
     nativeBuildInputs = [ pkgs.dpkg ];
-    
+
     unpackPhase = ''
       dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner
     '';
@@ -23,72 +25,75 @@ let
     '';
   };
 
-in pkgs.buildFHSEnv {
+in
+pkgs.buildFHSEnv {
   name = "coccoc-browser";
 
-  targetPkgs = pkgs: with pkgs; [
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    atk
-    cairo
-    cups
-    curl
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    gtk4
-    
-    # Graphics & Hardware
-    libdrm
-    libgbm
-    libglvnd
-    libnotify
-    libpulseaudio
-    libuuid
-    libxkbcommon
-    mesa
-    nspr
-    nss
-    pango
-    pciutils
-    pipewire
-    snappy
-    systemd
-    udev
-    vulkan-loader
-    wayland
-    xdg-utils
-    
-    # X11
-    xorg.libX11
-    xorg.libXScrnSaver
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    xorg.libxshmfence
-    
-    # Fonts & Misc
-    liberation_ttf
-    wget
-  ];
+  targetPkgs =
+    pkgs: with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      gtk4
 
-  multiPkgs = pkgs: with pkgs; [
-    mesa
-    libdrm
-    libgbm
-  ];
+      # Graphics & Hardware
+      libdrm
+      libgbm
+      libglvnd
+      libnotify
+      libpulseaudio
+      libuuid
+      libxkbcommon
+      mesa
+      nspr
+      nss
+      pango
+      pciutils
+      pipewire
+      snappy
+      systemd
+      udev
+      vulkan-loader
+      wayland
+      xdg-utils
+
+      # X11
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.libxshmfence
+
+      # Fonts & Misc
+      liberation_ttf
+      wget
+    ];
+
+  multiPkgs =
+    pkgs: with pkgs; [
+      mesa
+      libdrm
+      libgbm
+    ];
 
   runScript = ''
     #!${pkgs.bash}/bin/bash
@@ -102,7 +107,7 @@ in pkgs.buildFHSEnv {
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     cp ${coccoc-src}/usr/share/applications/coccoc-browser.desktop $out/share/applications/
-    
+
     substituteInPlace $out/share/applications/coccoc-browser.desktop \
       --replace-fail "/usr/bin/coccoc-browser-stable" "$out/bin/coccoc-browser"
 

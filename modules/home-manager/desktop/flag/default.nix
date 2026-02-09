@@ -26,4 +26,4 @@
     --ignore-gpu-blocklist
     --enable-features=TouchpadOverscrollHistoryNavigation
   '';
-} 
+}

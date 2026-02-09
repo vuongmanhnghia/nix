@@ -1,29 +1,34 @@
-{ config, pkgs, hostVars, ... }:
+{
+  config,
+  pkgs,
+  hostVars,
+  ...
+}:
 
-{ 
+{
   imports = [
     ../common
-    
+
     # Applications
     ../../modules/home-manager/apps/beekeeper-studio
     # (pkgs.callPackage ../../modules/home-manager/build/coccoc { })
   ];
 
   home.packages = with pkgs; [
-    pkgs.unstable.brave                    
-    pkgs.unstable.discord                  
-    pkgs.unstable.spotify                  
-    pkgs.unstable.vscode                   
-    pkgs.unstable.antigravity              
-    pkgs.unstable.telegram-desktop         
-    pkgs.unstable.slack                    
-    pkgs.unstable.obsidian                 
+    pkgs.unstable.brave
+    pkgs.unstable.discord
+    pkgs.unstable.spotify
+    pkgs.unstable.vscode
+    pkgs.unstable.antigravity
+    pkgs.unstable.telegram-desktop
+    pkgs.unstable.slack
+    pkgs.unstable.obsidian
     pkgs.unstable.obs-studio
     pkgs.unstable.drawio
     pkgs.unstable.teams-for-linux
     pkgs.unstable.logseq
     pkgs.unstable.rpi-imager
-    pkgs.unstable.hugo 
+    pkgs.unstable.hugo
     pkgs.unstable.ngrok
     pkgs.unstable.bruno
     (prismlauncher.override {
@@ -55,7 +60,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    
+
     extraConfig = ''
       AddKeysToAgent yes
       IdentityFile ~/.ssh/id_ed25519
@@ -74,7 +79,7 @@
         userKnownHostsFile = "/dev/null";
         proxyCommand = "sh -c '${pkgs.awscli2}/bin/aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters \"portNumber=%p\"'";
       };
-      
+
       "gitlab.nooblearn2code.com" = {
         hostname = "14.225.218.83";
         user = "git";
