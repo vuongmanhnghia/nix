@@ -152,7 +152,7 @@ cat /etc/nixos/hardware-configuration.nix > hosts/${HOSTNAME}/hardware-configura
 # /hosts/${HOSTNAME}/variables.nix
 cat > hosts/${HOSTNAME}/variables.nix <<EOL
 rec {
-  nix_config = "$(pwd)";
+  nixConfig = "$(pwd)";
 
   hostname = "${HOSTNAME}";
   cpu = "${CPU}";
@@ -166,15 +166,16 @@ rec {
   };
   fallback_dns = [ "1.1.1.1" "1.0.0.1" ];
 
-  user = {
-    name = "${USERNAME}";
-    username = "$(whoami)";
-    description = "${USER_DESCRIPTION}";
-    email = "${USER_EMAIL}";
-  };
-
-  git_name = "${GIT_NAME}";
-  git_email = "${GIT_EMAIL}";
+  users = [
+    {
+      name = "${USERNAME}";
+      username = "$(whoami)";
+      description = "${USER_DESCRIPTION}";
+      email = "${USER_EMAIL}";
+      git_name = "${GIT_NAME}";
+      git_email = "${GIT_EMAIL}";
+    };
+  ];
 
   tailscale = { enable = ${ENABLE_TAILSCALE}; };
   syncthing = { enable = ${ENABLE_SYNCTHING}; };
@@ -184,9 +185,19 @@ EOL
 # === Generate user configuration file ===
 mkdir -p home/$(whoami)
 cat > home/$(whoami)/default.nix <<EOL
-{ config, pkgs, hostVars, ... }:
+{
+  config,
+  pkgs,
+  userObj,
+  ...
+}:
 
 { 
+  home = {
+    username = userObj.user.username;
+    homeDirectory = "/home/${userObj.user.username}";
+  };
+
   imports = [
     ../common
   ];
@@ -198,9 +209,13 @@ cat > home/$(whoami)/default.nix <<EOL
     pkgs.unstable.vscode                   
   ];
 
+  programs.git.settings.user = {
+    name = userObj.git_name;
+    email = userObj.git_email;
+  };
+
   home.shellAliases = { };
 }
-
 EOL
 
 # Commit changes

@@ -8,7 +8,7 @@
 }:
 
 let
-  localTemplatePath = "${hostVars.nix_config}/modules/home-manager/gui/matugen/templates";
+  localTemplatePath = "${hostVars.nixConfig}/modules/home-manager/gui/matugen/templates";
 
   rawConfig = builtins.readFile "${end-4-dots}/dots/.config/matugen/config.toml";
 

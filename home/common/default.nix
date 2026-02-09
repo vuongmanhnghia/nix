@@ -4,7 +4,7 @@
   lib,
   unstable,
   inputs,
-  commonVars,
+  systemVars,
   hostVars,
   ...
 }:
@@ -12,13 +12,11 @@
 let
   git = "${pkgs.git}/bin/git";
   dotfilesRepo = "https://github.com/nagih7/dotfiles.git";
-  dotfilesDir = "${hostVars.nix_config}/dotfiles";
+  dotfilesDir = "${hostVars.nixConfig}/dotfiles";
 in
 {
   programs.home-manager.enable = true;
-  home.username = hostVars.user.username;
-  home.homeDirectory = "/home/${hostVars.user.username}";
-  home.stateVersion = commonVars.nix_version;
+  home.stateVersion = systemVars.homeManagerVersion;
 
   imports = [
     # Desktop
@@ -71,22 +69,8 @@ in
   ];
 
   programs.direnv.enable = true;
-  programs.git.settings.user = {
-    name = hostVars.git_name;
-    email = hostVars.git_email;
-  };
 
   services.syncthing = hostVars.syncthing;
-
-  home.file.".npmrc".text = ''
-    prefix=${config.home.homeDirectory}/.npm-global
-    cache=${config.home.homeDirectory}/.npm-cache
-    init-author-name=${hostVars.user.name}
-    init-author-email=${hostVars.user.email}
-    init-license=MIT
-    save-exact=true
-    package-lock=true
-  '';
 
   xdg.userDirs = {
     enable = true;
@@ -101,7 +85,7 @@ in
   };
 
   home.sessionVariables = {
-    NH_FLAKE = hostVars.nix_config;
+    NH_FLAKE = hostVars.nixConfig;
     HOSTNAME = hostVars.hostname;
     # Editor
     EDITOR = "nvim";
@@ -110,7 +94,7 @@ in
     # Directories
     DOWNLOAD_DIR = "${config.home.homeDirectory}/Downloads";
     DOCUMENTS_DIR = "${config.home.homeDirectory}/Documents";
-    NIX_CONFIG_DIR = "${hostVars.nix_config}";
+    NIX_CONFIG_DIR = "${hostVars.nixConfig}";
   };
 
   home.shellAliases = {
@@ -157,27 +141,16 @@ in
 
   home.activation.cloneDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ ! -d "${dotfilesDir}" ]; then
-      echo "🚀 [Dotfiles] Chưa thấy repo, đang clone từ Github..."
       ${git} clone ${dotfilesRepo} "${dotfilesDir}"
     else
-      echo "🔍 [Dotfiles] Repo đã tồn tại. Đang kiểm tra cập nhật..."
       cd "${dotfilesDir}"
       ${git} fetch origin main
       
       LOCAL=$(${git} rev-parse @)
       REMOTE=$(${git} rev-parse @{u})
       
-      if [ $LOCAL = $REMOTE ]; then
-        echo "✅ [Dotfiles] Code đang ở bản mới nhất."
-      else
-        echo "⚠️  [Dotfiles] PHÁT HIỆN COMMIT MỚI TRÊN GITHUB!"
-        echo "   👉 Bạn đang ở commit: $LOCAL"
-        echo "   👉 Remote đang ở:     $REMOTE"
-        echo "   💡 Gợi ý: Chạy lệnh 'cd ${dotfilesDir} && git pull' để cập nhật."
-        
-        # TÙY CHỌN: Nếu bạn muốn nó TỰ ĐỘNG PULL luôn (Cẩn thận Conflict!)
-        # echo "🔄 Đang tự động pull code mới..."
-        # ${git} pull
+      if [ $LOCAL != $REMOTE ]; then
+        ${git} pull
       fi
     fi
   '';

@@ -44,20 +44,39 @@
       ...
     }@inputs:
     let
+      lib = nixpkgs.lib;
+
+      # --- HOST DISCOVERY ---
+      shouldInclude = name: type: type == "directory" && name != "common";
+      hostsDir = ./hosts;
+      hostNames = lib.attrNames (lib.filterAttrs shouldInclude (builtins.readDir hostsDir));
+
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      forAllSystems = lib.genAttrs supportedSystems;
 
-      # Helper to get common args for hosts and home configurations
-      getCommonArgs =
+      # --- VARIABLE & ARGUMENT HELPERS ---
+      getVars =
         hostName:
         let
-          commonVars = import ./hosts/common/variables.nix;
+          systemVars = import ./variables.nix;
           hostVars = import ./hosts/${hostName}/variables.nix;
-          system = "${commonVars.isa}-${commonVars.os}";
+          system = "${systemVars.isa}-${systemVars.os}";
+        in
+        {
+          inherit system systemVars hostVars;
+        };
 
+      getSpecialArgs =
+        {
+          system,
+          systemVars,
+          hostVars,
+          userObj ? null,
+        }:
+        let
           unstable-overlay = final: prev: {
             unstable = import nixpkgs-unstable {
               inherit system;
@@ -66,29 +85,32 @@
           };
         in
         {
-          inherit commonVars hostVars system;
+          inherit system;
           overlays = [ unstable-overlay ];
           specialArgs = {
             inherit
               inputs
               quickshell
-              commonVars
+              systemVars
               hostVars
               nagih7-dots
               end-4-dots
               ;
+            inherit userObj;
           };
         };
 
-      # NixOS System
+      # --- BUILDER FUNCTIONS ---
       mkHost =
         hostName:
         let
-          args = getCommonArgs hostName;
+          vars = getVars hostName;
+          args = getSpecialArgs {
+            inherit (vars) system systemVars hostVars;
+          };
         in
-        nixpkgs.lib.nixosSystem {
-          system = args.system;
-          specialArgs = args.specialArgs;
+        lib.nixosSystem {
+          inherit (args) system specialArgs;
           modules = [
             ./hosts/${hostName}
             agenix.nixosModules.default
@@ -99,16 +121,19 @@
           ];
         };
 
-      # Home Manager
       mkHome =
-        hostName:
+        hostName: userObj:
         let
-          args = getCommonArgs hostName;
+          vars = getVars hostName;
+          args = getSpecialArgs {
+            inherit (vars) system systemVars hostVars;
+            inherit userObj;
+          };
 
           pkgs = import nixpkgs {
             inherit (args) system;
             config.allowUnfree = true;
-            config.allowUnfreePredicate = (_: true);
+            overlays = args.overlays;
           };
         in
         home-manager.lib.homeManagerConfiguration {
@@ -116,24 +141,29 @@
           extraSpecialArgs = args.specialArgs;
 
           modules = [
-            ./home/${args.hostVars.user.username}
-            {
-              nixpkgs.overlays = args.overlays;
-              nixpkgs.config.allowUnfree = true;
-            }
+            ./home/${userObj.username}
           ];
         };
+
+      # --- CONFIG GENERATION LOGIC ---
+      homeConfigsList = lib.flatten (
+        map (
+          hostName:
+          let
+            vars = getVars hostName;
+            users = vars.hostVars.users or [ ];
+          in
+          map (userObj: {
+            name = "${userObj.username}";
+            value = mkHome hostName userObj;
+          }) users
+        ) hostNames
+      );
+
     in
     {
-      nixosConfigurations = {
-        desktop = mkHost "desktop";
-        laptop = mkHost "laptop";
-      };
-
-      homeConfigurations = {
-        nagih = mkHome "desktop";
-        # "nagih" = mkHome "laptop";
-      };
+      nixosConfigurations = lib.genAttrs hostNames mkHost;
+      homeConfigurations = builtins.listToAttrs homeConfigsList;
 
       devShells = forAllSystems (
         system:
@@ -147,7 +177,7 @@
               home-manager
               git
               just
-              nixfmt-rfc-style
+              sops
             ];
           };
         }

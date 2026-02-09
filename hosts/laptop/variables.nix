@@ -1,5 +1,5 @@
 rec {
-  nix_config = "/home/nagih/Workspaces/config/nixos";
+  nixConfig = "/home/nagih/Workspaces/config/nixos";
 
   hostname = "laptop";
   cpu = "intel";

@@ -66,7 +66,7 @@
   };
 
   xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${hostVars.nix_config}/dotfiles/nvim";
+    config.lib.file.mkOutOfStoreSymlink "${hostVars.nixConfig}/dotfiles/nvim";
 
   programs.zsh.shellAliases = {
     v = "nvim";

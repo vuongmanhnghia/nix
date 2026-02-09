@@ -154,6 +154,5 @@ let
   '';
 in
 {
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [ horizon-wrapper ];
 }

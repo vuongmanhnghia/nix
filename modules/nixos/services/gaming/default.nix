@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  hostVars,
   ...
 }:
 
@@ -39,7 +38,4 @@
     # Nintendo Switch Pro Controller support
     SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0664", GROUP="wheel"
   '';
-
-  # === USER PERMISSIONS ===
-  users.users.${hostVars.user.username}.extraGroups = [ "gamemode" ];
 }

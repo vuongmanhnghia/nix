@@ -28,7 +28,4 @@
     acpi # ACPI utilities for battery info
     lm_sensors # Hardware sensors
   ];
-
-  # Allow installation of proprietary software (required for some development tools)
-  nixpkgs.config.allowUnfree = true;
 }

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  hostVars,
   ...
 }:
 
@@ -30,14 +29,6 @@
 
     # Shared memory for better VM performance
     spiceUSBRedirection.enable = true;
-  };
-
-  users.users.${hostVars.user.username} = {
-    extraGroups = [
-      "libvirtd"
-      "kvm"
-      "docker"
-    ]; # Add user to necessary groups for virtualization and Docker
   };
 
   # Enable dnsmasq for libvirt default network

@@ -1,6 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  userObj,
+  ...
+}:
 
 {
+  home = {
+    username = userObj.username;
+    homeDirectory = "/home/${userObj.username}";
+  };
+
   imports = [
     ../common
 
@@ -50,6 +60,11 @@
     ptit = "cd ~/Workspaces/ptit";
     vir = "cd ~/Workspaces/virtual";
     janus = "cd ~/Workspaces/projects/Janus";
+  };
+
+  programs.git.settings.user = {
+    name = userObj.git_name;
+    email = userObj.git_email;
   };
 
   programs.ssh = {
