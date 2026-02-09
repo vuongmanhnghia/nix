@@ -108,11 +108,11 @@
     "nagih7-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1770578099,
-        "narHash": "sha256-MeNXFt/P3hNYLUg608B90xi4iT0VmJqgl1wU1eY9yy0=",
+        "lastModified": 1770621559,
+        "narHash": "sha256-5fcY+trv+b/NHzTIEwwJq7YEI+CWfb6lMY76M19eK54=",
         "ref": "refs/heads/main",
-        "rev": "da6e96037162d64d2ecee6f32e192958e7c16535",
-        "revCount": 5,
+        "rev": "c03ea44fcafee731e83f40c9ef0d9c5ed49f019b",
+        "revCount": 6,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/nagih7/dotfiles"
