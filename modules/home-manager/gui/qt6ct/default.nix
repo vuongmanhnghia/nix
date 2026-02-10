@@ -4,6 +4,7 @@
 {
   # Cài đặt ripgrep
   home.packages = with pkgs; [
+    kdePackages.qt6ct
     ripgrep
   ];
 

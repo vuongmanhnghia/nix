@@ -41,6 +41,7 @@ in
     ../../modules/home-manager/features/cava
     ../../modules/home-manager/features/kitty
     ../../modules/home-manager/features/qimgv
+    ../../modules/home-manager/features/dolphin
 
     # CLI
     ../../modules/home-manager/features/cli/nix
@@ -110,7 +111,7 @@ in
     nixt = "nh os test $NH_FLAKE --hostname $HOSTNAME --impure";
 
     # --- Home Manager ---
-    hms = "nh home switch $NH_FLAKE --impure";
+    hms = "nh home switch $NH_FLAKE --impure -b bak";
 
     # --- Garbage Collection (Dọn rác) ---
     nixc = "nh clean all --keep 3";

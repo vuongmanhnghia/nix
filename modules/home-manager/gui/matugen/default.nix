@@ -37,17 +37,17 @@ in
     output_path = '~/.config/cava/config'
     post_hook = "pkill -SIGUSR2 cava 2>/dev/null || true"
 
-    [templates.kitty]
-    input_path = '${localTemplatePath}/kitty.conf'
-    output_path = '~/.config/kitty/kitty.conf'
-    post_hook = """
-      {
-        if pgrep -x kitty > /dev/null; then
-          kill -SIGUSR1 $(pidof kitty) && echo "Kitty reloaded"
-        else
-          echo "Kitty not running"
-        fi
-      } 2>/dev/null
-    """
+    # [templates.kitty]
+    # input_path = '${localTemplatePath}/kitty.conf'
+    # output_path = '~/.config/kitty/kitty.conf'
+    # post_hook = """
+    #   {
+    #     if pgrep -x kitty > /dev/null; then
+    #       kill -SIGUSR1 $(pidof kitty) && echo "Kitty reloaded"
+    #     else
+    #       echo "Kitty not running"
+    #     fi
+    #   } 2>/dev/null
+    # """
   '';
 }

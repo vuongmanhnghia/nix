@@ -21,7 +21,7 @@ let
     "XDG_DATA_DIRS"
   ];
 
-  processedEnvFiles =
+  processedConfig =
     let
       lines = lib.splitString "\n" rawConfig;
 
@@ -44,6 +44,13 @@ let
 
     in
     map processLine (builtins.filter isValidLine lines);
+
+    finalConfig = map (line:
+      builtins.replaceStrings
+        ["QT_QPA_PLATFORMTHEME, kde"]
+        ["QT_QPA_PLATFORMTHEME, qt6ct"]
+        line
+     ) processedConfig;
 in
 {
   wayland.windowManager.hyprland = {
@@ -61,7 +68,7 @@ in
         "HYPRCURSOR_THEME, apple-cursor"
         "HYPRCURSOR_SIZE, 24"
       ]
-      ++ processedEnvFiles;
+      ++ finalConfig;
     };
   };
 }

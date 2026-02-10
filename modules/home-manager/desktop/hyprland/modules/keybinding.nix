@@ -67,10 +67,16 @@ let
         "Super+Alt, code:"
         "Ctrl+Super, Right, workspace, r+1"
         "Ctrl+Super, Left, workspace, r-1"
+        
+        # Focus window
+        "Super, Left, movefocus, l"
+        "Super, Right, movefocus, r"
+        "Super, Up, movefocus, u"
+        "Super, Down, movefocus, d"
 
         # Application
         "Super, Return, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
-        "Super, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
+        # "Super, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
         "Super, W, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
         "Super, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
         "Super, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh"
@@ -97,9 +103,15 @@ let
         "$mainMod, l, workspace, r+1"
         "$mainMod, h, workspace, r-1"
 
+        # Focus window
+        "$mainMod Ctrl, h, movefocus, l"
+        "$mainMod Ctrl, l, movefocus, r"
+        "$mainMod Ctrl, k, movefocus, u"
+        "$mainMod Ctrl, j, movefocus, d"
+
         # Application
         "$mainMod, Space, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $terminal #"
-        "$mainMod, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $fileManager #"
+        # "$mainMod, E, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $fileManager #"
         "$mainMod, B, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $browser #"
         "$mainMod, C, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $codeEditor #"
         "$mainMod, X, exec, ~/.config/hypr/hyprland/scripts/launch_first_available.sh $note #"
