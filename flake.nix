@@ -146,24 +146,25 @@
         };
 
       # --- CONFIG GENERATION LOGIC ---
-      homeConfigsList = lib.flatten (
-        map (
-          hostName:
-          let
-            vars = getVars hostName;
-            users = vars.hostVars.users or [ ];
-          in
-          map (userObj: {
-            name = "${userObj.username}";
-            value = mkHome hostName userObj;
-          }) users
-        ) hostNames
-      );
+      homeConfigsList = lib.foldl' (
+        acc: hostName:
+        let
+          vars = getVars hostName;
+          users = vars.hostVars.users or [ ];
+          userConfigs = builtins.listToAttrs (
+            map (userObj: {
+              name = userObj.username;
+              value = mkHome hostName userObj;
+            }) users
+          );
+        in
+        acc // userConfigs
+      ) { } hostNames;
 
     in
     {
       nixosConfigurations = lib.genAttrs hostNames mkHost;
-      homeConfigurations = builtins.listToAttrs homeConfigsList;
+      homeConfigurations = homeConfigsList;
 
       devShells = forAllSystems (
         system:

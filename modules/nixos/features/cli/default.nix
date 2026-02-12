@@ -7,6 +7,8 @@
     nh
     nixfmt
     nixfmt-tree
+    bat
+    starship
     # === NETWORK UTILITIES ===
     curl # Command-line tool for data transfer with URLs
     wget # Network downloader for retrieving files from web servers

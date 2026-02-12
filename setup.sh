@@ -151,7 +151,7 @@ cat /etc/nixos/hardware-configuration.nix > hosts/${HOSTNAME}/hardware-configura
 
 # /hosts/${HOSTNAME}/variables.nix
 cat > hosts/${HOSTNAME}/variables.nix <<EOL
-rec {
+{
   nixConfig = "$(pwd)";
 
   hostname = "${HOSTNAME}";

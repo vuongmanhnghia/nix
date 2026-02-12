@@ -1,4 +1,4 @@
-rec {
+{
   nixConfig = "/home/nagih/Workspaces/config/nixos";
 
   hostname = "desktop";

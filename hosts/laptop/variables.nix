@@ -1,4 +1,4 @@
-rec {
+{
   nixConfig = "/home/nagih/Workspaces/config/nixos";
 
   hostname = "laptop";
@@ -25,12 +25,16 @@ rec {
     enable = true;
   };
 
-  user = {
-    name = "Nagih";
-    username = "nagih";
-    description = "Vuong Manh Nghia";
-    email = "vuongmanhnghia@gmail.com";
-  };
+  users = [
+    {
+      name = "Nagih";
+      username = "nagih";
+      description = "Vuong Manh Nghia";
+      email = "vuongmanhnghia@gmail.com";
+      git_name = "Nagih";
+      git_email = "vuongmanhnghia@gmail.com";
+    }
+  ];
 
   git_name = "Nagih";
   git_email = "vuongmanhnghia@gmail.com";
@@ -41,7 +45,7 @@ rec {
     settings = {
       gui = {
         address = "127.0.0.1:8384";
-        user = "${user.username}";
+        user = "nagih";
       };
 
       devices = {
@@ -57,7 +61,7 @@ rec {
       folders = {
         "workspaces" = {
           id = "workspaces";
-          path = "/home/${user.username}/Workspaces";
+          path = "/home/nagih/Workspaces";
           devices = [
             "nixos-laptop"
             "syncthing-server"
@@ -65,7 +69,7 @@ rec {
         };
         "documents" = {
           id = "documents";
-          path = "/home/${user.username}/Documents";
+          path = "/home/nagih/Documents";
           devices = [
             "nixos-laptop"
             "syncthing-server"
@@ -73,7 +77,7 @@ rec {
         };
         "pictures" = {
           id = "pictures";
-          path = "/home/${user.username}/Pictures";
+          path = "/home/nagih/Pictures";
           devices = [
             "nixos-laptop"
             "syncthing-server"
@@ -81,7 +85,7 @@ rec {
         };
         "hugo" = {
           id = "hugo";
-          path = "/home/${user.username}/hugo";
+          path = "/home/nagih/hugo";
           devices = [
             "nixos-laptop"
             "syncthing-server"
